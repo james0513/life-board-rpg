@@ -1,0 +1,9 @@
+{
+  "version": "0.13.0+13",
+  "dart_syntax": "passed",
+  "relative_imports": "passed",
+  "json_and_18_career_graph": "passed",
+  "image_decode": "passed",
+  "flutter_tests_executed": false,
+  "runtime_ui_tested": false
+}

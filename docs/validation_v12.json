@@ -1,0 +1,9 @@
+{
+  "version": "0.12.0+12",
+  "dart_syntax": "passed",
+  "json_and_relative_imports": "passed",
+  "flutter_tests_executed": false,
+  "flutter_analyze_executed": false,
+  "runtime_UI_tested": false,
+  "reason": "Flutter SDK unavailable"
+}

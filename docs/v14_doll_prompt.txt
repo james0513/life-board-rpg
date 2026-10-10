@@ -1,0 +1,6 @@
+Built-in imagegen edit mode. Inputs: existing male/female and male_extra/female_extra atlases.
+Outputs: assets/images/careers/male_doll.png, female_doll.png, male_extra_doll.png, female_extra_doll.png.
+Prompt:
+EDIT this sprite atlas for a modular equipment system. Preserve the exact equal-cell grid, character identities, genders, hairstyles, profession costumes, two walking poses and their order, scale and feet alignment. Remove ALL handheld and floating objects: swords, staffs, bows, books, shields, briefcases, toolboxes, trays, palettes, satchels held in hands, coin purses in hands, and floating magic. Repair hands and costume naturally. Remove wearable necklaces/rings/badges so new game equipment can be overlaid. Keep backpacks and profession garments. Every character must now be empty-handed, with its forward/right-side fist centered at normalized x=0.72,y=0.62 WITHIN ITS CELL, wrist in natural pose. Torso centered at x=0.50,y=0.58 within cell, shoulders y=.43 waist y=.72. Do not add any gear. Do not change grid cell boundaries or crop figures. True transparent background, no ground, no lettering. This is a reusable empty-handed base atlas, no weapon even for mage or warrior. 
+Base atlases 5 columns x 4 rows; extra atlases 3 columns x 6 rows.
+Equipment layers are editable Dart Canvas artwork with per-career/gender/pose anchors.

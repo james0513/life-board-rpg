@@ -1,0 +1,100 @@
+{
+  "initialPlayer": {
+    "stamina": 100,
+    "intelligence": 100,
+    "charm": 100,
+    "money": 20000
+  },
+  "eventCases": [
+    {
+      "eventId": "e01",
+      "expected": {
+        "stamina": 98,
+        "intelligence": 100,
+        "charm": 102,
+        "money": 19900
+      }
+    },
+    {
+      "eventId": "e02",
+      "expected": {
+        "stamina": 103,
+        "intelligence": 100,
+        "charm": 100,
+        "money": 21500
+      }
+    },
+    {
+      "eventId": "e03",
+      "expected": {
+        "stamina": 98,
+        "intelligence": 105,
+        "charm": 103,
+        "money": 20300
+      }
+    },
+    {
+      "eventId": "e04",
+      "expected": {
+        "stamina": 108,
+        "intelligence": 100,
+        "charm": 102,
+        "money": 19800
+      }
+    },
+    {
+      "eventId": "e05",
+      "expected": {
+        "stamina": 92,
+        "intelligence": 100,
+        "charm": 101,
+        "money": 20000
+      }
+    },
+    {
+      "eventId": "e06",
+      "expected": {
+        "stamina": 100,
+        "intelligence": 103,
+        "charm": 102,
+        "money": 22000
+      }
+    },
+    {
+      "eventId": "e07",
+      "expected": {
+        "stamina": 98,
+        "intelligence": 102,
+        "charm": 108,
+        "money": 20000
+      }
+    },
+    {
+      "eventId": "e08",
+      "expected": {
+        "stamina": 98,
+        "intelligence": 100,
+        "charm": 100,
+        "money": 18800
+      }
+    },
+    {
+      "eventId": "e09",
+      "expected": {
+        "stamina": 97,
+        "intelligence": 110,
+        "charm": 100,
+        "money": 20000
+      }
+    },
+    {
+      "eventId": "e10",
+      "expected": {
+        "stamina": 97,
+        "intelligence": 105,
+        "charm": 105,
+        "money": 25000
+      }
+    }
+  ]
+}

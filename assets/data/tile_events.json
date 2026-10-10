@@ -1,0 +1,804 @@
+{
+  "schemaVersion": 1,
+  "events": [
+    {
+      "id": "lucky_coupon",
+      "kind": "luck",
+      "title": "街角的幸運券",
+      "description": "你抽中了社區活動的獎勵，要怎麼使用？",
+      "options": [
+        {
+          "id": "A",
+          "label": "兌換獎金",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "money": 250,
+            "morality": 0
+          }
+        },
+        {
+          "id": "B",
+          "label": "參加體驗課",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 5,
+            "charm": 3,
+            "money": 0,
+            "morality": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "kind_neighbor",
+      "kind": "luck",
+      "title": "鄰居的謝禮",
+      "description": "你幫鄰居找回小貓，對方想表達謝意。",
+      "options": [
+        {
+          "id": "A",
+          "label": "接受紅包",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 2,
+            "money": 180,
+            "morality": 2
+          }
+        },
+        {
+          "id": "B",
+          "label": "一起散步聊天",
+          "effects": {
+            "stamina": 5,
+            "intelligence": 0,
+            "charm": 5,
+            "money": 0,
+            "morality": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "broken_bike",
+      "kind": "penalty",
+      "title": "腳踏車爆胎",
+      "description": "路上突然爆胎，你需要安排修理。金錢不足時最多扣至零。",
+      "options": [
+        {
+          "id": "A",
+          "label": "送修省時間",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "money": -180,
+            "morality": 0
+          }
+        },
+        {
+          "id": "B",
+          "label": "自己修理",
+          "effects": {
+            "stamina": -3,
+            "intelligence": 2,
+            "charm": 0,
+            "money": -50,
+            "morality": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "late_bill",
+      "kind": "penalty",
+      "title": "忘記繳帳單",
+      "description": "你收到了逾期通知，得花點代價處理。金錢不足時最多扣至零。",
+      "options": [
+        {
+          "id": "A",
+          "label": "直接繳清",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "money": -150,
+            "morality": 3
+          }
+        },
+        {
+          "id": "B",
+          "label": "申請分攤並補辦手續",
+          "effects": {
+            "stamina": -4,
+            "intelligence": 0,
+            "charm": 0,
+            "money": -60,
+            "morality": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cafe_shift",
+      "kind": "work",
+      "title": "咖啡店徵臨時幫手",
+      "description": "店長提供兩種工作，你想接哪一個？",
+      "options": [
+        {
+          "id": "A",
+          "label": "外場服務",
+          "effects": {
+            "stamina": -2,
+            "intelligence": 0,
+            "charm": 3,
+            "money": 220,
+            "morality": 2
+          }
+        },
+        {
+          "id": "B",
+          "label": "整理帳務",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 4,
+            "charm": 0,
+            "money": 160,
+            "morality": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "market_day",
+      "kind": "work",
+      "title": "週末市集",
+      "description": "朋友邀你幫忙經營攤位，選擇今天的任務。",
+      "options": [
+        {
+          "id": "A",
+          "label": "搬貨與佈置",
+          "effects": {
+            "stamina": -3,
+            "intelligence": 0,
+            "charm": 0,
+            "money": 280,
+            "morality": 2
+          }
+        },
+        {
+          "id": "B",
+          "label": "設計宣傳文案",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 3,
+            "charm": 2,
+            "money": 180,
+            "morality": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "friendly_challenge",
+      "kind": "luck",
+      "title": "廣場挑戰邀請",
+      "description": "拖延枕頭龍正在廣場徵求對手。要接受挑戰，還是友善打個招呼？",
+      "options": [
+        {
+          "id": "A",
+          "label": "接受挑戰",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "money": 0,
+            "morality": 0
+          },
+          "battleEnemyId": "delay"
+        },
+        {
+          "id": "B",
+          "label": "打招呼後離開",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 2,
+            "money": 0,
+            "morality": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "lost_wallet",
+      "kind": "luck",
+      "title": "路邊的錢包",
+      "description": "你撿到一個錢包，裡面有現金與失主聯絡方式。你會怎麼做？",
+      "options": [
+        {
+          "id": "A",
+          "label": "聯絡失主並歸還",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 3,
+            "morality": 8,
+            "money": 100
+          }
+        },
+        {
+          "id": "B",
+          "label": "留下現金",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": -2,
+            "morality": -8,
+            "money": 400
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_1",
+      "stage": 1,
+      "kind": "luck",
+      "title": "圖書館的神秘書籤",
+      "description": "你在舊書中找到前輩留下的學習筆記。",
+      "options": [
+        {
+          "id": "A",
+          "label": "研究解題技巧",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 7,
+            "charm": 0,
+            "morality": 0,
+            "money": 0
+          }
+        },
+        {
+          "id": "B",
+          "label": "分享給同學",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 3,
+            "morality": 5,
+            "money": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_2",
+      "stage": 1,
+      "kind": "penalty",
+      "title": "實驗室冒泡事故",
+      "description": "你的實驗噴出了滿桌泡沫，需要善後。",
+      "options": [
+        {
+          "id": "A",
+          "label": "支付清潔費",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": -90
+          }
+        },
+        {
+          "id": "B",
+          "label": "買材料親自修復",
+          "effects": {
+            "stamina": -3,
+            "intelligence": 3,
+            "charm": 0,
+            "morality": 0,
+            "money": -40
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_3",
+      "stage": 1,
+      "kind": "work",
+      "title": "校慶攤位救援",
+      "description": "校慶人潮湧入，班長找你臨時支援。",
+      "options": [
+        {
+          "id": "A",
+          "label": "搬運補貨",
+          "effects": {
+            "stamina": -3,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": 180
+          }
+        },
+        {
+          "id": "B",
+          "label": "設計宣傳牌",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 2,
+            "morality": 0,
+            "money": 130
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_4",
+      "stage": 2,
+      "kind": "luck",
+      "title": "老闆的試吃邀請",
+      "description": "街角烘焙店邀請你替新甜點評分。",
+      "options": [
+        {
+          "id": "A",
+          "label": "品嚐活力麵包",
+          "effects": {
+            "stamina": 6,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": 0
+          }
+        },
+        {
+          "id": "B",
+          "label": "寫一篇推薦文",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 5,
+            "morality": 0,
+            "money": 70
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_5",
+      "stage": 2,
+      "kind": "penalty",
+      "title": "找錯零錢",
+      "description": "你發現剛才不小心多收了客人的錢。",
+      "options": [
+        {
+          "id": "A",
+          "label": "追上客人退款",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 5,
+            "money": -60
+          }
+        },
+        {
+          "id": "B",
+          "label": "交給服務台處理",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 2,
+            "morality": 0,
+            "money": -60
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_6",
+      "stage": 2,
+      "kind": "work",
+      "title": "夜市一日店長",
+      "description": "老闆臨時有事，拜託你照看攤位。",
+      "options": [
+        {
+          "id": "A",
+          "label": "招呼客人",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 3,
+            "morality": 0,
+            "money": 210
+          }
+        },
+        {
+          "id": "B",
+          "label": "整理庫存",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 3,
+            "charm": 0,
+            "morality": 0,
+            "money": 160
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_7",
+      "stage": 3,
+      "kind": "luck",
+      "title": "機器人送錯禮物",
+      "description": "服務機器人送來合法領取的測試獎品。",
+      "options": [
+        {
+          "id": "A",
+          "label": "領取研究補助",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": 220
+          }
+        },
+        {
+          "id": "B",
+          "label": "拆解教學套件",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 8,
+            "charm": 0,
+            "morality": 0,
+            "money": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_8",
+      "stage": 3,
+      "kind": "penalty",
+      "title": "無人機擦撞",
+      "description": "你操控的無人機撞到了展示架。",
+      "options": [
+        {
+          "id": "A",
+          "label": "支付維修費",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": -180
+          }
+        },
+        {
+          "id": "B",
+          "label": "購料協助修理",
+          "effects": {
+            "stamina": -3,
+            "intelligence": 4,
+            "charm": 0,
+            "morality": 0,
+            "money": -80
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_9",
+      "stage": 3,
+      "kind": "work",
+      "title": "觀測站值班",
+      "description": "今晚需要有人記錄流星與儀器讀值。",
+      "options": [
+        {
+          "id": "A",
+          "label": "整夜觀測",
+          "effects": {
+            "stamina": -4,
+            "intelligence": 3,
+            "charm": 0,
+            "morality": 0,
+            "money": 260
+          }
+        },
+        {
+          "id": "B",
+          "label": "整理歷史資料",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 2,
+            "charm": 0,
+            "morality": 0,
+            "money": 180
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_10",
+      "stage": 4,
+      "kind": "luck",
+      "title": "即興演出邀請",
+      "description": "演員邀你一起參加謝幕演出。",
+      "options": [
+        {
+          "id": "A",
+          "label": "登台表演",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 8,
+            "morality": 0,
+            "money": 0
+          }
+        },
+        {
+          "id": "B",
+          "label": "協助幕後團隊",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 5,
+            "money": 100
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_11",
+      "stage": 4,
+      "kind": "penalty",
+      "title": "借來的禮服破了",
+      "description": "排練時不小心勾破租借的禮服。",
+      "options": [
+        {
+          "id": "A",
+          "label": "支付修補費",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": -160
+          }
+        },
+        {
+          "id": "B",
+          "label": "買線親手縫補",
+          "effects": {
+            "stamina": -2,
+            "intelligence": 2,
+            "charm": 0,
+            "morality": 0,
+            "money": -70
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_12",
+      "stage": 4,
+      "kind": "work",
+      "title": "劇院開演前",
+      "description": "舞台與票口都缺少一名助手。",
+      "options": [
+        {
+          "id": "A",
+          "label": "協助舞台換景",
+          "effects": {
+            "stamina": -3,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": 230
+          }
+        },
+        {
+          "id": "B",
+          "label": "擔任迎賓員",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 3,
+            "morality": 0,
+            "money": 190
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_13",
+      "stage": 5,
+      "kind": "luck",
+      "title": "城門守衛的謝禮",
+      "description": "你幫守衛找到遺失的巡邏紀錄。",
+      "options": [
+        {
+          "id": "A",
+          "label": "接受補給餐",
+          "effects": {
+            "stamina": 8,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": 0
+          }
+        },
+        {
+          "id": "B",
+          "label": "請教守城技巧",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 4,
+            "charm": 0,
+            "morality": 4,
+            "money": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_14",
+      "stage": 5,
+      "kind": "penalty",
+      "title": "風暴中的補給車",
+      "description": "風暴損壞了你負責的補給車輪。",
+      "options": [
+        {
+          "id": "A",
+          "label": "雇工修車",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": -220
+          }
+        },
+        {
+          "id": "B",
+          "label": "買零件自己換",
+          "effects": {
+            "stamina": -4,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 3,
+            "money": -100
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_15",
+      "stage": 5,
+      "kind": "work",
+      "title": "城堡後勤任務",
+      "description": "遠征隊需要你協助準備物資。",
+      "options": [
+        {
+          "id": "A",
+          "label": "搬運糧草",
+          "effects": {
+            "stamina": -5,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": 300
+          }
+        },
+        {
+          "id": "B",
+          "label": "核對補給清單",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 3,
+            "charm": 0,
+            "morality": 0,
+            "money": 210
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_16",
+      "stage": 6,
+      "kind": "luck",
+      "title": "星光許願井",
+      "description": "井面映出你一路累積的善意。",
+      "options": [
+        {
+          "id": "A",
+          "label": "祈求勇氣",
+          "effects": {
+            "stamina": 5,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 5,
+            "money": 0
+          }
+        },
+        {
+          "id": "B",
+          "label": "尋找命運線索",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 5,
+            "charm": 5,
+            "morality": 0,
+            "money": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_17",
+      "stage": 6,
+      "kind": "penalty",
+      "title": "星橋通行費",
+      "description": "破碎的星橋需要能量才能重新連接。",
+      "options": [
+        {
+          "id": "A",
+          "label": "購買能量晶石",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 0,
+            "money": -260
+          }
+        },
+        {
+          "id": "B",
+          "label": "捐出資源協助重建",
+          "effects": {
+            "stamina": -5,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 4,
+            "money": -130
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter_choice_18",
+      "stage": 6,
+      "kind": "work",
+      "title": "星界導航員",
+      "description": "迷路的旅人請你帶他們穿過浮島。",
+      "options": [
+        {
+          "id": "A",
+          "label": "帶隊走完整條路",
+          "effects": {
+            "stamina": -5,
+            "intelligence": 0,
+            "charm": 0,
+            "morality": 3,
+            "money": 340
+          }
+        },
+        {
+          "id": "B",
+          "label": "繪製安全星圖",
+          "effects": {
+            "stamina": 0,
+            "intelligence": 4,
+            "charm": 0,
+            "morality": 0,
+            "money": 250
+          }
+        }
+      ]
+    }
+  ]
+}

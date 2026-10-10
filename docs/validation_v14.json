@@ -1,0 +1,8 @@
+{
+  "version": "0.14.0+14",
+  "dart_syntax": "passed",
+  "imports": "passed",
+  "images": "decoded and inspected",
+  "flutter_test_executed": false,
+  "runtime_composite_visual_check": false
+}

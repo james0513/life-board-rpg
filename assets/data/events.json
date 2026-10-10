@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "events": [
+    {
+      "id": "e01",
+      "title": "珍奶第二杯半價",
+      "description": "本來只想買一杯，最後還是幫未來的自己多買一杯。",
+      "effects": {
+        "stamina": -2,
+        "intelligence": 0,
+        "charm": 2,
+        "money": -100
+      }
+    },
+    {
+      "id": "e02",
+      "title": "阿嬤的神祕紅包",
+      "description": "阿嬤說你太瘦了，塞了一包「買菜錢」。",
+      "effects": {
+        "stamina": 3,
+        "intelligence": 0,
+        "charm": 0,
+        "money": 1500
+      }
+    },
+    {
+      "id": "e03",
+      "title": "修好辦公室印表機",
+      "description": "你拔掉插頭再插回去，被同事封為科技大師。",
+      "effects": {
+        "stamina": -2,
+        "intelligence": 5,
+        "charm": 3,
+        "money": 300
+      }
+    },
+    {
+      "id": "e04",
+      "title": "週末馬拉松",
+      "description": "跑到一半想放棄，看到完賽便當又有動力了。",
+      "effects": {
+        "stamina": 8,
+        "intelligence": 0,
+        "charm": 2,
+        "money": -200
+      }
+    },
+    {
+      "id": "e05",
+      "title": "深夜追劇失控",
+      "description": "只看一集，結果片尾已經出現早餐店的開門聲。",
+      "effects": {
+        "stamina": -8,
+        "intelligence": 0,
+        "charm": 1,
+        "money": 0
+      }
+    },
+    {
+      "id": "e06",
+      "title": "二手拍賣小達人",
+      "description": "壓箱寶竟然是絕版品，買家秒下單。",
+      "effects": {
+        "stamina": 0,
+        "intelligence": 3,
+        "charm": 2,
+        "money": 2000
+      }
+    },
+    {
+      "id": "e07",
+      "title": "社區即興演講",
+      "description": "被臨時拉上台，靠冷笑話成功撐過三分鐘。",
+      "effects": {
+        "stamina": -2,
+        "intelligence": 2,
+        "charm": 8,
+        "money": 0
+      }
+    },
+    {
+      "id": "e08",
+      "title": "手機自由落體",
+      "description": "你接住了耳機，手機則親吻了柏油路。",
+      "effects": {
+        "stamina": -2,
+        "intelligence": 0,
+        "charm": 0,
+        "money": -1200
+      }
+    },
+    {
+      "id": "e09",
+      "title": "免費課程挖到寶",
+      "description": "原本只想吹冷氣，卻聽懂了程式設計入門。",
+      "effects": {
+        "stamina": -3,
+        "intelligence": 10,
+        "charm": 0,
+        "money": 0
+      }
+    },
+    {
+      "id": "e10",
+      "title": "創意提案獎金",
+      "description": "午休亂畫的點子，竟然被選為本季最佳提案。",
+      "effects": {
+        "stamina": -3,
+        "intelligence": 5,
+        "charm": 5,
+        "money": 5000
+      }
+    }
+  ]
+}

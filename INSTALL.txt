@@ -1,0 +1,10 @@
+v0.17 UPDATE PACKAGE
+Stop Flutter (q). Back up the existing project.
+Extract All, then copy the CONTENTS of life_v017_update into your existing game folder containing pubspec.yaml. Replace matching files.
+Merge assets/data. KEEP existing assets/images and assets/audio.
+Run each command separately:
+flutter pub get
+flutter test
+flutter run -d chrome -t lib/main.dart
+
+Requires existing game image/audio assets. See README.md for Traditional Chinese instructions.

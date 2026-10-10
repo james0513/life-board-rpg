@@ -1,0 +1,925 @@
+{
+  "schemaVersion": 1,
+  "jobs": [
+    {
+      "id": "unemployed",
+      "title": "待業",
+      "tier": 0,
+      "description": "待業的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [],
+      "requirements": [],
+      "combat": {
+        "skillName": "靈光斬",
+        "skillStat": "intelligence",
+        "skillBase": 18,
+        "skillScale": 33,
+        "attackStat": "stamina",
+        "attackBase": 10,
+        "attackScale": 25
+      }
+    },
+    {
+      "id": "student",
+      "title": "學生",
+      "tier": 1,
+      "description": "學生的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "unemployed"
+      ],
+      "requirements": [],
+      "combat": {
+        "skillName": "求知之光",
+        "skillStat": "intelligence",
+        "skillBase": 18,
+        "skillScale": 40,
+        "attackStat": "stamina",
+        "attackBase": 12,
+        "attackScale": 30
+      }
+    },
+    {
+      "id": "part_timer",
+      "title": "打工仔",
+      "tier": 1,
+      "description": "打工仔的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "unemployed"
+      ],
+      "requirements": [],
+      "combat": {
+        "skillName": "全力以赴",
+        "skillStat": "stamina",
+        "skillBase": 18,
+        "skillScale": 40,
+        "attackStat": "stamina",
+        "attackBase": 12,
+        "attackScale": 30
+      }
+    },
+    {
+      "id": "engineer",
+      "title": "工程師",
+      "tier": 2,
+      "description": "工程師的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "student",
+        "part_timer",
+        "apprentice"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gt",
+          "value": 30
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 15
+        }
+      ],
+      "combat": {
+        "skillName": "程式脈衝",
+        "skillStat": "intelligence",
+        "skillBase": 22,
+        "skillScale": 65,
+        "attackStat": "intelligence",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "artist",
+      "title": "藝術家",
+      "tier": 2,
+      "description": "藝術家的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "student",
+        "part_timer",
+        "adventurer"
+      ],
+      "requirements": [
+        {
+          "stat": "charm",
+          "operator": "gt",
+          "value": 30
+        },
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 20
+        }
+      ],
+      "combat": {
+        "skillName": "靈感共鳴",
+        "skillStat": "charm",
+        "skillBase": 22,
+        "skillScale": 65,
+        "attackStat": "charm",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "warrior",
+      "title": "戰士",
+      "tier": 2,
+      "description": "戰士的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "student",
+        "part_timer",
+        "adventurer"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gt",
+          "value": 30
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 15
+        }
+      ],
+      "combat": {
+        "skillName": "破陣斬",
+        "skillStat": "stamina",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "stamina",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "scholar",
+      "title": "學者",
+      "tier": 2,
+      "description": "學者的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "student",
+        "part_timer",
+        "apprentice"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gt",
+          "value": 50
+        },
+        {
+          "stat": "morality",
+          "operator": "gt",
+          "value": 30
+        }
+      ],
+      "combat": {
+        "skillName": "真理之光",
+        "skillStat": "intelligence",
+        "skillBase": 24,
+        "skillScale": 70,
+        "attackStat": "intelligence",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "president",
+      "title": "總裁",
+      "tier": 3,
+      "description": "總裁的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "engineer",
+        "artist",
+        "merchant"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gt",
+          "value": 60
+        },
+        {
+          "stat": "charm",
+          "operator": "gt",
+          "value": 45
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 30
+        },
+        {
+          "stat": "money",
+          "operator": "gt",
+          "value": 5000
+        }
+      ],
+      "combat": {
+        "skillName": "決策風暴",
+        "skillStat": "charm",
+        "skillBase": 30,
+        "skillScale": 90,
+        "attackStat": "intelligence",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "mentor",
+      "title": "大導師",
+      "tier": 3,
+      "description": "大導師的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "engineer",
+        "artist",
+        "scholar",
+        "doctor"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gt",
+          "value": 70
+        },
+        {
+          "stat": "morality",
+          "operator": "gt",
+          "value": 50
+        }
+      ],
+      "combat": {
+        "skillName": "智慧星河",
+        "skillStat": "intelligence",
+        "skillBase": 30,
+        "skillScale": 100,
+        "attackStat": "intelligence",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "hero",
+      "title": "英雄",
+      "tier": 3,
+      "description": "英雄的成長路線，打工收益按職業階級加成。",
+      "fromJobIds": [
+        "warrior"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gt",
+          "value": 70
+        },
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 30
+        },
+        {
+          "stat": "morality",
+          "operator": "gt",
+          "value": 50
+        }
+      ],
+      "combat": {
+        "skillName": "正義曙光",
+        "skillStat": "morality",
+        "skillBase": 32,
+        "skillScale": 100,
+        "attackStat": "stamina",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "apprentice",
+      "title": "學徒",
+      "tier": 1,
+      "description": "學徒擅長運用智力施展專屬技能。",
+      "fromJobIds": [
+        "unemployed"
+      ],
+      "requirements": [],
+      "combat": {
+        "skillName": "巧思火花",
+        "skillStat": "intelligence",
+        "skillBase": 18,
+        "skillScale": 40,
+        "attackStat": "intelligence",
+        "attackBase": 12,
+        "attackScale": 30
+      }
+    },
+    {
+      "id": "adventurer",
+      "title": "冒險家",
+      "tier": 1,
+      "description": "冒險家擅長運用體力施展專屬技能。",
+      "fromJobIds": [
+        "unemployed"
+      ],
+      "requirements": [],
+      "combat": {
+        "skillName": "勇氣衝鋒",
+        "skillStat": "stamina",
+        "skillBase": 18,
+        "skillScale": 40,
+        "attackStat": "stamina",
+        "attackBase": 12,
+        "attackScale": 30
+      }
+    },
+    {
+      "id": "doctor",
+      "title": "醫師",
+      "tier": 2,
+      "description": "醫師擅長運用道德施展專屬技能。",
+      "fromJobIds": [
+        "student",
+        "apprentice"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 35
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 25
+        }
+      ],
+      "combat": {
+        "skillName": "生命脈衝",
+        "skillStat": "morality",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "morality",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "mage",
+      "title": "魔法師",
+      "tier": 2,
+      "description": "魔法師擅長運用智力施展專屬技能。",
+      "fromJobIds": [
+        "student",
+        "apprentice"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 40
+        },
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 15
+        }
+      ],
+      "combat": {
+        "skillName": "元素洪流",
+        "skillStat": "intelligence",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "intelligence",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "ranger",
+      "title": "遊俠",
+      "tier": 2,
+      "description": "遊俠擅長運用體力施展專屬技能。",
+      "fromJobIds": [
+        "adventurer",
+        "part_timer"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 35
+        },
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 20
+        }
+      ],
+      "combat": {
+        "skillName": "穿林之矢",
+        "skillStat": "stamina",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "stamina",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "merchant",
+      "title": "商人",
+      "tier": 2,
+      "description": "商人擅長運用魅力施展專屬技能。",
+      "fromJobIds": [
+        "part_timer",
+        "adventurer"
+      ],
+      "requirements": [
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 35
+        },
+        {
+          "stat": "money",
+          "operator": "gte",
+          "value": 1500
+        }
+      ],
+      "combat": {
+        "skillName": "黃金迴旋",
+        "skillStat": "charm",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "charm",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "archmage",
+      "title": "大魔導師",
+      "tier": 3,
+      "description": "大魔導師擅長運用智力施展專屬技能。",
+      "fromJobIds": [
+        "mage",
+        "scholar"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 80
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 40
+        }
+      ],
+      "combat": {
+        "skillName": "奧術星爆",
+        "skillStat": "intelligence",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "intelligence",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "paladin",
+      "title": "聖騎士",
+      "tier": 3,
+      "description": "聖騎士擅長運用道德施展專屬技能。",
+      "fromJobIds": [
+        "warrior",
+        "doctor"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 65
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 65
+        }
+      ],
+      "combat": {
+        "skillName": "聖光裁決",
+        "skillStat": "morality",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "morality",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "ranger_master",
+      "title": "神射手",
+      "tier": 3,
+      "description": "神射手擅長運用魅力施展專屬技能。",
+      "fromJobIds": [
+        "ranger",
+        "artist"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 65
+        },
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 60
+        }
+      ],
+      "combat": {
+        "skillName": "流星連射",
+        "skillStat": "charm",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "charm",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "alchemist",
+      "title": "鍊金術師",
+      "tier": 2,
+      "description": "鍊金術師以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "apprentice",
+        "student"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 40
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 20
+        }
+      ],
+      "combat": {
+        "skillName": "鍊成星火",
+        "skillStat": "intelligence",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "intelligence",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "bard",
+      "title": "吟遊詩人",
+      "tier": 2,
+      "description": "吟遊詩人以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "adventurer",
+        "part_timer"
+      ],
+      "requirements": [
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 40
+        },
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 20
+        }
+      ],
+      "combat": {
+        "skillName": "迴響樂章",
+        "skillStat": "charm",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "charm",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "chef",
+      "title": "料理師",
+      "tier": 2,
+      "description": "料理師以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "part_timer",
+        "apprentice"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 35
+        },
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 25
+        }
+      ],
+      "combat": {
+        "skillName": "炙焰盛宴",
+        "skillStat": "stamina",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "stamina",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "guardian",
+      "title": "守衛",
+      "tier": 2,
+      "description": "守衛以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "adventurer",
+        "part_timer"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 40
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 25
+        }
+      ],
+      "combat": {
+        "skillName": "壁壘衝擊",
+        "skillStat": "stamina",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "stamina",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "dancer",
+      "title": "舞者",
+      "tier": 2,
+      "description": "舞者以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "student",
+        "adventurer"
+      ],
+      "requirements": [
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 40
+        },
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 25
+        }
+      ],
+      "combat": {
+        "skillName": "月步幻舞",
+        "skillStat": "charm",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "charm",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "beast_tamer",
+      "title": "馴獸師",
+      "tier": 2,
+      "description": "馴獸師以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "adventurer",
+        "apprentice"
+      ],
+      "requirements": [
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 35
+        },
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 30
+        }
+      ],
+      "combat": {
+        "skillName": "靈獸共鳴",
+        "skillStat": "morality",
+        "skillBase": 24,
+        "skillScale": 65,
+        "attackStat": "morality",
+        "attackBase": 14,
+        "attackScale": 35
+      }
+    },
+    {
+      "id": "sage",
+      "title": "賢者",
+      "tier": 3,
+      "description": "賢者以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "alchemist",
+        "scholar"
+      ],
+      "requirements": [
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 80
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 55
+        }
+      ],
+      "combat": {
+        "skillName": "萬象鍊成",
+        "skillStat": "intelligence",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "intelligence",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "maestro",
+      "title": "交響大師",
+      "tier": 3,
+      "description": "交響大師以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "bard",
+        "artist"
+      ],
+      "requirements": [
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 80
+        },
+        {
+          "stat": "intelligence",
+          "operator": "gte",
+          "value": 50
+        }
+      ],
+      "combat": {
+        "skillName": "天籟星河",
+        "skillStat": "charm",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "charm",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "gourmet_master",
+      "title": "御膳宗師",
+      "tier": 3,
+      "description": "御膳宗師以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "chef",
+        "merchant"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 75
+        },
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 60
+        }
+      ],
+      "combat": {
+        "skillName": "龍焰御宴",
+        "skillStat": "stamina",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "stamina",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "warlord",
+      "title": "戰神",
+      "tier": 3,
+      "description": "戰神以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "guardian",
+        "warrior"
+      ],
+      "requirements": [
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 85
+        },
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 50
+        }
+      ],
+      "combat": {
+        "skillName": "天穹破陣",
+        "skillStat": "stamina",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "stamina",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "celestial_dancer",
+      "title": "星舞者",
+      "tier": 3,
+      "description": "星舞者以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "dancer",
+        "artist"
+      ],
+      "requirements": [
+        {
+          "stat": "charm",
+          "operator": "gte",
+          "value": 85
+        },
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 50
+        }
+      ],
+      "combat": {
+        "skillName": "星輪天舞",
+        "skillStat": "charm",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "charm",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    },
+    {
+      "id": "dragon_tamer",
+      "title": "龍馭使",
+      "tier": 3,
+      "description": "龍馭使以專屬技藝迎接人生試煉；轉職門檻只檢查，不扣除屬性。",
+      "fromJobIds": [
+        "beast_tamer",
+        "ranger"
+      ],
+      "requirements": [
+        {
+          "stat": "morality",
+          "operator": "gte",
+          "value": 75
+        },
+        {
+          "stat": "stamina",
+          "operator": "gte",
+          "value": 70
+        }
+      ],
+      "combat": {
+        "skillName": "蒼龍降臨",
+        "skillStat": "morality",
+        "skillBase": 32,
+        "skillScale": 95,
+        "attackStat": "morality",
+        "attackBase": 16,
+        "attackScale": 40
+      }
+    }
+  ]
+}

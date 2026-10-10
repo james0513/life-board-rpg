@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "title": "青芽學園",
+    "story": "被考試焦慮喚醒的古老學監，將校園封進永遠考不完的試卷。",
+    "requiredWins": 3,
+    "color": 4292733653,
+    "boss": {
+      "id": "boss_1",
+      "name": "試煉學監・墨羽",
+      "description": "被考試焦慮喚醒的古老學監，將校園封進永遠考不完的試卷。",
+      "hp": 150,
+      "attack": 12,
+      "reward": 500,
+      "experience": 100,
+      "portrait": 0,
+      "maxSp": 3,
+      "minTier": 0,
+      "bossStage": 1,
+      "specialName": "知識風暴"
+    }
+  },
+  {
+    "id": 2,
+    "title": "黃金商店街",
+    "story": "囤積物資的商會會長，企圖讓所有人的夢想都標上天價。",
+    "requiredWins": 3,
+    "color": 4294303415,
+    "boss": {
+      "id": "boss_2",
+      "name": "貪金會長・滿袋",
+      "description": "囤積物資的商會會長，企圖讓所有人的夢想都標上天價。",
+      "hp": 210,
+      "attack": 16,
+      "reward": 800,
+      "experience": 150,
+      "portrait": 0,
+      "maxSp": 3,
+      "minTier": 0,
+      "bossStage": 2,
+      "specialName": "金幣暴雨"
+    }
+  },
+  {
+    "id": 3,
+    "title": "齒輪科技城",
+    "story": "為追求完美效率而失控的機械監工，忘記了人需要休息。",
+    "requiredWins": 3,
+    "color": 4291880938,
+    "boss": {
+      "id": "boss_3",
+      "name": "失控監工・零號",
+      "description": "為追求完美效率而失控的機械監工，忘記了人需要休息。",
+      "hp": 290,
+      "attack": 21,
+      "reward": 1100,
+      "experience": 200,
+      "portrait": 0,
+      "maxSp": 3,
+      "minTier": 0,
+      "bossStage": 3,
+      "specialName": "超載電弧"
+    }
+  },
+  {
+    "id": 4,
+    "title": "幻彩大劇院",
+    "story": "被掌聲困住的天才樂師，奪走居民的聲音來完成永恆演出。",
+    "requiredWins": 3,
+    "color": 4293711337,
+    "boss": {
+      "id": "boss_4",
+      "name": "假面樂師・幻音",
+      "description": "被掌聲困住的天才樂師，奪走居民的聲音來完成永恆演出。",
+      "hp": 380,
+      "attack": 26,
+      "reward": 1500,
+      "experience": 250,
+      "portrait": 0,
+      "maxSp": 3,
+      "minTier": 0,
+      "bossStage": 4,
+      "specialName": "失諧奏鳴"
+    }
+  },
+  {
+    "id": 5,
+    "title": "赤岩英雄堡",
+    "story": "昔日守護者相信只有力量能帶來和平，封鎖了通往命運之門的道路。",
+    "requiredWins": 3,
+    "color": 4293513408,
+    "boss": {
+      "id": "boss_5",
+      "name": "赤鎧領主・焰衛",
+      "description": "昔日守護者相信只有力量能帶來和平，封鎖了通往命運之門的道路。",
+      "hp": 490,
+      "attack": 32,
+      "reward": 2000,
+      "experience": 300,
+      "portrait": 0,
+      "maxSp": 3,
+      "minTier": 0,
+      "bossStage": 5,
+      "specialName": "熔岩破陣"
+    }
+  },
+  {
+    "id": 6,
+    "title": "星界命運王座",
+    "story": "他把眾人的選擇寫成既定劇本。打破命運王座，才能取回自己的人生。",
+    "requiredWins": 3,
+    "color": 4292202475,
+    "boss": {
+      "id": "boss_6",
+      "name": "最終魔王・命運編織者",
+      "description": "他把眾人的選擇寫成既定劇本。打破命運王座，才能取回自己的人生。",
+      "hp": 680,
+      "attack": 38,
+      "reward": 3500,
+      "experience": 500,
+      "portrait": 0,
+      "maxSp": 3,
+      "minTier": 0,
+      "bossStage": 6,
+      "specialName": "終焉星落"
+    }
+  }
+]

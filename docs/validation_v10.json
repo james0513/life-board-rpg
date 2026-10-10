@@ -1,0 +1,8 @@
+{
+  "version": "0.10.0+10",
+  "dart_files_parsed": 47,
+  "syntax_errors": 0,
+  "missing_relative_imports": 0,
+  "flutter_tests_executed": false,
+  "reason": "Flutter SDK unavailable in build environment"
+}

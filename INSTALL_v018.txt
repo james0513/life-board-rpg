@@ -1,0 +1,23 @@
+# v0.18 六關棋盤視覺更新
+
+六張專屬背景：青芽學園、黃金商店街、科技觀測站、華麗劇院、城堡要塞、星界王座。
+棋盤加入石材拼縫、金屬包邊、琺瑯事件格、圓角標牌與各關中央地標；戰鬥畫面共用該關背景。
+角色保持最後繪製，避免被棋盤遮住。保留既有職業、裝備、關卡與存檔格式。
+
+## 安裝
+先關閉執行中的遊戲並備份專案。將更新包內 lib、test、assets、docs、pubspec.yaml 等內容覆蓋到原本含 pubspec.yaml 的專案目錄。
+請合併 assets，勿先刪除原資料夾：此更新包僅包含新的六張背景，仍需要原本角色圖片與音樂。
+不要執行 flutter create。
+
+```bat
+cd /d "C:\Users\joshu\Downloads\life_json_modules\life_json_modules"
+flutter pub get
+flutter test
+flutter run -d chrome
+```
+
+檢查範圍：Dart 語法樹、JSON、PNG 完整性與 ZIP 解壓比對。此製作環境沒有 Flutter SDK，尚未執行 Flutter 測試或實際畫面驗證。
+3D 棋盤沿用 CPU 多邊形繪製，並非 GPU 深度緩衝。背景為固定遠景，旋轉操作只旋轉棋盤。
+生成背景提示詞見 docs/stage_art_v18.md。
+
+---

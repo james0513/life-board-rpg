@@ -1,0 +1,33 @@
+name: life_graybox
+description: Low-poly 3D life board RPG prototype
+publish_to: none
+version: 0.24.0+24
+environment:
+  sdk: '>=3.8.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  flame: ^1.38.2
+  flutter_riverpod: ^3.4.3
+  shared_preferences: ^2.5.6
+  audioplayers: ^6.8.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/events.json
+    - assets/data/jobs.json
+    - assets/images/characters/
+    - assets/images/backgrounds/
+    - assets/images/ui/
+    - assets/images/player/
+    - assets/audio/music/
+    - assets/audio/sfx/
+
+    - assets/images/battle/
+    - assets/data/stages.json
+    - assets/data/enemies.json
+    - assets/data/tile_events.json
+    - assets/images/careers/
