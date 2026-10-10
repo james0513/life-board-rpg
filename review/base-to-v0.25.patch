@@ -1,0 +1,4904 @@
+diff --git a/INSTALL_v025.txt b/INSTALL_v025.txt
+new file mode 100644
+index 0000000..b9b9fe6
+--- /dev/null
++++ b/INSTALL_v025.txt
+@@ -0,0 +1,16 @@
++人生棋盤 v0.25
++
++這是原創人生循環更新，不是《虛擬人生》原版完整復刻。
++
++完整包：解壓縮後進入 life-board-rpg-v0.25，執行 flutter pub get、flutter test、flutter run -d chrome -t lib/main.dart。
++更新包：關閉遊戲並備份存檔，先複製整個原專案作為工作副本。將包內檔案合併至副本中含 pubspec.yaml 的根目錄，只取代同名檔。不要刪除或整個替換 lib 資料夾，未改動的原檔案仍必要；保留 assets 及平台目錄。不要先刪除原素材。
++
++新功能：每回合一季、人生手帳培養、EQ／壓力、人際與家園、職業心得、通關或60歲後選擇轉生與一項天賦傳承。
++
++存檔 v7 可讀取 v1–v6；舊版不保證能讀 v7。不要為了更新而按「重新開始」。
++
++27 核心測試及10組腳本化領域流程通過。完整 Flutter 編譯、Widget 測試與實際畫面尚未驗證。詳細狀態見 docs/verification_v25.md。
++
++基底提交：5b9beaba242ea9e00f6a97e47604e190aeac9e29
++原 pubspec.lock 保留；新增 flutter_lints 依賴需 flutter pub get 更新。
++未推送 GitHub、未發布。
+diff --git a/README.md b/README.md
+index ed0a8b0..fe56207 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,32 @@
++# v0.25 人生手帳與轉生循環
++
++保留六關 3D 棋盤、30 職業、男女角色、裝備、戰鬥、事件、美術與音樂，加入原創的「四季成長 → 職業心得 → 生活經營 → 轉生傳承」。這是以經典人生棋盤玩法為方向的更新，不宣稱復刻《虛擬人生》的原版公式。
++
++- 每次完成棋盤落點前進一季，四季為一年；事件接續戰鬥只計一次。
++- 右側／下方「人生手帳」可讀書、運動、社交、休息與購屋。每項成功行動消耗一季，清楚列出花費與效果。
++- 同一職業完成 3 次工作格，習得一次性永久屬性心得；轉職不會失去已學心得。
++- EQ、壓力與住宅影響戰鬥起始 HP；關係進度提供本世目標。
++- 六關全破，或年滿 60 歲後，可確認轉生並選一項心得帶到下一世；也可留在本世繼續玩。
++- schema v7 存檔相容讀取 v1–v6；不需重新開始。請備份升級前存檔，舊程式不保證能讀 v7。
++
++完整玩法、公式與尚未涵蓋項目見 `docs/life_cycle_v25.md`。驗證狀態見 `docs/verification_v25.md`。
++
++## 安裝更新
++
++1. 關閉遊戲，備份瀏覽器存檔，並複製整個原專案成一份新的工作副本。
++2. 把更新包**裡面的檔案與資料夾**合併到工作副本內含 `pubspec.yaml` 的根目錄，只取代同名檔。不要刪除或整個替換 `lib/`；其中未改動的原檔案仍然必要。保留既有 `assets/` 與平台資料夾，也不要把更新包整個當作子資料夾放入。
++3. 在原專案執行：
++
++```bat
++flutter pub get
++flutter test
++flutter run -d chrome -t lib/main.dart
++```
++
++本更新不會自動推送到 GitHub 或發布遊戲。
++
++---
++
+ # v0.24 場景填滿可用空間
+ 
+ 移除固定場景長寬比，背景填滿右側操作欄以外的區域，3D 畫面使用實際 viewport 置中等比例渲染。保留骰子與人物記事按鈕。
+diff --git a/docs/life_campaign_report.json b/docs/life_campaign_report.json
+new file mode 100644
+index 0000000..db9e8b0
+--- /dev/null
++++ b/docs/life_campaign_report.json
+@@ -0,0 +1,800 @@
++{
++  "mode": "Pure Dart scripted domain campaign; no Flutter widget/dice-board test",
++  "assertions": 7996,
++  "passedCampaigns": 10,
++  "totalVictories": 240,
++  "totalCheckpoints": 1166,
++  "hpFormulaChecks": 6,
++  "runs": [
++    {
++      "seed": 1,
++      "fights": 24,
++      "combatRounds": 53,
++      "turns": 88,
++      "ageAtCompletion": 40,
++      "checkpoints": 118,
++      "workTurns": 32,
++      "lifeActions": 25,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7352,
++      "earnedFromFights": 17280,
++      "spent": 15450,
++      "endingMoney": 10182,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 37,
++          "money": 1436,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 73
++        },
++        {
++          "stage": 2,
++          "age": 30,
++          "turns": 50,
++          "money": 2282,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 97
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 55,
++          "money": 4492,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 105
++        },
++        {
++          "stage": 4,
++          "age": 36,
++          "turns": 73,
++          "money": 3280,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 140
++        },
++        {
++          "stage": 5,
++          "age": 37,
++          "turns": 78,
++          "money": 6750,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 148
++        },
++        {
++          "stage": 6,
++          "age": 40,
++          "turns": 88,
++          "money": 10182,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 173
++        }
++      ]
++    },
++    {
++      "seed": 7,
++      "fights": 24,
++      "combatRounds": 54,
++      "turns": 87,
++      "ageAtCompletion": 39,
++      "checkpoints": 117,
++      "workTurns": 31,
++      "lifeActions": 25,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7120,
++      "earnedFromFights": 17450,
++      "spent": 15450,
++      "endingMoney": 10120,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 36,
++          "money": 1372,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 80
++        },
++        {
++          "stage": 2,
++          "age": 30,
++          "turns": 49,
++          "money": 2170,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 105
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 54,
++          "money": 4500,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 113
++        },
++        {
++          "stage": 4,
++          "age": 35,
++          "turns": 71,
++          "money": 2894,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 146
++        },
++        {
++          "stage": 5,
++          "age": 37,
++          "turns": 76,
++          "money": 6434,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 154
++        },
++        {
++          "stage": 6,
++          "age": 39,
++          "turns": 87,
++          "money": 10120,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 178
++        }
++      ]
++    },
++    {
++      "seed": 19,
++      "fights": 24,
++      "combatRounds": 52,
++      "turns": 87,
++      "ageAtCompletion": 39,
++      "checkpoints": 117,
++      "workTurns": 31,
++      "lifeActions": 25,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7184,
++      "earnedFromFights": 17370,
++      "spent": 15450,
++      "endingMoney": 10104,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 37,
++          "money": 1724,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 75
++        },
++        {
++          "stage": 2,
++          "age": 30,
++          "turns": 49,
++          "money": 2146,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 97
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 54,
++          "money": 4476,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 105
++        },
++        {
++          "stage": 4,
++          "age": 35,
++          "turns": 71,
++          "money": 3342,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 139
++        },
++        {
++          "stage": 5,
++          "age": 37,
++          "turns": 76,
++          "money": 6672,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 147
++        },
++        {
++          "stage": 6,
++          "age": 39,
++          "turns": 87,
++          "money": 10104,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 172
++        }
++      ]
++    },
++    {
++      "seed": 42,
++      "fights": 24,
++      "combatRounds": 55,
++      "turns": 85,
++      "ageAtCompletion": 39,
++      "checkpoints": 115,
++      "workTurns": 30,
++      "lifeActions": 24,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7136,
++      "earnedFromFights": 17750,
++      "spent": 15450,
++      "endingMoney": 10436,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 36,
++          "money": 1620,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 78
++        },
++        {
++          "stage": 2,
++          "age": 29,
++          "turns": 47,
++          "money": 2314,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 99
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 53,
++          "money": 4504,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 107
++        },
++        {
++          "stage": 4,
++          "age": 35,
++          "turns": 70,
++          "money": 2894,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 143
++        },
++        {
++          "stage": 5,
++          "age": 36,
++          "turns": 75,
++          "money": 6624,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 151
++        },
++        {
++          "stage": 6,
++          "age": 39,
++          "turns": 85,
++          "money": 10436,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 176
++        }
++      ]
++    },
++    {
++      "seed": 99,
++      "fights": 24,
++      "combatRounds": 46,
++      "turns": 87,
++      "ageAtCompletion": 39,
++      "checkpoints": 117,
++      "workTurns": 31,
++      "lifeActions": 25,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7338,
++      "earnedFromFights": 16770,
++      "spent": 15450,
++      "endingMoney": 9658,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 36,
++          "money": 1402,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 81
++        },
++        {
++          "stage": 2,
++          "age": 30,
++          "turns": 49,
++          "money": 1858,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 106
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 54,
++          "money": 4448,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 114
++        },
++        {
++          "stage": 4,
++          "age": 35,
++          "turns": 71,
++          "money": 2756,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 144
++        },
++        {
++          "stage": 5,
++          "age": 37,
++          "turns": 76,
++          "money": 6346,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 152
++        },
++        {
++          "stage": 6,
++          "age": 39,
++          "turns": 87,
++          "money": 9658,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 177
++        }
++      ]
++    },
++    {
++      "seed": 123,
++      "fights": 24,
++      "combatRounds": 56,
++      "turns": 84,
++      "ageAtCompletion": 39,
++      "checkpoints": 114,
++      "workTurns": 29,
++      "lifeActions": 24,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 6878,
++      "earnedFromFights": 17980,
++      "spent": 15450,
++      "endingMoney": 10408,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 36,
++          "money": 1796,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 78
++        },
++        {
++          "stage": 2,
++          "age": 29,
++          "turns": 47,
++          "money": 2010,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 99
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 53,
++          "money": 4580,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 107
++        },
++        {
++          "stage": 4,
++          "age": 35,
++          "turns": 69,
++          "money": 2890,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 136
++        },
++        {
++          "stage": 5,
++          "age": 36,
++          "turns": 74,
++          "money": 6220,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 144
++        },
++        {
++          "stage": 6,
++          "age": 39,
++          "turns": 84,
++          "money": 10408,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 168
++        }
++      ]
++    },
++    {
++      "seed": 2026,
++      "fights": 24,
++      "combatRounds": 50,
++      "turns": 85,
++      "ageAtCompletion": 39,
++      "checkpoints": 115,
++      "workTurns": 30,
++      "lifeActions": 24,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7114,
++      "earnedFromFights": 17250,
++      "spent": 15450,
++      "endingMoney": 9914,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 36,
++          "money": 1852,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 79
++        },
++        {
++          "stage": 2,
++          "age": 29,
++          "turns": 46,
++          "money": 1722,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 97
++        },
++        {
++          "stage": 3,
++          "age": 30,
++          "turns": 51,
++          "money": 4172,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 105
++        },
++        {
++          "stage": 4,
++          "age": 35,
++          "turns": 70,
++          "money": 3168,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 141
++        },
++        {
++          "stage": 5,
++          "age": 36,
++          "turns": 75,
++          "money": 6518,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 149
++        },
++        {
++          "stage": 6,
++          "age": 39,
++          "turns": 85,
++          "money": 9914,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 175
++        }
++      ]
++    },
++    {
++      "seed": 31415,
++      "fights": 24,
++      "combatRounds": 55,
++      "turns": 87,
++      "ageAtCompletion": 39,
++      "checkpoints": 117,
++      "workTurns": 31,
++      "lifeActions": 25,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7165,
++      "earnedFromFights": 17560,
++      "spent": 15450,
++      "endingMoney": 10275,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 37,
++          "money": 1517,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 79
++        },
++        {
++          "stage": 2,
++          "age": 30,
++          "turns": 50,
++          "money": 2145,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 104
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 55,
++          "money": 4535,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 112
++        },
++        {
++          "stage": 4,
++          "age": 36,
++          "turns": 72,
++          "money": 2859,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 138
++        },
++        {
++          "stage": 5,
++          "age": 37,
++          "turns": 77,
++          "money": 6689,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 146
++        },
++        {
++          "stage": 6,
++          "age": 39,
++          "turns": 87,
++          "money": 10275,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 172
++        }
++      ]
++    },
++    {
++      "seed": 65535,
++      "fights": 24,
++      "combatRounds": 56,
++      "turns": 88,
++      "ageAtCompletion": 40,
++      "checkpoints": 118,
++      "workTurns": 32,
++      "lifeActions": 25,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7456,
++      "earnedFromFights": 17960,
++      "spent": 15450,
++      "endingMoney": 10966,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 37,
++          "money": 1502,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 76
++        },
++        {
++          "stage": 2,
++          "age": 30,
++          "turns": 50,
++          "money": 2348,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 101
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 55,
++          "money": 4438,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 109
++        },
++        {
++          "stage": 4,
++          "age": 36,
++          "turns": 73,
++          "money": 3134,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 138
++        },
++        {
++          "stage": 5,
++          "age": 37,
++          "turns": 78,
++          "money": 6814,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 146
++        },
++        {
++          "stage": 6,
++          "age": 40,
++          "turns": 88,
++          "money": 10966,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 171
++        }
++      ]
++    },
++    {
++      "seed": 99991,
++      "fights": 24,
++      "combatRounds": 52,
++      "turns": 88,
++      "ageAtCompletion": 40,
++      "checkpoints": 118,
++      "workTurns": 32,
++      "lifeActions": 25,
++      "careerTurns": 3,
++      "shopTurns": 4,
++      "earnedFromWork": 7439,
++      "earnedFromFights": 16890,
++      "spent": 15450,
++      "endingMoney": 9879,
++      "skills": [
++        "student",
++        "engineer",
++        "mentor"
++      ],
++      "inheritedSkill": "mentor",
++      "generationTwoIntelligence": 16,
++      "chapters": [
++        {
++          "stage": 1,
++          "age": 27,
++          "turns": 37,
++          "money": 1481,
++          "job": "engineer",
++          "stamina": 42,
++          "intelligence": 75
++        },
++        {
++          "stage": 2,
++          "age": 30,
++          "turns": 50,
++          "money": 1937,
++          "job": "engineer",
++          "stamina": 54,
++          "intelligence": 101
++        },
++        {
++          "stage": 3,
++          "age": 31,
++          "turns": 55,
++          "money": 4527,
++          "job": "engineer",
++          "stamina": 66,
++          "intelligence": 109
++        },
++        {
++          "stage": 4,
++          "age": 36,
++          "turns": 73,
++          "money": 2821,
++          "job": "engineer",
++          "stamina": 78,
++          "intelligence": 142
++        },
++        {
++          "stage": 5,
++          "age": 37,
++          "turns": 78,
++          "money": 6411,
++          "job": "engineer",
++          "stamina": 90,
++          "intelligence": 150
++        },
++        {
++          "stage": 6,
++          "age": 40,
++          "turns": 88,
++          "money": 9879,
++          "job": "mentor",
++          "stamina": 102,
++          "intelligence": 174
++        }
++      ]
++    }
++  ]
++}
+\ No newline at end of file
+diff --git a/docs/life_cycle_v25.md b/docs/life_cycle_v25.md
+new file mode 100644
+index 0000000..f03040b
+--- /dev/null
++++ b/docs/life_cycle_v25.md
+@@ -0,0 +1,26 @@
++# v0.25 人生循環：實作設計與界線
++
++這是延續現有《人生棋盤》的原創玩法更新，以早期人生棋盤遊戲的「走格、成長、職業、試煉、轉生」循環為方向；不是《虛擬人生》原版資料、公式或關卡的複製。年齡、費用、能力與繼承數值為本專案設計，不宣稱與原版相同。
++
++## 保留
++
++20 格棋盤、六關場景、30 職業、男女角色、既有原創美術與音樂、戰鬥、裝備、事件 A/B 選項、創作者標示及舊存檔。
++
++## 本版循環
++
++- 每次完成棋盤事件、商店、轉職或戰鬥為一季；事件接續戰鬥只計一次。
++- 18 歲開始，每四季增加一歲。年齡不是限時失敗機制。
++- 人生手帳提供讀書、運動、社交、休息及購屋，每次成功行動也消耗一季。
++- 工作格累積目前職業熟練，三次後習得一項永久天賦。轉職後仍保留已學天賦。
++- EQ、壓力及住宅會影響戰鬥起始 HP：`(EQ-50) ~/ 10 - 壓力 ~/ 10 + 住宅等級 × 3`，總 HP 至少 1。
++- 人際進度以「相識、知己、相伴、長久羈絆」呈現；這一版不是完整具名 NPC 對話、婚姻或子女系統。
++- 通過六關，或達到 60 歲後，可選擇轉生。轉生會重設這一世的職業、金錢、裝備及關卡，保留角色性別與世代，並可攜帶一項已學天賦。
++- 不轉生可以繼續遊玩。操作前明確確認，存檔成功才替換畫面。
++
++## 相容性
++
++新存檔版本為 7，讀取版本 1–6 時加入預設人生資料，不重置原有能力、金錢、職業、裝備或通關進度。版本 7 存檔不保證能由舊版程式讀取，更新前請備份原專案及存檔。
++
++## 尚未涵蓋
++
++完整分齡棋盤、職場故事鏈、具名 NPC 恋愛／婚姻、卡片攻防、原作心魔的特殊機制與更多人生結局。現有最終魔王仍為本遊戲原創角色，不冒稱原作復刻。
+diff --git a/docs/verification_v25.md b/docs/verification_v25.md
+new file mode 100644
+index 0000000..4ae62ad
+--- /dev/null
++++ b/docs/verification_v25.md
+@@ -0,0 +1,49 @@
++# v0.25 驗證記錄
++
++日期：2026-10-10
++基底：[james0513/life-board-rpg](https://github.com/james0513/life-board-rpg/tree/5b9beaba242ea9e00f6a97e47604e190aeac9e29)
++提交：`5b9beaba242ea9e00f6a97e47604e190aeac9e29`
++
++## 已通過
++
++- 原版 76 個 Dart 檔案的語法解析；最終版 `lib/`、`test/` 與兩個獨立驗證工具共 83 個 Dart 檔案的語法解析。
++- 最終版全部 `lib/domain/` 與兩個獨立驗證工具的 Dart 靜態分析：無問題。
++- 27 個無 Flutter 套件依賴的核心測試：所有 31 職業 ID、每個職業只學一次、天賦傳承只加一次、失敗操作不改原資料、不可變狀態、存檔 v1–v6 遷移與錯誤存檔拒絕。
++- 10 組固定亂數種子的腳本化領域模型流程：240 場真實 `BattleSession` 勝利、每次六關完成、1,166 次存檔回讀邊界、7,996 個斷言。流程由學生 → 工程師 → 大導師，通關後轉生到第二世，僅帶入所選智力 +6 心得。
++- 六組 EQ、壓力與住宅戰鬥 HP 公式檢查。
++- 原專案 14 個 JSON、31 張 PNG、42 個 WAV 可解析，相對 Dart 引用可找到。
++- `git diff --check` 無空白錯誤。封裝完成後另檢查 ZIP CRC、檔案清單及基底套用補丁。
++
++這些流程是領域模型的腳本化測試，**不等於實際擲骰走圖、瀏覽器操作或 Flutter Widget 測試**。
++
++## 尚未執行／未通過驗收
++
++- 完整 `flutter pub get`、`flutter analyze`、`flutter test`
++- 新增的人生手帳 Widget 與回合控制整合測試的 Flutter 執行
++- `flutter build web`、瀏覽器畫面、按鈕操作、音訊時序、手機／Windows 實機與效能驗收
++
++已取得並校驗官方 Flutter 3.47.7／Dart 3.13.5，但 Flutter 套件啟動程序未完成。一次以 CI 模式避免雲端執行個體偵測的正常測試呼叫，最終收到 `automatic approval review was cancelled`，測試並未開始。沒有把語法解析當作 Flutter 編譯通過。
++
++既有 `analysis_options.yaml` 引用 `flutter_lints`，原 `pubspec.yaml` 卻未宣告它。本版加入官方 `flutter_lints: ^6.0.0`（SDK 條件 ^3.8.0）；原 `pubspec.lock` 保留不變，因此首次 `flutter pub get` 需要更新鎖定資料。
++
++## 在原專案確認
++
++先備份專案及舊存檔，再於專案根目錄執行：
++
++```bat
++flutter pub get
++flutter analyze
++flutter test
++flutter run -d chrome -t lib/main.dart
++```
++
++另有不需 Flutter 套件的驗證方式（需 Dart SDK）：
++
++```bat
++dart tools/verify_life_core.dart
++dart tools/verify_life_campaign.dart
++```
++
++第二個工具會在執行目錄產生 `life_campaign_report.json`；本次結果保存在 `docs/life_campaign_report.json`。
++
++人工驗收重點：舊檔讀取、同一季不重複結算、工作三次學心得、存檔失敗後重試、人生手帳低高度與窄螢幕、轉生取消／確認、轉生後棋子與角色／裝備同步、重整後世代與天賦保留。
+diff --git a/lib/application/turn_controller.dart b/lib/application/turn_controller.dart
+index 3cab74a..85c6e2e 100644
+--- a/lib/application/turn_controller.dart
++++ b/lib/application/turn_controller.dart
+@@ -3,6 +3,7 @@ import '../domain/models/board_tile.dart';
+ import '../domain/models/tile_event.dart';
+ import '../domain/models/player.dart';
+ import '../domain/services/dice_service.dart';
++import '../domain/services/life_service.dart';
+ import 'content_providers.dart';
+ import 'player_controller.dart';
+ 
+@@ -74,7 +75,10 @@ class TurnController extends Notifier<TurnState> {
+     final before = ref.read(playerProvider);
+     final effects = event.kind == TileKind.work
+       ? ref.read(jobManagerProvider).workEffects(before, option.effects) : option.effects;
+-    final after = before.apply(effects);
++    final changed = before.apply(effects);
++    final after = option.battleEnemyId == null
++      ? const LifeService().finishTurn(changed, activity: event.kind.name)
++      : changed;
+     ref.read(playerProvider.notifier).replace(after);
+     final actual = StatDelta(stamina: after.stamina-before.stamina,
+       intelligence: after.intelligence-before.intelligence,
+@@ -88,13 +92,16 @@ class TurnController extends Notifier<TurnState> {
+ 
+   void finishShop() {
+     if (state.phase != TurnPhase.resolving || !state.shopChoice) return;
+-    state = TurnState(dice: state.dice, message: '離開商店街，準備下一回合');
++    ref.read(playerProvider.notifier).replace(const LifeService().finishTurn(
++      ref.read(playerProvider), activity: 'shop'));
++    state = TurnState(dice: state.dice, message: '離開商店街，準備下一季');
+   }
+ 
+   void finishBattle(StatDelta delta, String message, {int experience = 0, Map<String,int>? inventory}) {
+     if (state.phase != TurnPhase.resolving || !state.battleChoice) return;
+     final updated = ref.read(playerProvider).apply(delta).gainExperience(experience).copyWith(inventory:inventory);
+-    ref.read(playerProvider.notifier).replace(updated);
++    ref.read(playerProvider.notifier).replace(
++      const LifeService().finishTurn(updated, activity: 'battle'));
+     state = TurnState(dice: state.dice, message: message);
+   }
+   String? finishResolution({String? targetJobId}) {
+@@ -112,6 +119,8 @@ class TurnController extends Notifier<TurnState> {
+         return error.toString();
+       }
+     }
++    ref.read(playerProvider.notifier).replace(const LifeService().finishTurn(
++      ref.read(playerProvider), activity: 'career'));
+     state = TurnState(dice: state.dice, message: message);
+     return null;
+   }
+diff --git a/lib/domain/models/battle.dart b/lib/domain/models/battle.dart
+index 4472a41..731cf21 100644
+--- a/lib/domain/models/battle.dart
++++ b/lib/domain/models/battle.dart
+@@ -49,7 +49,9 @@ class BattleImpact {
+ class BattleSession {
+   BattleSession(this.player, this.enemy, {Random? random, this.job}) : random = random ?? Random() {
+     potions = player.inventory['potion'] ?? 0; ethers = player.inventory['ether'] ?? 0;
+-    maxHp = 60 + min(player.stamina, 200) * 2 + equipmentHp(player);
++    maxHp = max(1, 60 + min(player.stamina, 200) * 2 + equipmentHp(player)
++      + (player.life.eq - 50) ~/ 10 - player.life.stress ~/ 10
++      + player.life.homeLevel * 3);
+     hp = maxHp; enemyHp = enemy.hp;
+     enemySp = min(2, enemy.maxSp);
+   }
+diff --git a/lib/domain/models/life_progress.dart b/lib/domain/models/life_progress.dart
+new file mode 100644
+index 0000000..6acc585
+--- /dev/null
++++ b/lib/domain/models/life_progress.dart
+@@ -0,0 +1,179 @@
++import 'json_checks.dart';
++
++/// Original life-simulation rules: four turns are one year, starting at 18.
++///
++/// The const constructor creates a fresh life with immutable empty collections.
++/// Use [copyWith] to add practice or skills; it defensively copies both inputs.
++class LifeProgress {
++  static const int maxCounter = 1000000;
++
++  final int turns;
++  final int generation;
++  final int eq;
++  final int stress;
++  final int affection;
++  final int homeLevel;
++  final Map<String, int> jobPractice;
++  final List<String> learnedSkills;
++  final String? inheritedSkill;
++
++  const LifeProgress({
++    this.turns = 0,
++    this.generation = 1,
++    this.eq = 50,
++    this.stress = 0,
++    this.affection = 0,
++    this.homeLevel = 0,
++  }) : jobPractice = const {},
++       learnedSkills = const [],
++       inheritedSkill = null,
++       assert(turns >= 0 && turns <= maxCounter),
++       assert(generation >= 1 && generation <= maxCounter),
++       assert(eq >= 0 && eq <= 100),
++       assert(stress >= 0 && stress <= 100),
++       assert(affection >= 0 && affection <= 100),
++       assert(homeLevel >= 0 && homeLevel <= 2);
++
++  const LifeProgress._({
++    required this.turns,
++    required this.generation,
++    required this.eq,
++    required this.stress,
++    required this.affection,
++    required this.homeLevel,
++    required this.jobPractice,
++    required this.learnedSkills,
++    required this.inheritedSkill,
++  });
++
++  int get age => 18 + turns ~/ 4;
++  int get seasonIndex => turns % 4;
++  String get season => const ['春', '夏', '秋', '冬'][seasonIndex];
++
++  LifeProgress copyWith({
++    int? turns,
++    int? generation,
++    int? eq,
++    int? stress,
++    int? affection,
++    int? homeLevel,
++    Map<String, int>? jobPractice,
++    List<String>? learnedSkills,
++    String? inheritedSkill,
++    bool clearInheritedSkill = false,
++  }) {
++    final next = LifeProgress._(
++      turns: turns ?? this.turns,
++      generation: generation ?? this.generation,
++      eq: eq ?? this.eq,
++      stress: stress ?? this.stress,
++      affection: affection ?? this.affection,
++      homeLevel: homeLevel ?? this.homeLevel,
++      jobPractice: jobPractice == null
++          ? this.jobPractice
++          : Map<String, int>.unmodifiable(jobPractice),
++      learnedSkills: learnedSkills == null
++          ? this.learnedSkills
++          : List<String>.unmodifiable(learnedSkills),
++      inheritedSkill: clearInheritedSkill
++          ? null
++          : inheritedSkill ?? this.inheritedSkill,
++    );
++    next._validate();
++    return next;
++  }
++
++  void _validate({Set<String>? validJobIds}) {
++    void inRange(int value, int minimum, int maximum, String name) {
++      if (value < minimum || value > maximum) {
++        throw FormatException('life.$name 超出有效範圍');
++      }
++    }
++
++    void checkJob(String id) {
++      if (id.trim().isEmpty ||
++          (validJobIds != null && !validJobIds.contains(id))) {
++        throw const FormatException('人生技能或熟練度的職業不存在');
++      }
++    }
++
++    inRange(turns, 0, maxCounter, 'turns');
++    inRange(generation, 1, maxCounter, 'generation');
++    inRange(eq, 0, 100, 'eq');
++    inRange(stress, 0, 100, 'stress');
++    inRange(affection, 0, 100, 'affection');
++    inRange(homeLevel, 0, 2, 'homeLevel');
++    for (final entry in jobPractice.entries) {
++      checkJob(entry.key);
++      inRange(entry.value, 0, maxCounter, 'jobPractice');
++    }
++    for (final skill in learnedSkills) {
++      checkJob(skill);
++    }
++    if (learnedSkills.toSet().length != learnedSkills.length) {
++      throw const FormatException('人生技能不可重複');
++    }
++    if (inheritedSkill != null) {
++      checkJob(inheritedSkill!);
++      if (!learnedSkills.contains(inheritedSkill)) {
++        throw const FormatException('傳承技能必須列入已習得技能');
++      }
++    }
++  }
++
++  Map<String, dynamic> toJson() {
++    _validate();
++    return {
++      'turns': turns,
++      'generation': generation,
++      'eq': eq,
++      'stress': stress,
++      'affection': affection,
++      'homeLevel': homeLevel,
++      'jobPractice': jobPractice,
++      'learnedSkills': learnedSkills,
++      'inheritedSkill': inheritedSkill,
++    };
++  }
++
++  factory LifeProgress.fromJson(
++    Map<String, dynamic> json,
++    Set<String> validJobIds,
++  ) {
++    checkKeys(json, {
++      'turns',
++      'generation',
++      'eq',
++      'stress',
++      'affection',
++      'homeLevel',
++      'jobPractice',
++      'learnedSkills',
++      'inheritedSkill',
++    }, 'life');
++    final practice = jsonObject(json['jobPractice'], 'life.jobPractice');
++    final life = LifeProgress._(
++      turns: jsonInt(json['turns'], 'life.turns'),
++      generation: jsonInt(json['generation'], 'life.generation'),
++      eq: jsonInt(json['eq'], 'life.eq'),
++      stress: jsonInt(json['stress'], 'life.stress'),
++      affection: jsonInt(json['affection'], 'life.affection'),
++      homeLevel: jsonInt(json['homeLevel'], 'life.homeLevel'),
++      jobPractice: Map<String, int>.unmodifiable({
++        for (final entry in practice.entries)
++          entry.key: jsonInt(entry.value, 'life.jobPractice.${entry.key}'),
++      }),
++      learnedSkills: List<String>.unmodifiable(
++        jsonList(
++          json['learnedSkills'],
++          'life.learnedSkills',
++        ).map((value) => jsonText(value, 'life.learnedSkills')),
++      ),
++      inheritedSkill: json['inheritedSkill'] == null
++          ? null
++          : jsonText(json['inheritedSkill'], 'life.inheritedSkill'),
++    );
++    life._validate(validJobIds: validJobIds);
++    return life;
++  }
++}
+diff --git a/lib/domain/models/player.dart b/lib/domain/models/player.dart
+index 44b36df..8ec646c 100644
+--- a/lib/domain/models/player.dart
++++ b/lib/domain/models/player.dart
+@@ -1,4 +1,5 @@
+ import 'json_checks.dart';
++import 'life_progress.dart';
+ 
+ enum CharacterGender { male, female }
+ 
+@@ -34,6 +35,7 @@ class StatDelta {
+ }
+ 
+ class Player {
++  final LifeProgress life;
+   final int position, stamina, intelligence, charm, morality, money, experience;
+   final int clearedStages, stageWins;
+   int get currentStage => clearedStages < 6 ? clearedStages + 1 : 6;
+@@ -43,7 +45,7 @@ class Player {
+   final String weaponId, armorId, accessoryId;
+   final Map<String,int> inventory;
+   String get displayName => gender == CharacterGender.male ? '阿晨' : '小晴';
+-  const Player({this.clearedStages = 0, this.stageWins = 0, this.position = 0, this.stamina = 10, this.intelligence = 10,
++  const Player({this.life = const LifeProgress(), this.clearedStages = 0, this.stageWins = 0, this.position = 0, this.stamina = 10, this.intelligence = 10,
+     this.charm = 10, this.morality = 10, this.money = 1000, this.jobId = 'unemployed', this.experience = 0, this.gender = CharacterGender.male,
+     this.armorId = 'none', this.accessoryId = 'none', this.weaponId = 'none', this.inventory = const {'potion':2,'ether':1}});
+ 
+@@ -51,13 +53,15 @@ class Player {
+     Stat.stamina => stamina, Stat.intelligence => intelligence,
+     Stat.charm => charm, Stat.morality => morality, Stat.money => money,
+   };
+-  Player copyWith({int? clearedStages, int? stageWins, int? position, String? jobId, int? experience, CharacterGender? gender, String? armorId, String? accessoryId, String? weaponId, Map<String,int>? inventory}) => Player(
++  Player copyWith({LifeProgress? life, int? clearedStages, int? stageWins, int? position, String? jobId, int? experience, CharacterGender? gender, String? armorId, String? accessoryId, String? weaponId, Map<String,int>? inventory}) => Player(
++    life: life ?? this.life,
+     clearedStages: clearedStages ?? this.clearedStages, stageWins: stageWins ?? this.stageWins,
+     armorId: armorId ?? this.armorId, accessoryId: accessoryId ?? this.accessoryId,
+     gender: gender ?? this.gender, weaponId: weaponId ?? this.weaponId, inventory: inventory == null ? this.inventory : Map.unmodifiable(inventory),
+     position: position ?? this.position, jobId: jobId ?? this.jobId,
+     stamina: stamina, intelligence: intelligence, charm: charm, morality: morality, money: money, experience: experience ?? this.experience);
+   Player apply(StatDelta d) => Player(clearedStages: clearedStages, stageWins: stageWins, position: position, jobId: jobId, experience: experience,
++    life: life,
+     armorId: armorId, accessoryId: accessoryId,
+     gender: gender, weaponId: weaponId, inventory: inventory,
+     stamina: _floor(stamina + d.stamina),
+diff --git a/lib/domain/models/save_data.dart b/lib/domain/models/save_data.dart
+index 6c7ba11..9efa8b2 100644
+--- a/lib/domain/models/save_data.dart
++++ b/lib/domain/models/save_data.dart
+@@ -1,6 +1,7 @@
+ import 'dart:convert';
+ import 'board_tile.dart';
+ import 'json_checks.dart';
++import 'life_progress.dart';
+ import 'player.dart';
+ import 'shop_item.dart';
+ 
+@@ -10,9 +11,10 @@ class SaveData {
+   const SaveData(this.player, this.savedAt);
+ 
+   String encode() => jsonEncode({
+-    'schemaVersion': 6,
++    'schemaVersion': 7,
+     'savedAt': savedAt.toUtc().toIso8601String(),
+     'player': {
++      'life': player.life.toJson(),
+       'clearedStages':player.clearedStages, 'stageWins':player.stageWins,
+       'position': player.position, 'stamina': player.stamina,
+       'intelligence': player.intelligence, 'charm': player.charm,
+@@ -26,11 +28,11 @@ class SaveData {
+     final root = jsonObject(jsonDecode(raw), 'save');
+     checkKeys(root, {'schemaVersion', 'savedAt', 'player'}, 'save');
+     final version = jsonInt(root['schemaVersion'], 'schemaVersion');
+-    if (version < 1 || version > 6) {
++    if (version < 1 || version > 7) {
+       throw const FormatException('不支援的存檔版本，原存檔已保留');
+     }
+     final p = jsonObject(root['player'], 'player');
+-    checkKeys(p, {'position', 'stamina', 'intelligence', 'charm', 'money', 'jobId', if (version >= 2) 'experience', if (version >= 3) 'morality', if (version >= 4) ...['gender','weaponId','inventory'], if(version>=5) ...['clearedStages','stageWins'], if(version>=6) ...['armorId','accessoryId']}, 'player');
++    checkKeys(p, {'position', 'stamina', 'intelligence', 'charm', 'money', 'jobId', if (version >= 2) 'experience', if (version >= 3) 'morality', if (version >= 4) ...['gender','weaponId','inventory'], if(version>=5) ...['clearedStages','stageWins'], if(version>=6) ...['armorId','accessoryId'], if(version>=7) 'life'}, 'player');
+     int nonnegative(String key) {
+       final value = jsonInt(p[key], key);
+       if (value < 0) throw FormatException('$key 不可為負數');
+@@ -79,7 +81,10 @@ class SaveData {
+     if (!validJobIds.contains(jobId)) throw const FormatException('存檔職業不存在');
+     final date = DateTime.tryParse(jsonText(root['savedAt'], 'savedAt'));
+     if (date == null) throw const FormatException('存檔時間格式錯誤');
+-    return SaveData(Player(armorId:armor,accessoryId:accessory,clearedStages:cleared, stageWins:wins, gender:gender,weaponId:weapon,inventory:inventory,position: position, stamina: nonnegative('stamina'),
++    final life = version >= 7
++      ? LifeProgress.fromJson(jsonObject(p['life'], 'player.life'), validJobIds)
++      : const LifeProgress();
++    return SaveData(Player(life:life,armorId:armor,accessoryId:accessory,clearedStages:cleared, stageWins:wins, gender:gender,weaponId:weapon,inventory:inventory,position: position, stamina: nonnegative('stamina'),
+       intelligence: nonnegative('intelligence'), charm: nonnegative('charm'),
+       money: nonnegative('money'), morality: version < 3 ? 10 : nonnegative('morality'), jobId: jobId, experience: version == 1 ? 0 : nonnegative('experience')), date);
+   }
+diff --git a/lib/domain/services/life_service.dart b/lib/domain/services/life_service.dart
+new file mode 100644
+index 0000000..32b6356
+--- /dev/null
++++ b/lib/domain/services/life_service.dart
+@@ -0,0 +1,221 @@
++import '../models/life_progress.dart';
++import '../models/player.dart';
++
++/// Pure, original life rules inspired by a board-game life/career loop.
++/// Perks are permanent base-stat gains, granted once per learned skill per life.
++/// They are not the active combat techniques defined in the jobs catalog.
++class LifeService {
++  const LifeService();
++
++  static const activities = {
++    'work',
++    'career',
++    'battle',
++    'luck',
++    'penalty',
++    'shop',
++  };
++  static const actions = {'study', 'exercise', 'socialize', 'rest', 'buyHome'};
++  static const practiceToLearn = 3;
++  static const reincarnationAge = 60;
++
++  /// Resolves one board landing after its event, career, shop, or battle ends.
++  /// Event settlement owns money/rewards; this method never takes money.
++  Player finishTurn(Player p, {required String activity}) {
++    if (!activities.contains(activity)) {
++      throw ArgumentError.value(activity, 'activity', '未知的人生活動');
++    }
++    _requireNextTurn(p.life);
++    final eqChange = switch (activity) {
++      'career' => 2,
++      'work' || 'battle' || 'luck' => 1,
++      _ => 0,
++    };
++    final stressChange = switch (activity) {
++      'work' => 4,
++      'career' => 1,
++      'battle' => 5,
++      'luck' => -2,
++      'penalty' => 6,
++      _ => -1,
++    };
++    var life = p.life.copyWith(
++      turns: p.life.turns + 1,
++      eq: _meter(p.life.eq + eqChange),
++      stress: _meter(p.life.stress + stressChange - p.life.homeLevel),
++    );
++    var next = p;
++    if (activity == 'work') {
++      // Validate before changing anything, even when the perk is already known.
++      final bonus = skillBonus(p.jobId);
++      final practice = (life.jobPractice[p.jobId] ?? 0) + 1;
++      life = life.copyWith(
++        jobPractice: {...life.jobPractice, p.jobId: practice},
++      );
++      if (practice >= practiceToLearn &&
++          !life.learnedSkills.contains(p.jobId)) {
++        life = life.copyWith(learnedSkills: [...life.learnedSkills, p.jobId]);
++        next = next.apply(bonus);
++      }
++    }
++    return next.copyWith(life: life);
++  }
++
++  /// Each successful action costs one season. Failed validation changes nothing.
++  Player lifeAction(Player p, String action) {
++    if (!actions.contains(action)) {
++      throw ArgumentError.value(action, 'action', '未知的人生選擇');
++    }
++    _requireNextTurn(p.life);
++    final cost = switch (action) {
++      'study' => 200,
++      'exercise' => 100,
++      'socialize' => 150,
++      'buyHome' => homeCost(p),
++      _ => 0,
++    };
++    if (action == 'buyHome' && p.life.homeLevel >= 2) {
++      throw StateError('家園已達最高等級');
++    }
++    if (p.money < cost) throw StateError('金錢不足，需要 $cost');
++    final delta = switch (action) {
++      'study' => StatDelta(money: -cost, intelligence: 5),
++      'exercise' => StatDelta(money: -cost, stamina: 5),
++      _ => StatDelta(money: -cost),
++    };
++    final stressChange = switch (action) {
++      'study' => 3,
++      'exercise' => -4,
++      'socialize' => -3,
++      'rest' => -12,
++      _ => 0,
++    };
++    return p
++        .apply(delta)
++        .copyWith(
++          life: p.life.copyWith(
++            turns: p.life.turns + 1,
++            eq: _meter(p.life.eq + (action == 'socialize' ? 3 : 0)),
++            stress: _meter(p.life.stress + stressChange),
++            affection: _meter(
++              p.life.affection + (action == 'socialize' ? 8 : 0),
++            ),
++            homeLevel: p.life.homeLevel + (action == 'buyHome' ? 1 : 0),
++          ),
++        );
++  }
++
++  int homeCost(Player p) => switch (p.life.homeLevel) {
++    0 => 2500,
++    1 => 6500,
++    _ => 0,
++  };
++
++  String actionDescription(String action) => switch (action) {
++    'study' => '花費 200 · 智力 +5 · 壓力 +3',
++    'exercise' => '花費 100 · 體力 +5 · 壓力 −4',
++    'socialize' => '花費 150 · 好感 +8 · EQ +3 · 壓力 −3',
++    'rest' => '免費 · 壓力 −12',
++    'buyHome' => '首購 2500／升級 6500 · 每級家園使棋盤回合壓力減少 1',
++    _ => throw ArgumentError.value(action, 'action', '未知的人生選擇'),
++  };
++
++  bool canReincarnate(Player p) =>
++      p.campaignComplete || p.life.age >= reincarnationAge;
++
++  /// Starts a fresh campaign, retaining gender and at most one chosen perk.
++  /// All old stat growth is discarded before the chosen bonus is applied once.
++  Player reincarnate(Player p, {String? inheritSkill}) {
++    if (!canReincarnate(p)) throw StateError('完成六章試煉或年滿 60 歲後可轉生');
++    if (p.life.generation >= LifeProgress.maxCounter) {
++      throw StateError('世代已達記錄上限');
++    }
++    if (inheritSkill != null &&
++        !p.life.learnedSkills.contains(inheritSkill) &&
++        p.life.inheritedSkill != inheritSkill) {
++      throw StateError('只能傳承已習得的技能');
++    }
++    final bonus = inheritSkill == null
++        ? const StatDelta()
++        : skillBonus(inheritSkill);
++    final life = LifeProgress(generation: p.life.generation + 1).copyWith(
++      learnedSkills: inheritSkill == null ? const [] : [inheritSkill],
++      inheritedSkill: inheritSkill,
++    );
++    return Player(gender: p.gender, life: life).apply(bonus);
++  }
++
++  /// No JSON/catalog dependency: IDs match the shipped job tree.
++  /// Tier 1/2/3 perks grant +2/+4/+6 to their specialty; root grants +1.
++  StatDelta skillBonus(String id) {
++    final amount = switch (id) {
++      'unemployed' => 1,
++      'student' || 'part_timer' || 'apprentice' || 'adventurer' => 2,
++      'engineer' ||
++      'artist' ||
++      'warrior' ||
++      'scholar' ||
++      'doctor' ||
++      'mage' ||
++      'ranger' ||
++      'merchant' ||
++      'alchemist' ||
++      'bard' ||
++      'chef' ||
++      'guardian' ||
++      'dancer' ||
++      'beast_tamer' => 4,
++      'president' ||
++      'mentor' ||
++      'hero' ||
++      'archmage' ||
++      'paladin' ||
++      'ranger_master' ||
++      'sage' ||
++      'maestro' ||
++      'gourmet_master' ||
++      'warlord' ||
++      'celestial_dancer' ||
++      'dragon_tamer' => 6,
++      _ => throw ArgumentError.value(id, 'id', '未知的職業技能'),
++    };
++    return switch (id) {
++      'unemployed' ||
++      'student' ||
++      'apprentice' ||
++      'engineer' ||
++      'scholar' ||
++      'mage' ||
++      'alchemist' ||
++      'mentor' ||
++      'archmage' ||
++      'sage' => StatDelta(intelligence: amount),
++      'part_timer' ||
++      'adventurer' ||
++      'warrior' ||
++      'ranger' ||
++      'chef' ||
++      'guardian' ||
++      'gourmet_master' ||
++      'warlord' => StatDelta(stamina: amount),
++      'artist' ||
++      'merchant' ||
++      'bard' ||
++      'dancer' ||
++      'president' ||
++      'ranger_master' ||
++      'maestro' ||
++      'celestial_dancer' => StatDelta(charm: amount),
++      _ => StatDelta(morality: amount),
++    };
++  }
++
++  String skillDescription(String id) =>
++      '${skillBonus(id).summary}（習得時永久增加；轉生可擇一傳承）';
++
++  void _requireNextTurn(LifeProgress life) {
++    if (life.turns >= LifeProgress.maxCounter) throw StateError('回合已達記錄上限');
++  }
++
++  int _meter(int value) => value.clamp(0, 100).toInt();
++}
+diff --git a/lib/presentation/screens/game_screen.dart b/lib/presentation/screens/game_screen.dart
+index 441fdab..5aca187 100644
+--- a/lib/presentation/screens/game_screen.dart
++++ b/lib/presentation/screens/game_screen.dart
+@@ -4,6 +4,8 @@ import '../../domain/services/stage_service.dart';
+ import 'shop_screen.dart';
+ import 'equipment_screen.dart';
+ import 'victory_screen.dart';
++import 'life_journal_screen.dart';
++import '../../domain/services/life_service.dart';
+ import '../../domain/services/shop_service.dart';
+ import 'dart:convert';
+ import 'dart:math';
+@@ -129,7 +131,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
+                 const Text('人生棋盤', style: TextStyle(fontSize: 48,
+                   fontWeight: FontWeight.bold, color: Color(0xFF2B584E))),
+                 const SizedBox(height: 12),
+-                const Text('把日常，玩成冒險。\n每一步都有新的可能。', style: TextStyle(fontSize: 20, height: 1.7)),
++                const Text('擲骰走過四季，學會一生的本領。\n把這一世的成長，帶往下一世。', style: TextStyle(fontSize: 20, height: 1.7)),
+                 const SizedBox(height: 28),
+                 FilledButton.icon(onPressed: _enterGame,
+                   icon: const Icon(Icons.play_arrow_rounded), label: const Text('開始／繼續人生')),
+@@ -141,7 +143,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
+                   Expanded(child: Text(_saveMessage)),
+                 ]),
+                 const SizedBox(height: 8),
+-                const Text('右上角可開啟音樂與音效', style: TextStyle(fontSize: 13)),
++                const Text('每回合一季・人生手帳可培養、交友與轉生', style: TextStyle(fontSize: 13)),
+               ]),
+           )),
+         ))),
+@@ -172,6 +174,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
+       final saved = await ref.read(saveRepositoryProvider).load(ids);
+       if (!mounted) return;
+       final player = saved?.player ?? const Player();
++      _turnNumber = player.life.turns;
+       ref.read(playerProvider.notifier).replace(player);
+       setState(() {
+         _game = _createBoard(player.position);
+@@ -216,7 +219,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
+       final confirmed = await showDialog<bool>(context: context,
+         builder: (dialogContext) => AlertDialog(
+           title: const Text('重新開始？'),
+-          content: const Text('目前存檔將被新遊戲取代。位置、屬性、金錢與職業都會重置。'),
++          content: const Text('目前存檔將被全新第一世取代。位置、屬性、金錢、職業、裝備、人生關係、房屋與所有心得都會重置。若想保留一項心得，請取消並到人生手帳選擇轉生。'),
+           actions: [
+             TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('取消')),
+             FilledButton(onPressed: () => Navigator.pop(dialogContext, true), child: const Text('重新開始')),
+@@ -288,6 +291,48 @@ class _GameScreenState extends ConsumerState<GameScreen>
+     }
+   }
+ 
++  Future<void> _openLifeJournal() async {
++    if (!_canCustomize) return;
++    setState(() => _busy = true);
++    try {
++      await Navigator.of(context).push<Player>(MaterialPageRoute<Player>(builder: (_) => LifeJournalScreen(
++        player: ref.read(playerProvider),
++        jobTitle: (id) => ref.read(jobManagerProvider).byId(id).title,
++        onAction: (action) async {
++          final candidate = const LifeService().lifeAction(ref.read(playerProvider), action);
++          final saved = await _persistPlayer(candidate);
++          _record('${saved.life.age} 歲・${saved.life.season}季：${const LifeService().actionDescription(action)}');
++          return saved;
++        },
++        onReincarnate: (skill) async {
++          final candidate = const LifeService().reincarnate(ref.read(playerProvider), inheritSkill: skill);
++          final saved = await _persistPlayer(candidate);
++          if (!mounted) return saved;
++          ref.invalidate(turnProvider);
++          final game = _game;
++          if (game != null && game.isBoardReady) {
++            game.pawn.resetTo(game.pawnCenter(0));
++            game.changeCareer(saved.jobId, gender: saved.gender);
++            game.changeStage(saved.currentStage);
++            game.changeEquipment(EquipmentLook.fromPlayer(saved));
++          } else {
++            _game = _createBoard(0);
++          }
++          setState(() {
++            _turnNumber = 0;
++            _diceFace = null;
++            _history.clear();
++          });
++          _record('第 ${saved.life.generation} 世開始。${skill == null ? "不攜帶天賦，重新探索。" : "繼承 ${ref.read(jobManagerProvider).byId(skill).title} 天賦。"}');
++          unawaited(_audio.music(stageMusic(saved.currentStage)));
++          return saved;
++        },
++      )));
++    } finally {
++      if (mounted) setState(() => _busy = false);
++    }
++  }
++
+   Future<void> _openEquipment() async {
+     if(!_canCustomize)return;
+     setState(()=>_busy=true);
+@@ -331,7 +376,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
+     final steps = turns.beginTurn();
+     if (steps == null) return;
+     setState(() => _busy = true);
+-    _turnNumber++;
++    _turnNumber = ref.read(playerProvider).life.turns + 1;
+ 
+     unawaited(_audio.sfx('dice'));
+     try {
+@@ -576,6 +621,15 @@ class _GameScreenState extends ConsumerState<GameScreen>
+               label: Text(!_game!.isBoardReady ? '載入場景…' : turn.phase == TurnPhase.rolling ? '擲骰中…' : turn.phase == TurnPhase.moving ? '移動中…' :
+                 turn.phase == TurnPhase.resolving ? '處理事件中…' : '擲骰子 Roll Dice'),
+             )),
++            const SizedBox(height: 8),
++            Text('第 ${player.life.generation} 世 · ${player.life.age} 歲 · ${player.life.season}季',
++              style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF2B584E))),
++            Text('EQ ${player.life.eq} · 壓力 ${player.life.stress} · 已學天賦 ${player.life.learnedSkills.length}',
++              style: const TextStyle(fontSize: 12)),
++            OutlinedButton.icon(key: const ValueKey('open-life-journal'),
++              onPressed: _canCustomize ? _openLifeJournal : null,
++              icon: const Icon(Icons.auto_stories_outlined),
++              label: Text(const LifeService().canReincarnate(player) ? '人生手帳 · 可轉生' : '人生手帳 · 培養與生活')),
+             const SizedBox(height: 6),
+             Text(_saveMessage, style: TextStyle(fontSize: 12,
+               color: _saveError == null ? Colors.grey : Colors.red)),
+diff --git a/lib/presentation/screens/life_journal_screen.dart b/lib/presentation/screens/life_journal_screen.dart
+new file mode 100644
+index 0000000..27486da
+--- /dev/null
++++ b/lib/presentation/screens/life_journal_screen.dart
+@@ -0,0 +1,968 @@
++import 'package:flutter/material.dart';
++
++import '../../domain/models/player.dart';
++import '../../domain/services/life_service.dart';
++
++/// A quiet place to make life choices between trips around the board.
++/// All changes go through the application's persisted action callbacks.
++class LifeJournalScreen extends StatefulWidget {
++  final Player player;
++  final String Function(String) jobTitle;
++  final Future<Player> Function(String action) onAction;
++  final Future<Player> Function(String? skill) onReincarnate;
++
++  const LifeJournalScreen({
++    super.key,
++    required this.player,
++    required this.jobTitle,
++    required this.onAction,
++    required this.onReincarnate,
++  });
++
++  @override
++  State<LifeJournalScreen> createState() => _LifeJournalScreenState();
++}
++
++class _LifeJournalScreenState extends State<LifeJournalScreen> {
++  static const _ink = Color(0xFF244B43);
++  static const _teal = Color(0xFF3D7167);
++  static const _paper = Color(0xFFFFFAEF);
++  static const _muted = Color(0xFF68756B);
++  static const _gold = Color(0xFFB6853B);
++  static const _seasons = ['春', '夏', '秋', '冬'];
++  static const _lifeService = LifeService();
++
++  late Player _player = widget.player;
++  bool _busy = false;
++  bool _confirming = false;
++  String? _error;
++  String? _notice;
++
++  bool get _canReincarnate => _lifeService.canReincarnate(_player);
++
++  String get _relationshipTitle => switch (_player.life.affection) {
++    < 25 => '相識',
++    < 60 => '知己',
++    < 100 => '相伴',
++    _ => '長久羈絆',
++  };
++
++  int get _lifeHpBonus =>
++      (_player.life.eq - 50) ~/ 10 -
++      _player.life.stress ~/ 10 +
++      _player.life.homeLevel * 3;
++
++  String _money(int value) => '\$$value';
++
++  String get _homeTitle => switch (_player.life.homeLevel) {
++    0 => '尚未置產',
++    1 => '溫馨小屋',
++    _ => '舒適宅邸',
++  };
++
++  Future<void> _act(String action, String title) async {
++    if (_busy || _confirming) return;
++    setState(() {
++      _busy = true;
++      _error = null;
++      _notice = null;
++    });
++    try {
++      final updated = await widget.onAction(action);
++      if (!mounted) return;
++      setState(() {
++        _player = updated;
++        _notice = '$title完成。新的一季，繼續寫下你的人生。';
++      });
++    } catch (error) {
++      if (!mounted) return;
++      setState(() => _error = '這次行動未完成：$error');
++      ScaffoldMessenger.of(context)
++          .showSnackBar(SnackBar(content: Text(_error!)));
++    } finally {
++      if (mounted) setState(() => _busy = false);
++    }
++  }
++
++  Future<void> _reincarnate() async {
++    if (_busy || _confirming || !_canReincarnate) return;
++    setState(() => _confirming = true);
++    var selected = '';
++    final skills = _player.life.learnedSkills.toSet().toList();
++    final choice = await showDialog<_InheritanceChoice>(
++      context: context,
++      builder: (dialogContext) => StatefulBuilder(
++        builder: (context, updateDialog) => AlertDialog(
++          key: const ValueKey('life-reincarnation-dialog'),
++          scrollable: true,
++          title: const Text('翻開下一段人生？'),
++          content: SizedBox(
++            width: 400,
++            child: Column(
++              mainAxisSize: MainAxisSize.min,
++              crossAxisAlignment: CrossAxisAlignment.start,
++              children: [
++                Text('第 ${_player.life.generation + 1} 世，從 18 歲重新出發。'),
++                const SizedBox(height: 12),
++                const Text(
++                  '這會重設本世的金錢、裝備、道具、職業、屬性與棋盤關卡進度，'
++                  '也會重設人際關係、房屋與職業練習。性別保留，世代數加一。',
++                  style: TextStyle(height: 1.6),
++                ),
++                const SizedBox(height: 12),
++                const Text(
++                  '可以選擇一項已學會的職業心得，把它的屬性加成帶進下一世。'
++                  '其他已學心得不會保留，也可以不選擇傳承。此操作不能復原。',
++                  style: TextStyle(height: 1.6),
++                ),
++                const SizedBox(height: 20),
++                InputDecorator(
++                  decoration: const InputDecoration(
++                    labelText: '傳承一項職業心得',
++                    border: OutlineInputBorder(),
++                  ),
++                  child: DropdownButtonHideUnderline(
++                    child: DropdownButton<String>(
++                      key: const ValueKey('life-inherit-skill'),
++                      value: selected,
++                      isExpanded: true,
++                      isDense: true,
++                      items: [
++                        const DropdownMenuItem(
++                          value: '',
++                          child: Text(
++                            '不傳承，重新開始',
++                            overflow: TextOverflow.ellipsis,
++                          ),
++                        ),
++                        for (final id in skills)
++                          DropdownMenuItem(
++                            value: id,
++                            child: Text(
++                              '${widget.jobTitle(id)}心得',
++                              overflow: TextOverflow.ellipsis,
++                            ),
++                          ),
++                      ],
++                      onChanged: (value) =>
++                          updateDialog(() => selected = value ?? ''),
++                    ),
++                  ),
++                ),
++                if (skills.isEmpty) ...[
++                  const SizedBox(height: 10),
++                  const Text(
++                    '本世尚未學會職業心得，仍然可以開啟下一世。',
++                    style: TextStyle(color: _muted, fontSize: 12),
++                  ),
++                ],
++                if (selected.isNotEmpty) ...[
++                  const SizedBox(height: 12),
++                  Text(
++                    _lifeService.skillDescription(selected),
++                    style: const TextStyle(color: _teal, height: 1.5),
++                  ),
++                ],
++              ],
++            ),
++          ),
++          actions: [
++            TextButton(
++              key: const ValueKey('life-reincarnation-cancel'),
++              onPressed: () => Navigator.pop(dialogContext),
++              child: const Text('留在這一世'),
++            ),
++            FilledButton(
++              key: const ValueKey('life-reincarnation-confirm'),
++              onPressed: () => Navigator.pop(
++                dialogContext,
++                _InheritanceChoice(selected.isEmpty ? null : selected),
++              ),
++              child: const Text('確認轉生'),
++            ),
++          ],
++        ),
++      ),
++    );
++    if (!mounted) return;
++    setState(() => _confirming = false);
++    if (choice == null) return;
++    setState(() {
++      _busy = true;
++      _error = null;
++      _notice = null;
++    });
++    try {
++      final updated = await widget.onReincarnate(choice.skill);
++      if (!mounted) return;
++      setState(() {
++        _player = updated;
++        _busy = false;
++      });
++      // Let PopScope see the completed state before dismissing this route.
++      await WidgetsBinding.instance.endOfFrame;
++      if (mounted) Navigator.pop(context, updated);
++    } catch (error) {
++      if (!mounted) return;
++      setState(() {
++        _error = '轉生未完成：$error';
++        _busy = false;
++      });
++      ScaffoldMessenger.of(context)
++          .showSnackBar(SnackBar(content: Text(_error!)));
++    }
++  }
++
++  @override
++  Widget build(BuildContext context) => PopScope(
++    canPop: !_busy,
++    child: Scaffold(
++      backgroundColor: const Color(0xFFF1EBDC),
++      appBar: AppBar(
++        title: const Text('人生手帳'),
++        backgroundColor: _paper,
++        foregroundColor: _ink,
++        leading: IconButton(
++          key: const ValueKey('life-journal-back'),
++          tooltip: '返回棋盤',
++          onPressed: _busy ? null : () => Navigator.pop(context, _player),
++          icon: const Icon(Icons.arrow_back),
++        ),
++      ),
++      body: SafeArea(
++        top: false,
++        child: Center(
++          child: ConstrainedBox(
++            constraints: const BoxConstraints(maxWidth: 1040),
++            child: ListView(
++              key: const ValueKey('life-journal-scroll'),
++              padding: const EdgeInsets.fromLTRB(18, 20, 18, 32),
++              children: [
++                _hero(context),
++                const SizedBox(height: 20),
++                _wellbeing(context),
++                const SizedBox(height: 12),
++                Text(
++                  '生活狀態影響戰鬥最大 HP：目前 ${_lifeHpBonus >= 0 ? '+' : ''}$_lifeHpBonus。'
++                  'EQ 高於 50 的每 10 點約 +1，低於 50 則相反；'
++                  '每 10 點壓力 −1，每級家園 +3。',
++                  style: const TextStyle(
++                    color: _muted,
++                    fontSize: 12,
++                    height: 1.6,
++                  ),
++                ),
++                const SizedBox(height: 18),
++                _goals(),
++                const SizedBox(height: 24),
++                _sectionTitle(context, '01', '把日子過成喜歡的樣子', '每次行動花一季，四季為一年。'),
++                const SizedBox(height: 12),
++                if (_busy)
++                  const Padding(
++                    padding: EdgeInsets.only(bottom: 12),
++                    child: LinearProgressIndicator(
++                      key: ValueKey('life-action-progress'),
++                      semanticsLabel: '正在儲存人生進度',
++                      color: _teal,
++                    ),
++                  ),
++                if (_error != null) _feedback(_error!, isError: true),
++                if (_notice != null) _feedback(_notice!, isError: false),
++                _actions(),
++                const SizedBox(height: 26),
++                _sectionTitle(
++                  context,
++                  '02',
++                  '一路累積的本領',
++                  '在同一職業完成 3 次打工，學會專屬心得。',
++                ),
++                const SizedBox(height: 12),
++                _careers(context),
++                const SizedBox(height: 26),
++                _reincarnationCard(context),
++                const SizedBox(height: 20),
++                const Text(
++                  '原創人生棋盤玩法，以經典人生桌遊類型為靈感，'
++                  '融合四季成長、職業心得與轉生傳承。'
++                  '每一步選擇，都是屬於你的故事。',
++                  textAlign: TextAlign.center,
++                  style: TextStyle(color: _muted, height: 1.6, fontSize: 12),
++                ),
++              ],
++            ),
++          ),
++        ),
++      ),
++    ),
++  );
++
++  Widget _hero(BuildContext context) {
++    final life = _player.life;
++    return Container(
++      padding: const EdgeInsets.all(24),
++      decoration: BoxDecoration(
++        gradient: const LinearGradient(
++          begin: Alignment.topLeft,
++          end: Alignment.bottomRight,
++          colors: [_ink, _teal],
++        ),
++        borderRadius: BorderRadius.circular(26),
++      ),
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          Wrap(
++            spacing: 8,
++            runSpacing: 8,
++            crossAxisAlignment: WrapCrossAlignment.center,
++            children: [
++              const Icon(
++                Icons.auto_stories_outlined,
++                color: Color(0xFFE2CFA8),
++                size: 20,
++              ),
++              Text(
++                '第 ${life.generation} 世的人生',
++                style: const TextStyle(color: Color(0xFFE2CFA8)),
++              ),
++            ],
++          ),
++          const SizedBox(height: 14),
++          Text(
++            '${_player.displayName}的四季',
++            style: Theme.of(context).textTheme.headlineMedium
++                ?.copyWith(color: _paper, fontWeight: FontWeight.w700),
++          ),
++          const SizedBox(height: 6),
++          const Text(
++            '旅途之外，也為自己留一點時間。',
++            style: TextStyle(color: Color(0xFFD4E1D7), height: 1.5),
++          ),
++          const SizedBox(height: 22),
++          Wrap(
++            spacing: 10,
++            runSpacing: 10,
++            children: [
++              _heroTag(Icons.cake_outlined, '${life.age} 歲', 'life-age'),
++              _heroTag(
++                Icons.eco_outlined,
++                '${_seasons[life.turns % 4]}季',
++                'life-season',
++              ),
++              _heroTag(
++                Icons.work_outline,
++                widget.jobTitle(_player.jobId),
++                'life-job',
++              ),
++              _heroTag(
++                Icons.savings_outlined,
++                _money(_player.money),
++                'life-money',
++              ),
++            ],
++          ),
++          const SizedBox(height: 14),
++          Text(
++            '已走過 ${life.turns} 季 · 體力 ${_player.stamina} · 智力 ${_player.intelligence}',
++            style: const TextStyle(
++              color: Color(0xFFD4E1D7),
++              height: 1.5,
++              fontSize: 12,
++            ),
++          ),
++        ],
++      ),
++    );
++  }
++
++  Widget _heroTag(IconData icon, String label, String key) => Container(
++    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
++    decoration: BoxDecoration(
++      color: Colors.white.withValues(alpha: .1),
++      borderRadius: BorderRadius.circular(14),
++      border: Border.all(color: Colors.white.withValues(alpha: .16)),
++    ),
++    child: Row(
++      mainAxisSize: MainAxisSize.min,
++      children: [
++        Icon(icon, size: 17, color: const Color(0xFFE2CFA8)),
++        const SizedBox(width: 7),
++        Flexible(
++          child: Text(
++            label,
++            key: ValueKey(key),
++            style: const TextStyle(color: _paper, fontWeight: FontWeight.w600),
++          ),
++        ),
++      ],
++    ),
++  );
++
++  Widget _wellbeing(BuildContext context) => LayoutBuilder(
++    builder: (context, constraints) {
++      final columns = constraints.maxWidth >= 700 ? 4 : 2;
++      final width = (constraints.maxWidth - 10 * (columns - 1)) / columns;
++      return Wrap(
++        spacing: 10,
++        runSpacing: 10,
++        children: [
++          _metric(
++            width,
++            Icons.psychology_outlined,
++            '情緒智慧 EQ',
++            _player.life.eq,
++            _teal,
++          ),
++          _metric(
++            width,
++            Icons.air,
++            '壓力',
++            _player.life.stress,
++            const Color(0xFFAD754D),
++          ),
++          _metric(
++            width,
++            Icons.favorite_border,
++            '關係 · $_relationshipTitle',
++            _player.life.affection,
++            const Color(0xFFB27577),
++          ),
++          Container(
++            width: width,
++            padding: const EdgeInsets.all(15),
++            decoration: _cardDecoration(),
++            child: Column(
++              crossAxisAlignment: CrossAxisAlignment.start,
++              children: [
++                const Icon(Icons.cottage_outlined, color: _gold, size: 22),
++                const SizedBox(height: 9),
++                const Text(
++                  '我的家',
++                  style: TextStyle(color: _muted, fontSize: 12),
++                ),
++                const SizedBox(height: 5),
++                Text(
++                  _homeTitle,
++                  key: const ValueKey('life-home'),
++                  style: const TextStyle(
++                    fontWeight: FontWeight.w700,
++                    color: _ink,
++                    fontSize: 16,
++                  ),
++                ),
++                const SizedBox(height: 8),
++                Text(
++                  '房屋等級 ${_player.life.homeLevel} / 2',
++                  style: const TextStyle(color: _muted, fontSize: 12),
++                ),
++              ],
++            ),
++          ),
++        ],
++      );
++    },
++  );
++
++  Widget _metric(
++    double width,
++    IconData icon,
++    String label,
++    int value,
++    Color color,
++  ) => Container(
++    width: width,
++    padding: const EdgeInsets.all(15),
++    decoration: _cardDecoration(),
++    child: Column(
++      crossAxisAlignment: CrossAxisAlignment.start,
++      children: [
++        Icon(icon, color: color, size: 22),
++        const SizedBox(height: 9),
++        Text(label, style: const TextStyle(color: _muted, fontSize: 12)),
++        const SizedBox(height: 3),
++        Text(
++          '$value / 100',
++          style: const TextStyle(
++            fontWeight: FontWeight.w700,
++            color: _ink,
++            fontSize: 20,
++          ),
++        ),
++        const SizedBox(height: 8),
++        ClipRRect(
++          borderRadius: BorderRadius.circular(4),
++          child: LinearProgressIndicator(
++            minHeight: 4,
++            value: (value / 100).clamp(0.0, 1.0),
++            color: color,
++            backgroundColor: color.withValues(alpha: .13),
++            semanticsLabel: label,
++            semanticsValue: '$value / 100',
++          ),
++        ),
++      ],
++    ),
++  );
++
++  Widget _sectionTitle(
++    BuildContext context,
++    String number,
++    String title,
++    String subtitle,
++  ) => Row(
++    crossAxisAlignment: CrossAxisAlignment.start,
++    children: [
++      Container(
++        padding: const EdgeInsets.all(8),
++        decoration: BoxDecoration(
++          color: _teal.withValues(alpha: .1),
++          borderRadius: BorderRadius.circular(10),
++        ),
++        child: Text(
++          number,
++          style: const TextStyle(color: _teal, fontWeight: FontWeight.w700),
++        ),
++      ),
++      const SizedBox(width: 12),
++      Expanded(
++        child: Column(
++          crossAxisAlignment: CrossAxisAlignment.start,
++          children: [
++            Text(
++              title,
++              style: Theme.of(context).textTheme.titleMedium
++                  ?.copyWith(color: _ink, fontWeight: FontWeight.w700),
++            ),
++            const SizedBox(height: 4),
++            Text(
++              subtitle,
++              style: const TextStyle(color: _muted, fontSize: 12, height: 1.5),
++            ),
++          ],
++        ),
++      ),
++    ],
++  );
++
++  Widget _goals() {
++    final goals = [
++      ('學會一項職業心得', _player.life.learnedSkills.isNotEmpty),
++      ('擁有自己的家', _player.life.homeLevel > 0),
++      ('建立相伴的關係', _player.life.affection >= 60),
++      ('完成六章人生試煉', _player.campaignComplete),
++    ];
++    return Container(
++      key: const ValueKey('life-goals'),
++      padding: const EdgeInsets.all(18),
++      decoration: _cardDecoration(),
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          const Text(
++            '這一世的目標',
++            style: TextStyle(
++              color: _ink,
++              fontWeight: FontWeight.w700,
++              fontSize: 16,
++            ),
++          ),
++          const SizedBox(height: 12),
++          for (var index = 0; index < goals.length; index++)
++            Padding(
++              padding: const EdgeInsets.symmetric(vertical: 5),
++              child: Semantics(
++                label: '${goals[index].$1}，${goals[index].$2 ? '已完成' : '尚未完成'}',
++                excludeSemantics: true,
++                child: Row(
++                  key: ValueKey('life-goal-$index'),
++                  children: [
++                    Icon(
++                      goals[index].$2
++                          ? Icons.check_circle
++                          : Icons.radio_button_unchecked,
++                      size: 19,
++                      color: goals[index].$2 ? _teal : const Color(0xFFB7BBA7),
++                    ),
++                    const SizedBox(width: 10),
++                    Expanded(
++                      child: Text(
++                        goals[index].$1,
++                        style: const TextStyle(color: _ink),
++                      ),
++                    ),
++                  ],
++                ),
++              ),
++            ),
++        ],
++      ),
++    );
++  }
++
++  Widget _feedback(String message, {required bool isError}) => Padding(
++    padding: const EdgeInsets.only(bottom: 12),
++    child: Semantics(
++      liveRegion: true,
++      child: Container(
++        key: ValueKey(isError ? 'life-action-error' : 'life-action-notice'),
++        padding: const EdgeInsets.all(14),
++        decoration: BoxDecoration(
++          color: isError ? const Color(0xFFFFE6DE) : const Color(0xFFE1EDE1),
++          borderRadius: BorderRadius.circular(14),
++        ),
++        child: Row(
++          crossAxisAlignment: CrossAxisAlignment.start,
++          children: [
++            Icon(
++              isError ? Icons.error_outline : Icons.check_circle_outline,
++              size: 20,
++              color: isError ? const Color(0xFF913F2D) : _teal,
++            ),
++            const SizedBox(width: 10),
++            Expanded(
++              child: Text(
++                message,
++                style: TextStyle(
++                  color: isError ? const Color(0xFF913F2D) : _ink,
++                  height: 1.5,
++                ),
++              ),
++            ),
++          ],
++        ),
++      ),
++    ),
++  );
++
++  Widget _actions() {
++    final homeMaxed = _player.life.homeLevel >= 2;
++    final options = [
++      _LifeAction(
++        'study',
++        '進修學習',
++        '讓好奇心帶你向前。',
++        _lifeService.actionDescription('study'),
++        200,
++        Icons.menu_book_outlined,
++      ),
++      _LifeAction(
++        'exercise',
++        '運動鍛鍊',
++        '為明天累積一點力氣。',
++        _lifeService.actionDescription('exercise'),
++        100,
++        Icons.directions_run,
++      ),
++      _LifeAction(
++        'socialize',
++        '相聚交心',
++        '把時間留給重要的人。',
++        _lifeService.actionDescription('socialize'),
++        150,
++        Icons.people_outline,
++      ),
++      _LifeAction(
++        'rest',
++        '放慢腳步',
++        '休息也是人生的一部分。',
++        _lifeService.actionDescription('rest'),
++        0,
++        Icons.spa_outlined,
++      ),
++      _LifeAction(
++        'buyHome',
++        homeMaxed
++            ? '安居生活'
++            : _player.life.homeLevel == 0
++            ? '安一個家'
++            : '升級家園',
++        homeMaxed
++            ? '已擁有最高等級的家園。'
++            : _player.life.homeLevel == 0
++            ? '把漂泊的日子安放下來。'
++            : '讓日常多一點從容與舒適。',
++        homeMaxed ? '家園已圓滿' : _lifeService.actionDescription('buyHome'),
++        _lifeService.homeCost(_player),
++        Icons.cottage_outlined,
++      ),
++    ];
++    return LayoutBuilder(
++      builder: (context, constraints) {
++        final columns = constraints.maxWidth >= 680 ? 2 : 1;
++        final width = (constraints.maxWidth - 12 * (columns - 1)) / columns;
++        return Wrap(
++          spacing: 12,
++          runSpacing: 12,
++          children: [
++            for (final action in options)
++              _actionCard(
++                action,
++                width,
++                maxed: action.id == 'buyHome' && homeMaxed,
++              ),
++          ],
++        );
++      },
++    );
++  }
++
++  Widget _actionCard(_LifeAction action, double width, {required bool maxed}) {
++    final affordable = _player.money >= action.cost;
++    return Container(
++      width: width,
++      padding: const EdgeInsets.all(18),
++      decoration: _cardDecoration(),
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          Row(
++            children: [
++              Container(
++                padding: const EdgeInsets.all(10),
++                decoration: BoxDecoration(
++                  color: _teal.withValues(alpha: .08),
++                  borderRadius: BorderRadius.circular(12),
++                ),
++                child: Icon(action.icon, color: _teal, size: 22),
++              ),
++              const SizedBox(width: 12),
++              Expanded(
++                child: Column(
++                  crossAxisAlignment: CrossAxisAlignment.start,
++                  children: [
++                    Text(
++                      action.title,
++                      style: const TextStyle(
++                        color: _ink,
++                        fontSize: 17,
++                        fontWeight: FontWeight.w700,
++                      ),
++                    ),
++                    const SizedBox(height: 4),
++                    Text(
++                      action.subtitle,
++                      style: const TextStyle(
++                        color: _muted,
++                        fontSize: 12,
++                        height: 1.5,
++                      ),
++                    ),
++                  ],
++                ),
++              ),
++            ],
++          ),
++          const SizedBox(height: 15),
++          Text(
++            action.effect,
++            style: const TextStyle(color: _teal, fontWeight: FontWeight.w600),
++          ),
++          const SizedBox(height: 12),
++          Text(
++            maxed
++                ? '房屋等級已達 2 / 2'
++                : '${action.cost == 0 ? '免費' : _money(action.cost)} · 花費 1 季',
++            style: const TextStyle(color: _muted, fontSize: 12),
++          ),
++          const SizedBox(height: 10),
++          SizedBox(
++            width: double.infinity,
++            child: FilledButton.tonal(
++              key: ValueKey('life-action-${action.id}'),
++              onPressed: _busy || _confirming || !affordable || maxed
++                  ? null
++                  : () => _act(action.id, action.title),
++              child: Text(
++                maxed
++                    ? '已完成家園'
++                    : !affordable
++                    ? '金錢不足'
++                    : action.title,
++              ),
++            ),
++          ),
++        ],
++      ),
++    );
++  }
++
++  Widget _careers(BuildContext context) {
++    final life = _player.life;
++    final learned = life.learnedSkills.toSet();
++    final practiced = life.jobPractice.keys.toSet();
++    final ids = {...learned, ...practiced}.toList()
++      ..sort((a, b) => widget.jobTitle(a).compareTo(widget.jobTitle(b)));
++    return Container(
++      padding: const EdgeInsets.all(20),
++      decoration: _cardDecoration(),
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.start,
++        children: [
++          Wrap(
++            spacing: 8,
++            runSpacing: 8,
++            children: [
++              Text(
++                '已學會 ${learned.length} 項心得',
++                style: const TextStyle(
++                  color: _ink,
++                  fontWeight: FontWeight.w700,
++                ),
++              ),
++              if (life.inheritedSkill != null)
++                Text(
++                  '傳承：${widget.jobTitle(life.inheritedSkill!)}心得',
++                  style: const TextStyle(color: _gold, fontSize: 12),
++                ),
++            ],
++          ),
++          const SizedBox(height: 10),
++          const Text(
++            '每份職業心得都會給予一次屬性加成；轉生時可以挑選一份傳承。',
++            style: TextStyle(color: _muted, height: 1.6, fontSize: 12),
++          ),
++          if (ids.isEmpty)
++            const Padding(
++              padding: EdgeInsets.only(top: 18, bottom: 6),
++              child: Text(
++                '手帳還有很多空白。\n到棋盤上的打工格累積實踐，為目前職業留下心得。',
++                style: TextStyle(color: _muted, height: 1.8),
++              ),
++            ),
++          for (final id in ids) ...[
++            const SizedBox(height: 16),
++            Row(
++              key: ValueKey('life-practice-$id'),
++              crossAxisAlignment: CrossAxisAlignment.start,
++              children: [
++                Icon(
++                  learned.contains(id)
++                      ? Icons.verified_outlined
++                      : Icons.work_history_outlined,
++                  color: learned.contains(id) ? _gold : _teal,
++                  size: 22,
++                ),
++                const SizedBox(width: 10),
++                Expanded(
++                  child: Column(
++                    crossAxisAlignment: CrossAxisAlignment.start,
++                    children: [
++                      Text(
++                        '${widget.jobTitle(id)}${learned.contains(id) ? '心得 · 已學會' : ' · 練習中'}',
++                        style: const TextStyle(
++                          color: _ink,
++                          fontWeight: FontWeight.w600,
++                        ),
++                      ),
++                      const SizedBox(height: 4),
++                      Text(
++                        '已實踐 ${life.jobPractice[id] ?? 0} 次${learned.contains(id) ? '' : ' / 3 次'}',
++                        style: const TextStyle(color: _muted, fontSize: 12),
++                      ),
++                      if (learned.contains(id)) ...[
++                        const SizedBox(height: 4),
++                        Text(
++                          _lifeService.skillDescription(id),
++                          style: const TextStyle(
++                            color: _teal,
++                            fontSize: 12,
++                            height: 1.5,
++                          ),
++                        ),
++                      ],
++                      if (!learned.contains(id)) ...[
++                        const SizedBox(height: 8),
++                        ClipRRect(
++                          borderRadius: BorderRadius.circular(4),
++                          child: LinearProgressIndicator(
++                            value: ((life.jobPractice[id] ?? 0) / 3).clamp(
++                              0.0,
++                              1.0,
++                            ),
++                            minHeight: 4,
++                            color: _teal,
++                            backgroundColor: const Color(0xFFE5E4D5),
++                            semanticsLabel: '${widget.jobTitle(id)}職業練習',
++                          ),
++                        ),
++                      ],
++                    ],
++                  ),
++                ),
++              ],
++            ),
++          ],
++        ],
++      ),
++    );
++  }
++
++  Widget _reincarnationCard(BuildContext context) => Container(
++    padding: const EdgeInsets.all(22),
++    decoration: BoxDecoration(
++      color: const Color(0xFFE6E8D8),
++      borderRadius: BorderRadius.circular(22),
++      border: Border.all(color: const Color(0xFFD3D6BE)),
++    ),
++    child: Column(
++      crossAxisAlignment: CrossAxisAlignment.start,
++      children: [
++        const Icon(Icons.auto_awesome_outlined, color: _gold, size: 26),
++        const SizedBox(height: 12),
++        Text(
++          '下一世，帶著一點光出發',
++          style: Theme.of(context).textTheme.titleLarge
++              ?.copyWith(color: _ink, fontWeight: FontWeight.w700),
++        ),
++        const SizedBox(height: 8),
++        const Text(
++          '通關全部六章，或年滿 60 歲，就能轉生。\n挑選一項已學會的職業心得，將它的屬性加成帶進新的人生。',
++          style: TextStyle(color: _muted, height: 1.7),
++        ),
++        const SizedBox(height: 16),
++        FilledButton.icon(
++          key: const ValueKey('life-reincarnate'),
++          onPressed: _busy || _confirming || !_canReincarnate
++              ? null
++              : _reincarnate,
++          icon: const Icon(Icons.autorenew),
++          label: Text(_canReincarnate ? '選擇傳承，開啟下一世' : '繼續書寫這一世'),
++        ),
++        if (!_canReincarnate) ...[
++          const SizedBox(height: 10),
++          Text(
++            '目前 ${_player.life.age} 歲 · 已完成 ${_player.clearedStages} / 6 章',
++            style: const TextStyle(color: _muted, fontSize: 12),
++          ),
++        ],
++      ],
++    ),
++  );
++
++  BoxDecoration _cardDecoration() => BoxDecoration(
++    color: _paper,
++    borderRadius: BorderRadius.circular(18),
++    border: Border.all(color: const Color(0xFFE3D9C4)),
++  );
++}
++
++class _LifeAction {
++  final String id, title, subtitle, effect;
++  final int cost;
++  final IconData icon;
++
++  const _LifeAction(
++    this.id,
++    this.title,
++    this.subtitle,
++    this.effect,
++    this.cost,
++    this.icon,
++  );
++}
++
++class _InheritanceChoice {
++  final String? skill;
++
++  const _InheritanceChoice(this.skill);
++}
+diff --git a/lib/presentation/widgets/choice_event_dialog.dart b/lib/presentation/widgets/choice_event_dialog.dart
+index 3c08d6f..2dfb361 100644
+--- a/lib/presentation/widgets/choice_event_dialog.dart
++++ b/lib/presentation/widgets/choice_event_dialog.dart
+@@ -33,7 +33,7 @@ class _ChoiceEventDialogState extends State<ChoiceEventDialog> {
+               child: Align(alignment: Alignment.centerLeft, child: Text(
+                 '${option.id}　${option.label}\n${option.effects.withMoney(option.effects.money > 0 ? option.effects.money * widget.workPercent ~/ 100 : option.effects.money).summary}${option.battleEnemyId == null ? "" : " · 進入戰鬥"}',
+                 style: const TextStyle(height: 1.7))))),
+-          const Text('選擇後才結算；負值最多扣至 0。', style: TextStyle(fontSize: 12, color: Colors.grey)),
++          const Text('選擇後才結算；負值最多扣至 0。完成後前進一季，並依活動調整 EQ 與壓力。工作格可累積職業熟練。', style: TextStyle(fontSize: 12, color: Colors.grey)),
+         ]))),
+     ));
+   }
+diff --git a/lib/presentation/widgets/game_dashboard.dart b/lib/presentation/widgets/game_dashboard.dart
+index 762fb3e..f72c4dd 100644
+--- a/lib/presentation/widgets/game_dashboard.dart
++++ b/lib/presentation/widgets/game_dashboard.dart
+@@ -47,6 +47,8 @@ class GameDashboard extends StatelessWidget {
+       Text('Lv.${player.level} · EXP ${player.experience % 100}/100', textAlign: TextAlign.center),
+       Text(job, textAlign: TextAlign.center, style: const TextStyle(color: Color(0xFF648577))),
+       const SizedBox(height: 12), const Divider(),
++      _stat('年齡 / 世代', '${player.life.age} 歲 / 第 ${player.life.generation} 世', Icons.calendar_month_outlined),
++      _stat('EQ / 壓力', '${player.life.eq} / ${player.life.stress}', Icons.psychology_outlined),
+       _stat('體力', '${player.stamina}', Icons.favorite_outline),
+       _stat('智力', '${player.intelligence}', Icons.school_outlined),
+       _stat('魅力', '${player.charm}', Icons.auto_awesome_outlined),
+diff --git a/pubspec.yaml b/pubspec.yaml
+index 79ef5d2..5599611 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -1,7 +1,7 @@
+ name: life_graybox
+ description: Low-poly 3D life board RPG prototype
+ publish_to: none
+-version: 0.24.0+24
++version: 0.25.0+25
+ environment:
+   sdk: '>=3.8.0 <4.0.0'
+ dependencies:
+@@ -12,6 +12,7 @@ dependencies:
+   shared_preferences: ^2.5.6
+   audioplayers: ^6.8.1
+ dev_dependencies:
++  flutter_lints: ^6.0.0
+   flutter_test:
+     sdk: flutter
+ flutter:
+diff --git a/test/battle_phase2_test.dart b/test/battle_phase2_test.dart
+index 0028984..6aa3984 100644
+--- a/test/battle_phase2_test.dart
++++ b/test/battle_phase2_test.dart
+@@ -63,11 +63,11 @@ void main() {
+   });
+   test('v1 migrates without losing attributes and rejects invalid v2 XP', () {
+     final raw = jsonDecode(SaveData(const Player(position:8,money:1200),DateTime.utc(2026)).encode());
+-    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) { raw['player'].remove(key); }
++    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life']) { raw['player'].remove(key); }
+     raw['schemaVersion']=1; raw['player'].remove('experience'); raw['player'].remove('morality');
+     final p = SaveData.decode(jsonEncode(raw),{'unemployed'}).player;
+     expect(p.experience,0); expect(p.position,8); expect(p.money,1200);
+-    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) { raw['player'].remove(key); }
++    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life']) { raw['player'].remove(key); }
+     raw['schemaVersion']=2; raw['player']['experience']=-1;
+     expect(()=>SaveData.decode(jsonEncode(raw),{'unemployed'}),throwsFormatException);
+   });
+diff --git a/test/career_growth_test.dart b/test/career_growth_test.dart
+index d988376..a1a1222 100644
+--- a/test/career_growth_test.dart
++++ b/test/career_growth_test.dart
+@@ -79,7 +79,7 @@ void main(){
+     for(final pair in {'junior_engineer':'engineer','senior_engineer':'mentor','police_trainee':'warrior','police_officer':'hero','entrepreneur':'president'}.entries){
+       for(final v in [1,2]){
+         final raw=jsonDecode(SaveData(Player(jobId:pair.key,experience:120,money:4321),DateTime.utc(2026)).encode());
+-        for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) { raw['player'].remove(key); }
++        for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life']) { raw['player'].remove(key); }
+     raw['schemaVersion']=v;raw['player'].remove('morality');
+         if(v==1)raw['player'].remove('experience');
+         final p=SaveData.decode(jsonEncode(raw),ids).player;
+diff --git a/test/equipment_careers_test.dart b/test/equipment_careers_test.dart
+index 59aa2f7..86618bc 100644
+--- a/test/equipment_careers_test.dart
++++ b/test/equipment_careers_test.dart
+@@ -48,7 +48,7 @@ void main(){
+    expect(restored.armorId,'plate');expect(restored.accessoryId,'ring');expect(restored.stageWins,2);
+    raw['player']['armorId']='ring';
+    expect(()=>SaveData.decode(jsonEncode(raw),{'unemployed'}),throwsFormatException);
+-   raw['schemaVersion']=5;raw['player'].remove('armorId');raw['player'].remove('accessoryId');
++   raw['schemaVersion']=5;raw['player'].remove('life');raw['player'].remove('armorId');raw['player'].remove('accessoryId');
+    final old=SaveData.decode(jsonEncode(raw),{'unemployed'}).player;
+    expect(old.armorId,'none');expect(old.weaponId,'staff');expect(old.clearedStages,4);
+  });
+diff --git a/test/life_journal_test.dart b/test/life_journal_test.dart
+new file mode 100644
+index 0000000..e3eb52d
+--- /dev/null
++++ b/test/life_journal_test.dart
+@@ -0,0 +1,442 @@
++import 'dart:async';
++
++import 'package:flutter/material.dart';
++import 'package:flutter_test/flutter_test.dart';
++import 'package:life_graybox/domain/models/life_progress.dart';
++import 'package:life_graybox/domain/models/player.dart';
++import 'package:life_graybox/domain/services/life_service.dart';
++import 'package:life_graybox/presentation/screens/life_journal_screen.dart';
++
++const _service = LifeService();
++
++String _jobTitle(String id) => switch (id) {
++  'student' => '學生',
++  'engineer' => '工程師',
++  'part_timer' => '打工仔',
++  _ => '待業',
++};
++
++Widget _app({
++  Player player = const Player(),
++  Future<Player> Function(String)? onAction,
++  Future<Player> Function(String?)? onReincarnate,
++  double textScale = 1,
++}) => MaterialApp(
++  theme: ThemeData(useMaterial3: true),
++  builder: (context, child) => MediaQuery(
++    data: MediaQuery.of(context)
++        .copyWith(textScaler: TextScaler.linear(textScale)),
++    child: child!,
++  ),
++  home: LifeJournalScreen(
++    player: player,
++    jobTitle: _jobTitle,
++    onAction: onAction ?? (action) async => _service.lifeAction(player, action),
++    onReincarnate:
++        onReincarnate ??
++        (skill) async => _service.reincarnate(player, inheritSkill: skill),
++  ),
++);
++
++Future<void> _show(WidgetTester tester, String key) async {
++  await tester.scrollUntilVisible(
++    find.byKey(ValueKey(key)),
++    300,
++    scrollable: find.byType(Scrollable).first,
++  );
++  await tester.pumpAndSettle();
++}
++
++Future<void> _top(WidgetTester tester) async {
++  await tester.drag(
++    find.byKey(const ValueKey('life-journal-scroll')),
++    const Offset(0, 12000),
++  );
++  await tester.pumpAndSettle();
++}
++
++void main() {
++  for (final size in const [Size(390, 740), Size(1000, 320)]) {
++    testWidgets('journal remains scrollable without overflow at $size', (
++      tester,
++    ) async {
++      await tester.binding.setSurfaceSize(size);
++      addTearDown(() => tester.binding.setSurfaceSize(null));
++      await tester.pumpWidget(_app());
++      expect(find.text('18 歲'), findsOneWidget);
++      expect(find.text('春季'), findsOneWidget);
++      expect(tester.takeException(), isNull);
++      await _show(tester, 'life-action-study');
++      expect(tester.takeException(), isNull);
++      await _show(tester, 'life-reincarnate');
++      expect(
++        tester
++            .widget<FilledButton>(
++              find.byKey(const ValueKey('life-reincarnate')),
++            )
++            .onPressed,
++        isNull,
++      );
++      expect(tester.takeException(), isNull);
++    });
++  }
++
++  testWidgets('mobile journal and retirement dialog support large text', (
++    tester,
++  ) async {
++    await tester.binding.setSurfaceSize(const Size(390, 600));
++    addTearDown(() => tester.binding.setSurfaceSize(null));
++    await tester.pumpWidget(
++      _app(player: const Player(clearedStages: 6), textScale: 1.6),
++    );
++    await _show(tester, 'life-reincarnate');
++    expect(tester.takeException(), isNull);
++    await tester.tap(find.byKey(const ValueKey('life-reincarnate')));
++    await tester.pumpAndSettle();
++    expect(
++      find.byKey(const ValueKey('life-reincarnation-dialog')),
++      findsOneWidget,
++    );
++    expect(tester.takeException(), isNull);
++    await tester.tap(find.byKey(const ValueKey('life-reincarnation-cancel')));
++    await tester.pumpAndSettle();
++    expect(
++      find.byKey(const ValueKey('life-reincarnation-dialog')),
++      findsNothing,
++    );
++  });
++
++  testWidgets(
++    'action awaits once, locks navigation, and renders returned player',
++    (tester) async {
++      final pending = Completer<Player>();
++      var calls = 0;
++      const initial = Player();
++      await tester.pumpWidget(
++        _app(
++          onAction: (action) {
++            calls++;
++            expect(action, 'study');
++            return pending.future;
++          },
++        ),
++      );
++      await _show(tester, 'life-action-study');
++      final study = find.byKey(const ValueKey('life-action-study'));
++      await tester.tap(study);
++      await tester.pump();
++      expect(calls, 1);
++      expect(tester.widget<FilledButton>(study).onPressed, isNull);
++      expect(
++        tester
++            .widget<IconButton>(find.byKey(const ValueKey('life-journal-back')))
++            .onPressed,
++        isNull,
++      );
++      final scope = tester.widget<PopScope>(
++        find.byWidgetPredicate((widget) => widget is PopScope),
++      );
++      expect(scope.canPop, isFalse);
++      await tester.tap(study);
++      expect(calls, 1);
++
++      pending.complete(_service.lifeAction(initial, 'study'));
++      await tester.pumpAndSettle();
++      expect(tester.widget<FilledButton>(study).onPressed, isNotNull);
++      await _top(tester);
++      expect(find.text('\$800'), findsOneWidget);
++      expect(find.text('夏季'), findsOneWidget);
++      expect(find.textContaining('智力 15'), findsOneWidget);
++      expect(tester.takeException(), isNull);
++    },
++  );
++
++  testWidgets(
++    'failed action shows its error and permits a retry without advancing',
++    (tester) async {
++      var calls = 0;
++      await tester.pumpWidget(
++        _app(
++          onAction: (action) async {
++            calls++;
++            if (calls == 1) throw StateError('儲存暫時失敗');
++            return _service.lifeAction(const Player(), action);
++          },
++        ),
++      );
++      await _show(tester, 'life-action-study');
++      final study = find.byKey(const ValueKey('life-action-study'));
++      await tester.tap(study);
++      await tester.pumpAndSettle();
++      expect(find.textContaining('儲存暫時失敗'), findsWidgets);
++      expect(tester.widget<FilledButton>(study).onPressed, isNotNull);
++      await _top(tester);
++      expect(find.text('\$1000'), findsOneWidget);
++      expect(find.text('春季'), findsOneWidget);
++      await _show(tester, 'life-action-study');
++      await tester.tap(study);
++      await tester.pumpAndSettle();
++      expect(calls, 2);
++      await _top(tester);
++      expect(find.text('\$800'), findsOneWidget);
++      expect(tester.takeException(), isNull);
++    },
++  );
++
++  testWidgets('paid actions respect affordability and resting remains free', (
++    tester,
++  ) async {
++    const initial = Player(money: 99, life: LifeProgress(stress: 30));
++    var calls = 0;
++    await tester.pumpWidget(
++      _app(
++        player: initial,
++        onAction: (action) async {
++          calls++;
++          expect(action, 'rest');
++          return _service.lifeAction(initial, action);
++        },
++      ),
++    );
++    await _show(tester, 'life-action-study');
++    for (final action in ['study', 'exercise', 'socialize', 'buyHome']) {
++      expect(
++        tester
++            .widget<FilledButton>(find.byKey(ValueKey('life-action-$action')))
++            .onPressed,
++        isNull,
++      );
++    }
++    await _show(tester, 'life-action-rest');
++    final rest = find.byKey(const ValueKey('life-action-rest'));
++    expect(tester.widget<FilledButton>(rest).onPressed, isNotNull);
++    await tester.tap(rest);
++    await tester.pumpAndSettle();
++    expect(calls, 1);
++    await _top(tester);
++    expect(find.text('\$99'), findsOneWidget);
++    expect(find.text('18 / 100'), findsOneWidget);
++    expect(find.text('夏季'), findsOneWidget);
++  });
++
++  testWidgets(
++    'second home purchase displays cost and becomes unavailable at level two',
++    (tester) async {
++      const initial = Player(money: 6500, life: LifeProgress(homeLevel: 1));
++      await tester.pumpWidget(_app(player: initial));
++      await _show(tester, 'life-action-buyHome');
++      expect(find.text('\$6500 · 花費 1 季'), findsOneWidget);
++      await tester.tap(find.byKey(const ValueKey('life-action-buyHome')));
++      await tester.pumpAndSettle();
++      expect(find.text('已完成家園'), findsOneWidget);
++      expect(
++        tester
++            .widget<FilledButton>(
++              find.byKey(const ValueKey('life-action-buyHome')),
++            )
++            .onPressed,
++        isNull,
++      );
++      await _top(tester);
++      expect(find.text('舒適宅邸'), findsOneWidget);
++      expect(find.text('\$0'), findsOneWidget);
++    },
++  );
++
++  testWidgets(
++    'skills, practice, relationship milestone, and goals reflect actual progress',
++    (tester) async {
++      final life = const LifeProgress(affection: 60, homeLevel: 1).copyWith(
++        learnedSkills: ['engineer'],
++        inheritedSkill: 'engineer',
++        jobPractice: {'student': 1, 'engineer': 3},
++      );
++      await tester.pumpWidget(_app(player: Player(life: life)));
++      expect(find.text('關係 · 相伴'), findsOneWidget);
++      await _show(tester, 'life-goals');
++      for (var index = 0; index < 3; index++) {
++        final goal = find.byKey(ValueKey('life-goal-$index'));
++        expect(
++          find.descendant(of: goal, matching: find.byIcon(Icons.check_circle)),
++          findsOneWidget,
++        );
++      }
++      expect(
++        find.descendant(
++          of: find.byKey(const ValueKey('life-goal-3')),
++          matching: find.byIcon(Icons.radio_button_unchecked),
++        ),
++        findsOneWidget,
++      );
++      await _show(tester, 'life-practice-student');
++      expect(find.text('已學會 1 項心得'), findsOneWidget);
++      expect(find.text('傳承：工程師心得'), findsOneWidget);
++      expect(find.text('工程師心得 · 已學會'), findsOneWidget);
++      expect(find.text('已實踐 1 次 / 3 次'), findsOneWidget);
++      expect(find.text(_service.skillDescription('engineer')), findsOneWidget);
++      expect(tester.takeException(), isNull);
++    },
++  );
++
++  testWidgets('age sixty unlocks reincarnation before finishing the campaign', (
++    tester,
++  ) async {
++    await tester.pumpWidget(
++      _app(player: const Player(life: LifeProgress(turns: 168))),
++    );
++    expect(find.text('60 歲'), findsOneWidget);
++    await _show(tester, 'life-reincarnate');
++    expect(
++      tester
++          .widget<FilledButton>(find.byKey(const ValueKey('life-reincarnate')))
++          .onPressed,
++      isNotNull,
++    );
++  });
++
++  testWidgets(
++    'canceling reincarnation makes no change and selected skill returns exactly once',
++    (tester) async {
++      final initial = Player(
++        clearedStages: 6,
++        life: const LifeProgress().copyWith(
++          learnedSkills: ['student', 'engineer'],
++        ),
++      );
++      final pending = Completer<Player>();
++      var calls = 0;
++      String? selected;
++      Player? result;
++      var returns = 0;
++      final observer = _JournalObserver();
++      await tester.pumpWidget(
++        MaterialApp(
++          navigatorObservers: [observer],
++          home: Builder(
++            builder: (context) => Scaffold(
++              body: Center(
++                child: FilledButton(
++                  key: const ValueKey('open-journal-test'),
++                  onPressed: () async {
++                    result = await Navigator.of(context).push<Player>(
++                      MaterialPageRoute(
++                        settings: const RouteSettings(name: 'journal'),
++                        builder: (_) => LifeJournalScreen(
++                          player: initial,
++                          jobTitle: _jobTitle,
++                          onAction: (action) async =>
++                              _service.lifeAction(initial, action),
++                          onReincarnate: (skill) {
++                            calls++;
++                            selected = skill;
++                            return pending.future;
++                          },
++                        ),
++                      ),
++                    );
++                    returns++;
++                  },
++                  child: const Text('開啟手帳'),
++                ),
++              ),
++            ),
++          ),
++        ),
++      );
++      await tester.tap(find.byKey(const ValueKey('open-journal-test')));
++      await tester.pumpAndSettle();
++      await _show(tester, 'life-reincarnate');
++      await tester.tap(find.byKey(const ValueKey('life-reincarnate')));
++      await tester.pumpAndSettle();
++      expect(find.textContaining('此操作不能復原'), findsOneWidget);
++      await tester.tap(find.byKey(const ValueKey('life-reincarnation-cancel')));
++      await tester.pumpAndSettle();
++      expect(calls, 0);
++      expect(find.byType(LifeJournalScreen), findsOneWidget);
++
++      await tester.tap(find.byKey(const ValueKey('life-reincarnate')));
++      await tester.pumpAndSettle();
++      await tester.tap(find.byKey(const ValueKey('life-inherit-skill')));
++      await tester.pumpAndSettle();
++      await tester.tap(find.text('工程師心得').last);
++      await tester.pumpAndSettle();
++      expect(find.text(_service.skillDescription('engineer')), findsOneWidget);
++      await tester.tap(
++        find.byKey(const ValueKey('life-reincarnation-confirm')),
++      );
++      await tester.pump();
++      await tester.pump(const Duration(milliseconds: 300));
++      expect(calls, 1);
++      expect(selected, 'engineer');
++      expect(
++        tester
++            .widget<IconButton>(find.byKey(const ValueKey('life-journal-back')))
++            .onPressed,
++        isNull,
++      );
++      expect(observer.journalPops, 0);
++      pending.complete(_service.reincarnate(initial, inheritSkill: selected));
++      await tester.pumpAndSettle();
++      expect(find.byType(LifeJournalScreen), findsNothing);
++      expect(find.byKey(const ValueKey('open-journal-test')), findsOneWidget);
++      expect(result?.life.generation, 2);
++      expect(result?.life.inheritedSkill, 'engineer');
++      expect(returns, 1);
++      expect(observer.journalPops, 1);
++      expect(tester.takeException(), isNull);
++    },
++  );
++
++  testWidgets(
++    'reincarnation with no skill passes null and errors leave the journal usable',
++    (tester) async {
++      var calls = 0;
++      await tester.pumpWidget(
++        _app(
++          player: const Player(clearedStages: 6),
++          onReincarnate: (skill) async {
++            calls++;
++            expect(skill, isNull);
++            throw StateError('轉生儲存失敗');
++          },
++        ),
++      );
++      await _show(tester, 'life-reincarnate');
++      await tester.tap(find.byKey(const ValueKey('life-reincarnate')));
++      await tester.pumpAndSettle();
++      expect(find.text('不傳承，重新開始'), findsOneWidget);
++      await tester.tap(
++        find.byKey(const ValueKey('life-reincarnation-confirm')),
++      );
++      await tester.pumpAndSettle();
++      expect(calls, 1);
++      expect(find.byType(LifeJournalScreen), findsOneWidget);
++      expect(find.textContaining('轉生儲存失敗'), findsWidgets);
++      expect(
++        tester
++            .widget<FilledButton>(
++              find.byKey(const ValueKey('life-reincarnate')),
++            )
++            .onPressed,
++        isNotNull,
++      );
++      expect(
++        tester
++            .widget<IconButton>(find.byKey(const ValueKey('life-journal-back')))
++            .onPressed,
++        isNotNull,
++      );
++      expect(tester.takeException(), isNull);
++    },
++  );
++}
++
++class _JournalObserver extends NavigatorObserver {
++  int journalPops = 0;
++
++  @override
++  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
++    super.didPop(route, previousRoute);
++    if (route.settings.name == 'journal') journalPops++;
++  }
++}
+diff --git a/test/life_progress_test.dart b/test/life_progress_test.dart
+new file mode 100644
+index 0000000..bb5efa2
+--- /dev/null
++++ b/test/life_progress_test.dart
+@@ -0,0 +1,624 @@
++import 'dart:convert';
++import 'dart:io';
++
++import 'package:flutter_test/flutter_test.dart';
++import 'package:life_graybox/domain/models/life_progress.dart';
++import 'package:life_graybox/domain/models/player.dart';
++import 'package:life_graybox/domain/models/save_data.dart';
++import 'package:life_graybox/domain/services/life_service.dart';
++
++void main() {
++  const service = LifeService();
++  final jobRows =
++      (jsonDecode(File('assets/data/jobs.json').readAsStringSync())
++              as Map<String, dynamic>)['jobs']
++          as List<dynamic>;
++  final jobIds = jobRows.map((row) => row['id'] as String).toSet();
++  final date = DateTime.utc(2026, 10, 10);
++  String snapshot(Player p) => SaveData(p, date).encode();
++  Map<String, dynamic> saveJson(Player p) =>
++      jsonDecode(snapshot(p)) as Map<String, dynamic>;
++  Player restore(Player p) => SaveData.decode(snapshot(p), jobIds).player;
++
++  group('immutable life state', () {
++    test(
++      'defaults, seasons, and birthdays use exactly four turns per year',
++      () {
++        const life = LifeProgress();
++        expect(life.turns, 0);
++        expect(life.generation, 1);
++        expect(life.eq, 50);
++        expect([life.stress, life.affection, life.homeLevel], [0, 0, 0]);
++        expect(life.jobPractice, isEmpty);
++        expect(life.learnedSkills, isEmpty);
++        expect(life.inheritedSkill, isNull);
++        expect(life.age, 18);
++        expect(
++          [for (var i = 0; i < 5; i++) life.copyWith(turns: i).season],
++          ['春', '夏', '秋', '冬', '春'],
++        );
++        expect(life.copyWith(turns: 3).age, 18);
++        expect(life.copyWith(turns: 4).age, 19);
++        expect(life.copyWith(turns: 168).age, 60);
++      },
++    );
++
++    test(
++      'collection inputs and exposed collections cannot mutate a snapshot',
++      () {
++        final practice = {'student': 3};
++        final skills = ['student'];
++        final life = const LifeProgress().copyWith(
++          jobPractice: practice,
++          learnedSkills: skills,
++          inheritedSkill: 'student',
++        );
++        practice['student'] = 99;
++        skills.add('hero');
++        expect(life.jobPractice, {'student': 3});
++        expect(life.learnedSkills, ['student']);
++        expect(() => life.jobPractice['student'] = 100, throwsUnsupportedError);
++        expect(() => life.learnedSkills.add('hero'), throwsUnsupportedError);
++        expect(life.copyWith(stress: 2).inheritedSkill, 'student');
++        expect(life.copyWith(clearInheritedSkill: true).inheritedSkill, isNull);
++      },
++    );
++
++    test('every existing player update preserves its life snapshot', () {
++      final life = const LifeProgress(
++        turns: 22,
++        generation: 2,
++        eq: 65,
++        stress: 12,
++        affection: 40,
++        homeLevel: 1,
++      ).copyWith(jobPractice: {'student': 3}, learnedSkills: ['student']);
++      final p = Player(life: life);
++      for (final next in [
++        p.copyWith(position: 8),
++        p.copyWith(jobId: 'student'),
++        p.copyWith(gender: CharacterGender.female),
++        p.copyWith(weaponId: 'staff', inventory: {'staff': 1}),
++        p.copyWith(clearedStages: 1, stageWins: 2),
++        p.apply(const StatDelta(money: -100, intelligence: 5)),
++        p.gainExperience(100),
++      ]) {
++        expect(identical(next.life, life), isTrue);
++      }
++    });
++  });
++
++  group('board turn settlement and passive skills', () {
++    test(
++      'every activity advances once and does not charge unrelated money',
++      () {
++        const p = Player(money: 1234, life: LifeProgress(stress: 20));
++        for (final activity in LifeService.activities) {
++          final next = service.finishTurn(p, activity: activity);
++          expect(next.life.turns, 1, reason: activity);
++          expect(next.money, 1234, reason: activity);
++          expect(next.life.jobPractice.length, activity == 'work' ? 1 : 0);
++        }
++        expect(p.life.turns, 0);
++        final before = snapshot(p);
++        expect(
++          () => service.finishTurn(p, activity: 'missing'),
++          throwsArgumentError,
++        );
++        expect(snapshot(p), before);
++      },
++    );
++
++    test('practice teaches a job skill on turn three, exactly once', () {
++      var p = const Player(jobId: 'student');
++      p = service.finishTurn(p, activity: 'work');
++      p = service.finishTurn(p, activity: 'work');
++      expect(p.life.jobPractice['student'], 2);
++      expect(p.life.learnedSkills, isEmpty);
++      expect(p.intelligence, 10);
++      p = service.finishTurn(p, activity: 'work');
++      expect(p.life.learnedSkills, ['student']);
++      expect(p.intelligence, 12);
++      for (var i = 0; i < 12; i++) {
++        p = service.finishTurn(p, activity: 'work');
++      }
++      expect(p.life.turns, 15);
++      expect(p.life.jobPractice['student'], 15);
++      expect(p.life.learnedSkills, ['student']);
++      expect(p.intelligence, 12);
++    });
++
++    test(
++      'each job owns its practice and known skills survive career changes',
++      () {
++        var p = const Player(jobId: 'student');
++        p = service.finishTurn(p, activity: 'work');
++        p = p.copyWith(jobId: 'part_timer');
++        for (var i = 0; i < 3; i++) {
++          p = service.finishTurn(p, activity: 'work');
++        }
++        expect(p.life.jobPractice, {'student': 1, 'part_timer': 3});
++        expect(p.stamina, 12);
++        expect(p.intelligence, 10);
++        p = p.copyWith(jobId: 'student');
++        p = service.finishTurn(p, activity: 'work');
++        p = service.finishTurn(p, activity: 'work');
++        expect(p.life.learnedSkills, ['part_timer', 'student']);
++        expect(p.intelligence, 12);
++        expect(p.stamina, 12);
++      },
++    );
++
++    test('all shipped job IDs have original tier-scaled perk descriptions', () {
++      for (final row in jobRows) {
++        final id = row['id'] as String;
++        final tier = row['tier'] as int;
++        final bonus = service.skillBonus(id);
++        expect(bonus.money, 0);
++        expect(
++          bonus.stamina + bonus.intelligence + bonus.charm + bonus.morality,
++          tier == 0 ? 1 : tier * 2,
++          reason: id,
++        );
++        expect(service.skillDescription(id), contains(bonus.summary));
++      }
++      expect(service.skillBonus('student').intelligence, 2);
++      expect(service.skillBonus('warrior').stamina, 4);
++      expect(service.skillBonus('president').charm, 6);
++      expect(service.skillBonus('paladin').morality, 6);
++      expect(() => service.skillBonus('unknown'), throwsArgumentError);
++    });
++
++    test('meters clamp and homes reduce stress once per board turn', () {
++      const p = Player(life: LifeProgress(eq: 99, stress: 99, homeLevel: 2));
++      final career = service.finishTurn(p, activity: 'career');
++      expect(career.life.eq, 100);
++      expect(career.life.stress, 98);
++      expect(service.finishTurn(p, activity: 'penalty').life.stress, 100);
++      expect(
++        service.finishTurn(const Player(), activity: 'luck').life.stress,
++        0,
++      );
++    });
++
++    test('age sixty unlocks reincarnation without locking normal play', () {
++      const p = Player(life: LifeProgress(turns: 168));
++      expect(service.canReincarnate(p), isTrue);
++      expect(service.finishTurn(p, activity: 'work').life.turns, 169);
++      expect(service.lifeAction(p, 'rest').life.turns, 169);
++    });
++  });
++
++  group('life actions', () {
++    test('study, exercise and socializing have truthful costs and effects', () {
++      const p = Player(life: LifeProgress(stress: 20));
++      final study = service.lifeAction(p, 'study');
++      expect(
++        [study.money, study.intelligence, study.life.stress],
++        [800, 15, 23],
++      );
++      final exercise = service.lifeAction(p, 'exercise');
++      expect(
++        [exercise.money, exercise.stamina, exercise.life.stress],
++        [900, 15, 16],
++      );
++      final socialize = service.lifeAction(p, 'socialize');
++      expect(
++        [
++          socialize.money,
++          socialize.life.affection,
++          socialize.life.eq,
++          socialize.life.stress,
++        ],
++        [850, 8, 53, 17],
++      );
++      for (final next in [study, exercise, socialize]) {
++        expect(next.life.turns, 1);
++        expect(next.life.jobPractice, isEmpty);
++        expect(next.life.learnedSkills, isEmpty);
++      }
++    });
++
++    test('rest is free and meter changes do not underflow or overflow', () {
++      final rested = service.lifeAction(
++        const Player(money: 0, life: LifeProgress(stress: 5)),
++        'rest',
++      );
++      expect(rested.money, 0);
++      expect(rested.life.stress, 0);
++      expect(rested.life.turns, 1);
++      final socialized = service.lifeAction(
++        const Player(life: LifeProgress(eq: 99, affection: 98)),
++        'socialize',
++      );
++      expect([socialized.life.eq, socialized.life.affection], [100, 100]);
++      expect(
++        service
++            .lifeAction(const Player(life: LifeProgress(stress: 99)), 'study')
++            .life
++            .stress,
++        100,
++      );
++    });
++
++    test(
++      'affordability checks exact thresholds and failures are immutable',
++      () {
++        for (final entry in {
++          'study': 200,
++          'exercise': 100,
++          'socialize': 150,
++          'buyHome': 2500,
++        }.entries) {
++          final poor = Player(money: entry.value - 1);
++          final before = snapshot(poor);
++          expect(
++            () => service.lifeAction(poor, entry.key),
++            throwsStateError,
++            reason: entry.key,
++          );
++          expect(snapshot(poor), before);
++          final exact = service.lifeAction(
++            Player(money: entry.value),
++            entry.key,
++          );
++          expect(exact.money, 0);
++          expect(exact.life.turns, 1);
++        }
++        const p = Player();
++        final before = snapshot(p);
++        expect(() => service.lifeAction(p, 'unknown'), throwsArgumentError);
++        expect(snapshot(p), before);
++      },
++    );
++
++    test(
++      'homes use staged prices and cannot be purchased beyond level two',
++      () {
++        var p = const Player(money: 9000);
++        expect(service.homeCost(p), 2500);
++        p = service.lifeAction(p, 'buyHome');
++        expect([p.money, p.life.homeLevel, p.life.turns], [6500, 1, 1]);
++        expect(service.homeCost(p), 6500);
++        p = service.lifeAction(p, 'buyHome');
++        expect([p.money, p.life.homeLevel, p.life.turns], [0, 2, 2]);
++        final before = snapshot(p);
++        expect(() => service.lifeAction(p, 'buyHome'), throwsStateError);
++        expect(snapshot(p), before);
++        expect(service.homeCost(p), 0);
++      },
++    );
++  });
++
++  group('reincarnation', () {
++    test(
++      'requires campaign completion or age sixty and validates selection',
++      () {
++        const young = Player(life: LifeProgress(turns: 167));
++        expect(service.canReincarnate(young), isFalse);
++        expect(() => service.reincarnate(young), throwsStateError);
++        const complete = Player(clearedStages: 6);
++        expect(service.canReincarnate(complete), isTrue);
++        final before = snapshot(complete);
++        expect(
++          () => service.reincarnate(complete, inheritSkill: 'hero'),
++          throwsStateError,
++        );
++        expect(snapshot(complete), before);
++        expect(
++          service.canReincarnate(const Player(life: LifeProgress(turns: 168))),
++          isTrue,
++        );
++      },
++    );
++
++    test('resets world, growth, inventory, equipment and all life meters', () {
++      final p = Player(
++        clearedStages: 6,
++        position: 18,
++        stamina: 200,
++        intelligence: 200,
++        charm: 200,
++        morality: 200,
++        money: 99999,
++        experience: 1500,
++        jobId: 'hero',
++        gender: CharacterGender.female,
++        weaponId: 'staff',
++        armorId: 'plate',
++        accessoryId: 'ring',
++        inventory: const {'staff': 1, 'plate': 1, 'ring': 1, 'potion': 90},
++        life:
++            const LifeProgress(
++              turns: 180,
++              generation: 3,
++              eq: 90,
++              stress: 88,
++              affection: 100,
++              homeLevel: 2,
++            ).copyWith(
++              jobPractice: {'hero': 8},
++              learnedSkills: ['student', 'hero'],
++            ),
++      );
++      final next = service.reincarnate(p, inheritSkill: 'hero');
++      expect(next.gender, CharacterGender.female);
++      expect(
++        [next.clearedStages, next.stageWins, next.position, next.experience],
++        [0, 0, 0, 0],
++      );
++      expect(next.jobId, 'unemployed');
++      expect(
++        [next.weaponId, next.armorId, next.accessoryId],
++        ['none', 'none', 'none'],
++      );
++      expect(next.inventory, const Player().inventory);
++      expect(next.money, 1000);
++      expect(
++        [next.stamina, next.intelligence, next.charm, next.morality],
++        [10, 10, 10, 16],
++      );
++      expect(next.life.generation, 4);
++      expect(
++        [
++          next.life.turns,
++          next.life.age,
++          next.life.eq,
++          next.life.stress,
++          next.life.affection,
++          next.life.homeLevel,
++        ],
++        [0, 18, 50, 0, 0, 0],
++      );
++      expect(next.life.learnedSkills, ['hero']);
++      expect(next.life.inheritedSkill, 'hero');
++      expect(next.life.jobPractice, isEmpty);
++      expect(service.canReincarnate(next), isFalse);
++      expect(
++        () => service.reincarnate(next, inheritSkill: 'hero'),
++        throwsStateError,
++      );
++      expect(p.money, 99999);
++      expect(p.life.generation, 3);
++    });
++
++    test('every skill grants exactly its advertised perk on inheritance', () {
++      for (final id in jobIds) {
++        final p = Player(
++          clearedStages: 6,
++          life: const LifeProgress().copyWith(learnedSkills: [id]),
++        );
++        final next = service.reincarnate(p, inheritSkill: id);
++        final bonus = service.skillBonus(id);
++        expect(
++          [next.stamina, next.intelligence, next.charm, next.morality],
++          [
++            10 + bonus.stamina,
++            10 + bonus.intelligence,
++            10 + bonus.charm,
++            10 + bonus.morality,
++          ],
++          reason: id,
++        );
++        expect(next.life.learnedSkills, [id]);
++      }
++    });
++
++    test(
++      'inherited perk can cross generations but cannot stack on relearning',
++      () {
++        final original = Player(
++          clearedStages: 6,
++          life: const LifeProgress().copyWith(learnedSkills: ['student']),
++        );
++        var second = service
++            .reincarnate(original, inheritSkill: 'student')
++            .copyWith(jobId: 'student');
++        for (var i = 0; i < 3; i++) {
++          second = service.finishTurn(second, activity: 'work');
++        }
++        expect(second.intelligence, 12);
++        final third = service.reincarnate(
++          second.copyWith(clearedStages: 6),
++          inheritSkill: 'student',
++        );
++        expect(third.life.generation, 3);
++        expect(third.intelligence, 12);
++        final noSkill = service.reincarnate(third.copyWith(clearedStages: 6));
++        expect(noSkill.intelligence, 10);
++        expect(noSkill.life.learnedSkills, isEmpty);
++        expect(noSkill.life.inheritedSkill, isNull);
++      },
++    );
++  });
++
++  group('schema seven saves and migration', () {
++    test(
++      'roundtrip persists every life field and does not reapply bonuses',
++      () {
++        final p = Player(
++          intelligence: 42,
++          life:
++              const LifeProgress(
++                turns: 80,
++                generation: 2,
++                eq: 77,
++                stress: 34,
++                affection: 65,
++                homeLevel: 2,
++              ).copyWith(
++                jobPractice: {'student': 9, 'engineer': 2},
++                learnedSkills: ['student'],
++                inheritedSkill: 'student',
++              ),
++        );
++        expect(saveJson(p)['schemaVersion'], 7);
++        final next = restore(p);
++        expect(next.life.toJson(), p.life.toJson());
++        expect(next.intelligence, 42);
++        expect(restore(next).intelligence, 42);
++        expect(
++          () => next.life.jobPractice['student'] = 100,
++          throwsUnsupportedError,
++        );
++        expect(() => next.life.learnedSkills.clear(), throwsUnsupportedError);
++      },
++    );
++
++    test('reloading a just-learned skill cannot apply it a second time', () {
++      var p = const Player(jobId: 'engineer');
++      for (var i = 0; i < 3; i++) p = service.finishTurn(p, activity: 'work');
++      expect(p.intelligence, 14);
++      p = restore(p);
++      p = service.finishTurn(p, activity: 'work');
++      expect(p.intelligence, 14);
++      expect(p.life.learnedSkills, ['engineer']);
++      expect(p.life.jobPractice['engineer'], 4);
++    });
++
++    for (var version = 1; version <= 6; version++) {
++      test(
++        'schema $version migrates with defaults and preserves old stats',
++        () {
++          final p = <String, dynamic>{
++            'position': 19,
++            'stamina': 77,
++            'intelligence': 88,
++            'charm': 66,
++            'money': 5432,
++            'jobId': version < 3 ? 'junior_engineer' : 'engineer',
++            if (version >= 2) 'experience': 321,
++            if (version >= 3) 'morality': 55,
++            if (version >= 4) ...{
++              'gender': 'female',
++              'weaponId': 'staff',
++              'inventory': {'staff': 1, 'plate': 1, 'ring': 1, 'potion': 4},
++            },
++            if (version >= 5) ...{'clearedStages': 4, 'stageWins': 2},
++            if (version >= 6) ...{'armorId': 'plate', 'accessoryId': 'ring'},
++          };
++          final raw = jsonEncode({
++            'schemaVersion': version,
++            'savedAt': date.toIso8601String(),
++            'player': p,
++          });
++          final migrated = SaveData.decode(raw, jobIds).player;
++          expect(migrated.life.toJson(), const LifeProgress().toJson());
++          expect(
++            [
++              migrated.stamina,
++              migrated.intelligence,
++              migrated.charm,
++              migrated.money,
++            ],
++            [77, 88, 66, 5432],
++          );
++          expect(migrated.position, 19);
++          expect(migrated.jobId, 'engineer');
++          expect(migrated.morality, version >= 3 ? 55 : 10);
++          expect(migrated.experience, version >= 2 ? 321 : 0);
++          expect(
++            migrated.gender,
++            version >= 4 ? CharacterGender.female : CharacterGender.male,
++          );
++          expect(migrated.weaponId, version >= 4 ? 'staff' : 'none');
++          expect(migrated.clearedStages, version >= 5 ? 4 : 0);
++          expect(migrated.stageWins, version >= 5 ? 2 : 0);
++          expect(migrated.armorId, version >= 6 ? 'plate' : 'none');
++          expect(migrated.accessoryId, version >= 6 ? 'ring' : 'none');
++          expect(snapshot(restore(migrated)), snapshot(migrated));
++        },
++      );
++    }
++
++    test(
++      'strictly rejects invalid life scalar types, bounds, and unknown keys',
++      () {
++        void rejects(String key, Object? value) {
++          final raw = saveJson(const Player());
++          raw['player']['life'][key] = value;
++          expect(
++            () => SaveData.decode(jsonEncode(raw), jobIds),
++            throwsFormatException,
++            reason: '$key = $value',
++          );
++        }
++
++        for (final key in [
++          'turns',
++          'generation',
++          'eq',
++          'stress',
++          'affection',
++          'homeLevel',
++        ]) {
++          for (final value in <Object?>[
++            null,
++            '1',
++            true,
++            1.5,
++            -1,
++            LifeProgress.maxCounter + 1,
++          ]) {
++            rejects(key, value);
++          }
++        }
++        rejects('generation', 0);
++        for (final key in ['eq', 'stress', 'affection']) rejects(key, 101);
++        rejects('homeLevel', 3);
++        rejects('unexpected', 1);
++        for (final badLife in <Object?>[null, [], 'life', 1]) {
++          final raw = saveJson(const Player());
++          raw['player']['life'] = badLife;
++          expect(
++            () => SaveData.decode(jsonEncode(raw), jobIds),
++            throwsFormatException,
++          );
++        }
++        final missing = saveJson(const Player());
++        missing['player']['life'].remove('turns');
++        expect(
++          () => SaveData.decode(jsonEncode(missing), jobIds),
++          throwsFormatException,
++        );
++      },
++    );
++
++    test(
++      'strictly rejects invalid practice, duplicate skills and inheritance',
++      () {
++        final corruptions = <String, List<Object?>>{
++          'jobPractice': [
++            null,
++            [],
++            {'student': -1},
++            {'student': 1.5},
++            {'student': '3'},
++            {'student': LifeProgress.maxCounter + 1},
++            {'unknown': 3},
++          ],
++          'learnedSkills': [
++            null,
++            {},
++            ['student', 'student'],
++            ['unknown'],
++            [3],
++            [''],
++          ],
++          'inheritedSkill': [1, false, '', 'unknown', 'student'],
++        };
++        for (final entry in corruptions.entries) {
++          for (final value in entry.value) {
++            final raw = saveJson(const Player());
++            raw['player']['life'][entry.key] = value;
++            expect(
++              () => SaveData.decode(jsonEncode(raw), jobIds),
++              throwsFormatException,
++              reason: '${entry.key} = $value',
++            );
++          }
++        }
++      },
++    );
++  });
++}
+diff --git a/test/life_turn_integration_test.dart b/test/life_turn_integration_test.dart
+new file mode 100644
+index 0000000..7f9ae8d
+--- /dev/null
++++ b/test/life_turn_integration_test.dart
+@@ -0,0 +1,81 @@
++import 'dart:io';
++import 'dart:math';
++import 'package:flutter_riverpod/flutter_riverpod.dart';
++import 'package:flutter_test/flutter_test.dart';
++import 'package:life_graybox/application/content_providers.dart';
++import 'package:life_graybox/application/player_controller.dart';
++import 'package:life_graybox/application/turn_controller.dart';
++import 'package:life_graybox/domain/models/battle.dart';
++import 'package:life_graybox/domain/models/life_progress.dart';
++import 'package:life_graybox/domain/models/player.dart';
++
++void main() {
++  TestWidgetsFlutterBinding.ensureInitialized();
++  ProviderContainer gameAt(int position) {
++    final c = ProviderContainer(overrides: [
++      jsonLoaderProvider.overrideWithValue((path) => File(path).readAsString()),
++    ]);
++    c.read(playerProvider.notifier).replace(Player(position: position));
++    addTearDown(c.dispose);
++    return c;
++  }
++
++  Future<TurnController> land(ProviderContainer c) async {
++    final t = c.read(turnProvider.notifier);
++    t.beginTurn();
++    t.finishRoll();
++    await t.land();
++    return t;
++  }
++
++  test('rolling/moving/loading never consume a season', () async {
++    final c = gameAt(0);
++    await land(c);
++    expect(c.read(playerProvider).life.turns, 0);
++  });
++
++  test('a choice with optional battle consumes exactly one season', () async {
++    for (final position in [0, 1, 2]) {
++      final c = gameAt(position);
++      final t = await land(c);
++      final option = c.read(turnProvider).choiceEvent!.options.first;
++      expect(t.finishChoice('missing'), false);
++      expect(c.read(playerProvider).life.turns, 0);
++      expect(t.finishChoice(option.id), true);
++      expect(t.finishChoice(option.id), false);
++      if (option.battleEnemyId != null) {
++        expect(c.read(playerProvider).life.turns, 0);
++        t.finishBattle(const StatDelta(), '撤退');
++      }
++      expect(c.read(playerProvider).life.turns, 1);
++      t.finishBattle(const StatDelta(money: 200), '重複');
++      expect(c.read(playerProvider).life.turns, 1);
++    }
++  });
++
++  test('shop, battle and career each finish once', () async {
++    for (final position in [5, 3, 4]) {
++      final c = gameAt(position);
++      final t = await land(c);
++      void finish() {
++        if (position == 5) t.finishShop();
++        if (position == 3) t.finishBattle(const StatDelta(), '完成');
++        if (position == 4) t.finishResolution();
++      }
++      finish(); finish();
++      expect(c.read(playerProvider).life.turns, 1);
++      expect(c.read(turnProvider).phase, TurnPhase.idle);
++    }
++  });
++
++  test('EQ stress and housing change battle HP but default keeps balance', () {
++    const enemy = Enemy(id: 'test', name: 'test', description: '', hp: 20,
++      attack: 1, reward: 0, portrait: 0);
++    final baseline = BattleSession(const Player(), enemy, random: Random(1));
++    final tired = BattleSession(const Player(life: LifeProgress(stress: 100)), enemy);
++    final settled = BattleSession(const Player(life: LifeProgress(eq: 100, homeLevel: 2)), enemy);
++    expect(baseline.maxHp, 80);
++    expect(tired.maxHp, 70);
++    expect(settled.maxHp, 91);
++  });
++}
+diff --git a/test/shop_magic_test.dart b/test/shop_magic_test.dart
+index 9ab261f..b8ecb00 100644
+--- a/test/shop_magic_test.dart
++++ b/test/shop_magic_test.dart
+@@ -44,7 +44,7 @@ void main() {
+   test('schema v3 gains starter inventory without losing progress', () {
+     final raw=jsonDecode(SaveData(const Player(money:4321),DateTime.utc(2026)).encode());
+     raw['schemaVersion']=3;
+-    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) {raw['player'].remove(key);}
++    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life']) {raw['player'].remove(key);}
+     final p=SaveData.decode(jsonEncode(raw),{'unemployed'}).player;
+     expect(p.money,4321);expect(p.inventory['potion'],2);expect(p.gender,CharacterGender.male);
+   });
+diff --git a/test/stage_progress_test.dart b/test/stage_progress_test.dart
+index dadd36a..6c26e49 100644
+--- a/test/stage_progress_test.dart
++++ b/test/stage_progress_test.dart
+@@ -37,7 +37,7 @@ void main(){
+   final raw=SaveData(p,DateTime.utc(2026)).encode();
+   expect(SaveData.decode(raw,{'unemployed'}).player.clearedStages,4);
+   final old=jsonDecode(raw);old['schemaVersion']=4;
+-  old['player'].remove('clearedStages');old['player'].remove('stageWins');old['player'].remove('armorId');old['player'].remove('accessoryId');
++  old['player'].remove('clearedStages');old['player'].remove('stageWins');old['player'].remove('life');old['player'].remove('armorId');old['player'].remove('accessoryId');
+   final restored=SaveData.decode(jsonEncode(old),{'unemployed'}).player;
+   expect(restored.clearedStages,0);expect(restored.money,4321);expect(restored.gender,CharacterGender.female);
+   final invalid=jsonDecode(raw);invalid['player']['clearedStages']=7;
+diff --git a/tools/verify_life_campaign.dart b/tools/verify_life_campaign.dart
+new file mode 100644
+index 0000000..0616ceb
+--- /dev/null
++++ b/tools/verify_life_campaign.dart
+@@ -0,0 +1,311 @@
++// Scripted domain campaign checks, not UI or randomized board-path QA.
++// Run from project root: dart tools/verify_life_campaign.dart
++import 'dart:convert';
++import 'dart:io';
++import 'dart:math';
++
++import '../lib/domain/models/battle.dart';
++import '../lib/domain/models/board_tile.dart';
++import '../lib/domain/models/life_progress.dart';
++import '../lib/domain/models/player.dart';
++import '../lib/domain/models/save_data.dart';
++import '../lib/domain/models/shop_item.dart';
++import '../lib/domain/models/stage.dart';
++import '../lib/domain/services/job_manager.dart';
++import '../lib/domain/services/life_service.dart';
++import '../lib/domain/services/shop_service.dart';
++import '../lib/domain/services/stage_service.dart';
++import '../lib/domain/services/tile_event_manager.dart';
++
++const root = '.';
++var assertions = 0;
++void check(bool condition, String message) {
++  assertions++;
++  if (!condition) throw StateError(message);
++}
++Future<String> loadJson(String path) => File('$root/$path').readAsString();
++
++class Campaign {
++  final int seed;
++  Campaign(this.seed);
++  final life = const LifeService();
++  final shop = const ShopService();
++  late final jobs = JobManager(loadJson: loadJson);
++  late final tiles = TileEventManager(loadJson: loadJson, random: Random(seed));
++  late final stages = StageService(
++    (jsonDecode(File('$root/assets/data/stages.json').readAsStringSync()) as List)
++      .map((e) => GameStage.fromJson(Map<String, dynamic>.from(e))).toList());
++  late final enemies =
++    (jsonDecode(File('$root/assets/data/enemies.json').readAsStringSync()) as List)
++      .map((e) => Enemy.fromJson(Map<String, dynamic>.from(e))).toList();
++  late final Set<String> jobIds;
++  late final battleRandom = Random(seed * 31 + 7);
++  Player p = const Player(gender: CharacterGender.female);
++  int checkpoints = 0, totalTurns = 0, fights = 0, combatRounds = 0;
++  int lifeActions = 0, workTurns = 0, careerTurns = 0, shopTurns = 0;
++  int spent = 0, workEarned = 0, fightEarned = 0;
++  final learned = <String>[];
++  final chapters = <Map<String, Object>>[];
++
++  void checkpoint(String label) {
++    final raw = SaveData(p, DateTime.utc(2026, 10, 10)).encode();
++    final restored = SaveData.decode(raw, jobIds).player;
++    check(SaveData(restored, DateTime.utc(2026, 10, 10)).encode() == raw,
++      'Seed $seed checkpoint $label changed state or reapplied a bonus');
++    p = restored;
++    checkpoints++;
++  }
++
++  void trackTurn(Player before, Player after, String label) {
++    check(after.life.turns == before.life.turns + 1, '$label must use exactly one turn');
++    totalTurns++;
++    check(after.life.turns == totalTurns, '$label life turns drifted from settled actions');
++  }
++
++  Future<void> work() async {
++    final before = p;
++    final event = await tiles.draw(TileKind.work, stage: p.currentStage);
++    // Select an actual catalog option that avoids stamina loss, preferring study-related work.
++    final choices = [...event.options]..sort((a, b) =>
++      (b.effects.intelligence * 1000 + b.effects.stamina * 100 + b.effects.money)
++        .compareTo(a.effects.intelligence * 1000 + a.effects.stamina * 100 + a.effects.money));
++    final choice = choices.first;
++    check(choice.battleEnemyId == null, 'Selected work is unexpectedly a combat chain');
++    final effects = jobs.workEffects(before, choice.effects);
++    final practiced = (before.life.jobPractice[before.jobId] ?? 0) + 1;
++    final willLearn = practiced >= 3 && !before.life.learnedSkills.contains(before.jobId);
++    final expected = before.apply(effects).apply(willLearn ? life.skillBonus(before.jobId) : const StatDelta());
++    p = life.finishTurn(before.apply(effects), activity: 'work');
++    check(p.money == expected.money && p.stamina == expected.stamina &&
++      p.intelligence == expected.intelligence && p.charm == expected.charm &&
++      p.morality == expected.morality, 'Work effects or one-time perk applied incorrectly');
++    check(p.life.jobPractice[before.jobId] == practiced, 'Work practice not tracked for current job');
++    if (willLearn) {
++      check(practiced == 3, 'First perk was not awarded on third practice');
++      check(p.life.learnedSkills.contains(before.jobId), 'New job skill missing');
++      learned.add(before.jobId);
++    }
++    workEarned += effects.money;
++    workTurns++;
++    trackTurn(before, p, 'work');
++    check(totalTurns < 1000, 'Campaign preparation exceeded 1000 actions');
++    checkpoint('work $workTurns');
++  }
++
++  Future<void> ensureMoney(int amount) async {
++    while (p.money < amount) await work();
++  }
++
++  Future<void> action(String id) async {
++    final cost = switch (id) {'study' => 200, 'exercise' => 100, 'socialize' => 150,
++      'buyHome' => life.homeCost(p), _ => 0};
++    await ensureMoney(cost);
++    final before = p;
++    p = life.lifeAction(p, id);
++    check(before.money - p.money == cost, 'Life action $id charged wrong amount');
++    spent += cost;
++    lifeActions++;
++    trackTurn(before, p, id);
++    checkpoint(id);
++  }
++
++  Future<void> changeJob(String id) async {
++    check(jobs.evaluate(p, id).allowed, 'Career $id not earned: ${jobs.evaluate(p, id).reasons}');
++    checkpoint('before $id promotion');
++    final before = p;
++    final changed = jobs.changeJob(p, id);
++    check(changed.money == p.money && changed.stamina == p.stamina &&
++      changed.intelligence == p.intelligence && changed.morality == p.morality,
++      'Promotion incorrectly deducted eligibility stats');
++    p = life.finishTurn(changed, activity: 'career');
++    careerTurns++;
++    trackTurn(before, p, 'career');
++    checkpoint('after $id promotion');
++    for (var i = 0; i < 3; i++) await work();
++    check(p.life.learnedSkills.contains(id), 'Promoted skill missing after three work turns');
++  }
++
++  Future<void> buyAndEquip(String id) async {
++    final item = shopById(id);
++    check(p.currentStage >= item.unlockStage, 'Attempted locked gear purchase');
++    await ensureMoney(item.price);
++    final before = p;
++    p = shop.equip(shop.buy(p, id), id);
++    check(before.money - p.money == item.price, 'Shop charged wrong price for $id');
++    p = life.finishTurn(p, activity: 'shop');
++    spent += item.price;
++    shopTurns++;
++    trackTurn(before, p, 'shop');
++    checkpoint('equipped $id');
++  }
++
++  Future<void> fight(Enemy enemy) async {
++    while (p.life.stress > 24) await action('rest');
++    checkpoint('before fight ${enemy.id}');
++    final before = p;
++    final b = BattleSession(p, enemy, job: jobs.byId(p.jobId), random: battleRandom);
++    final expectedHp = max(1, 60 + min(p.stamina, 200) * 2 + equipmentHp(p)
++      + (p.life.eq - 50) ~/ 10 - p.life.stress ~/ 10 + p.life.homeLevel * 3);
++    check(b.maxHp == expectedHp, 'Battle maximum HP omitted life effects');
++    check(b.claim() == null, 'Active battle paid rewards');
++    while (b.active && b.round < 200) {
++      final action = b.hp < b.maxHp ~/ 2 && b.canUse(BattleAction.heal)
++        ? BattleAction.heal
++        : b.hp < b.maxHp ~/ 3 && b.canUse(BattleAction.potion)
++          ? BattleAction.potion
++          : b.enemySp >= enemy.maxSp && b.canUse(BattleAction.frost)
++            ? BattleAction.frost
++            : b.canUse(BattleAction.skill) ? BattleAction.skill : BattleAction.attack;
++      check(b.canUse(action), 'AI selected unavailable combat action');
++      b.act(action);
++    }
++    check(b.status == BattleStatus.won,
++      'Seed $seed lost to ${enemy.id}: HP ${b.hp}/${b.maxHp}, enemy ${b.enemyHp}, rounds ${b.round}, job ${p.jobId}');
++    final reward = b.claim();
++    check(reward != null && reward.money == enemy.reward, 'Victory reward mismatch');
++    check(b.claim() == null, 'Victory rewards could be claimed twice');
++    final oldRounds = b.round;
++    b.act(BattleAction.attack);
++    check(b.round == oldRounds, 'Terminal battle accepted another attack');
++    p = life.finishTurn(before.apply(reward!).gainExperience(b.earnedExperience)
++      .copyWith(inventory: b.remainingInventory), activity: 'battle');
++    p = stages.settle(p, enemy, b.status);
++    check(p.money == before.money + enemy.reward, 'Battle or life settlement charged unexpected money');
++    check(p.experience == before.experience + enemy.experience, 'Experience applied incorrectly');
++    check(p.stamina == before.stamina + 3 && p.intelligence == before.intelligence + 2 &&
++      p.morality == before.morality + 2, 'Victory growth missing or repeated');
++    if (enemy.isBoss) {
++      check(p.clearedStages == before.clearedStages + 1 && p.stageWins == 0,
++        'Boss did not advance exactly one stage');
++      final duplicate = stages.settle(p, enemy, b.status);
++      check(duplicate.clearedStages == p.clearedStages, 'Old boss advanced another stage');
++    } else {
++      check(p.clearedStages == before.clearedStages && p.stageWins == before.stageWins + 1,
++        'Ordinary victory did not advance boss readiness');
++    }
++    fights++;
++    fightEarned += enemy.reward;
++    combatRounds += b.round;
++    trackTurn(before, p, 'battle');
++    checkpoint('after fight ${enemy.id}');
++  }
++
++  Future<Map<String, Object>> run() async {
++    await jobs.load();
++    jobIds = jobs.jobs.map((j) => j.id).toSet();
++    checkpoint('fresh');
++    await changeJob('student');
++    while (p.intelligence <= 30) await action('study');
++    while (p.morality < 15) await work();
++    await changeJob('engineer');
++    while (p.stamina < 30) await action('exercise');
++    while (p.intelligence < 50) await action('study');
++    await buyAndEquip('staff');
++    await buyAndEquip('plate');
++    await buyAndEquip('ring');
++    await action('socialize');
++
++    for (var chapter = 1; chapter <= 6; chapter++) {
++      check(p.currentStage == chapter, 'Chapter skipped');
++      final boss = stages.current(p).boss;
++      check(!stages.current(p).bossReady(p), 'Boss ready without ordinary wins');
++      final premature = stages.settle(p, boss, BattleStatus.won);
++      check(premature.clearedStages == p.clearedStages, 'Early boss bypassed normal wins');
++      if (chapter == 2) await action('buyHome');
++      if (chapter == 4) await action('buyHome');
++      if (chapter == 6) {
++        while (p.intelligence <= 70) await action('study');
++        // Legitimate paid morality training if work/battle rewards have not met the threshold.
++        while (p.morality <= 50) {
++          await ensureMoney(300);
++          final before = p;
++          p = life.finishTurn(shop.buy(p, 'train_morality'), activity: 'shop');
++          spent += 300; shopTurns++; trackTurn(before, p, 'morality training');
++          checkpoint('morality training');
++        }
++        await changeJob('mentor');
++        await buyAndEquip('astral_staff');
++      }
++      final eligible = enemies.where((e) => e.minTier <= jobs.byId(p.jobId).tier).toList();
++      // Pick three real catalog enemies, stage-scaled by the shipped StageService.
++      for (var i = 0; i < 3; i++) {
++        final enemy = stages.scaleEnemy(eligible[(seed + chapter * 3 + i) % eligible.length], p);
++        await fight(enemy);
++      }
++      check(stages.current(p).bossReady(p), 'Three ordinary wins failed to unlock boss');
++      await fight(boss);
++      chapters.add({'stage': chapter, 'age': p.life.age, 'turns': p.life.turns,
++        'money': p.money, 'job': p.jobId, 'stamina': p.stamina, 'intelligence': p.intelligence});
++    }
++    check(fights == 24 && p.campaignComplete, 'Campaign did not complete eighteen normals and six bosses');
++    check(p.money == 1000 + workEarned + fightEarned - spent, 'Campaign money ledger mismatched');
++    check(totalTurns == workTurns + lifeActions + careerTurns + shopTurns + fights,
++      'Campaign turn ledger mismatched');
++    check(learned.toSet().length == learned.length, 'Same skill awarded twice in one life');
++    check(p.life.learnedSkills.contains('mentor'), 'Late-game selected inheritance never learned');
++    final end = p;
++    checkpoint('campaign complete');
++    check(life.canReincarnate(p), 'Completed campaign did not unlock reincarnation');
++    p = life.reincarnate(p, inheritSkill: 'mentor');
++    check(p.gender == CharacterGender.female && p.life.generation == 2, 'Reincarnation lost gender/generation');
++    check(p.life.turns == 0 && p.life.age == 18 && p.life.homeLevel == 0 && p.life.stress == 0,
++      'Reincarnation did not reset life');
++    check(p.clearedStages == 0 && p.stageWins == 0 && p.position == 0 && p.experience == 0,
++      'Reincarnation did not reset world');
++    check(p.money == 1000 && p.jobId == 'unemployed' && p.intelligence == 16 &&
++      p.stamina == 10 && p.charm == 10 && p.morality == 10, 'Reincarnation perk not applied exactly once');
++    check(p.life.learnedSkills.length == 1 && p.life.inheritedSkill == 'mentor', 'Inheritance not isolated');
++    check(p.weaponId == 'none' && p.armorId == 'none' && p.accessoryId == 'none' &&
++      jsonEncode(p.inventory) == jsonEncode(const Player().inventory), 'Equipment/inventory not reset');
++    checkpoint('reincarnated');
++    check(p.intelligence == 16, 'Reload reapplied inherited bonus');
++    check(!life.canReincarnate(p), 'Fresh second generation may immediately reincarnate');
++    var repeatRejected = false;
++    try { life.reincarnate(p, inheritSkill: 'mentor'); } on StateError { repeatRejected = true; }
++    check(repeatRejected, 'Repeated reincarnation not rejected');
++
++    return {'seed': seed, 'fights': fights, 'combatRounds': combatRounds,
++      'turns': totalTurns, 'ageAtCompletion': end.life.age, 'checkpoints': checkpoints,
++      'workTurns': workTurns, 'lifeActions': lifeActions, 'careerTurns': careerTurns,
++      'shopTurns': shopTurns, 'earnedFromWork': workEarned, 'earnedFromFights': fightEarned,
++      'spent': spent, 'endingMoney': end.money, 'skills': learned,
++      'inheritedSkill': p.life.inheritedSkill!, 'generationTwoIntelligence': p.intelligence,
++      'chapters': chapters};
++  }
++}
++
++void checkHpFormula() {
++  const enemy = Enemy(id: 'hp_probe', name: 'HP probe', description: '', hp: 1,
++    attack: 1, reward: 0, portrait: 0);
++  check(BattleSession(const Player(), enemy).maxHp == 80,
++    'Default player HP changed from original baseline 80');
++  check(BattleSession(const Player(life: LifeProgress(eq: 90, stress: 20, homeLevel: 2)), enemy).maxHp == 88,
++    'Combined EQ/stress/home HP should be 88');
++  check(BattleSession(const Player(life: LifeProgress(eq: 0, stress: 100)), enemy).maxHp == 65,
++    'Worst valid EQ/stress HP should be 65');
++  check(BattleSession(const Player(stamina: 0, life: LifeProgress(eq: 0, stress: 100)), enemy).maxHp == 45,
++    'Zero stamina with worst valid meters should still be survivable');
++  check(BattleSession(const Player(life: LifeProgress(homeLevel: 1)), enemy).maxHp == 83,
++    'Each home level must add 3 HP');
++  check(BattleSession(const Player(life: LifeProgress(eq: 41, stress: 9)), enemy).maxHp == 80,
++    'Meter rounding must truncate toward zero');
++}
++
++Future<void> main() async {
++  checkHpFormula();
++  final runs = <Map<String, Object>>[];
++  for (final seed in [1, 7, 19, 42, 99, 123, 2026, 31415, 65535, 99991]) {
++    final result = await Campaign(seed).run();
++    runs.add(result);
++    print('PASS seed $seed: ${result['fights']} wins, ${result['turns']} turns, '
++      'age ${result['ageAtCompletion']}, ${result['checkpoints']} verified save boundaries, '
++      'generation 2 mentor bonus INT ${result['generationTwoIntelligence']}');
++  }
++  final report = {'mode': 'Pure Dart scripted domain campaign; no Flutter widget/dice-board test',
++    'assertions': assertions, 'passedCampaigns': runs.length,
++    'totalVictories': runs.fold<int>(0, (sum, r) => sum + (r['fights'] as int)),
++    'totalCheckpoints': runs.fold<int>(0, (sum, r) => sum + (r['checkpoints'] as int)),
++    'hpFormulaChecks': 6, 'runs': runs};
++  File('life_campaign_report.json').writeAsStringSync(const JsonEncoder.withIndent('  ').convert(report));
++  print('PASS $assertions assertions; report life_campaign_report.json');
++}
+diff --git a/tools/verify_life_core.dart b/tools/verify_life_core.dart
+new file mode 100644
+index 0000000..5473dfd
+--- /dev/null
++++ b/tools/verify_life_core.dart
+@@ -0,0 +1,677 @@
++// Dependency-free verification for environments without Flutter packages.
++// Run from project root: dart tools/verify_life_core.dart
++import 'dart:convert';
++import 'dart:io';
++
++import '../lib/domain/models/life_progress.dart';
++import '../lib/domain/models/player.dart';
++import '../lib/domain/models/save_data.dart';
++import '../lib/domain/services/life_service.dart';
++
++void runTests() {
++  const service = LifeService();
++  final jobRows =
++      (jsonDecode(File('assets/data/jobs.json').readAsStringSync())
++              as Map<String, dynamic>)['jobs']
++          as List<dynamic>;
++  final jobIds = jobRows.map((row) => row['id'] as String).toSet();
++  final date = DateTime.utc(2026, 10, 10);
++  String snapshot(Player p) => SaveData(p, date).encode();
++  Map<String, dynamic> saveJson(Player p) =>
++      jsonDecode(snapshot(p)) as Map<String, dynamic>;
++  Player restore(Player p) => SaveData.decode(snapshot(p), jobIds).player;
++
++  group('immutable life state', () {
++    test(
++      'defaults, seasons, and birthdays use exactly four turns per year',
++      () {
++        const life = LifeProgress();
++        expect(life.turns, 0);
++        expect(life.generation, 1);
++        expect(life.eq, 50);
++        expect([life.stress, life.affection, life.homeLevel], [0, 0, 0]);
++        expect(life.jobPractice, isEmpty);
++        expect(life.learnedSkills, isEmpty);
++        expect(life.inheritedSkill, isNull);
++        expect(life.age, 18);
++        expect(
++          [for (var i = 0; i < 5; i++) life.copyWith(turns: i).season],
++          ['春', '夏', '秋', '冬', '春'],
++        );
++        expect(life.copyWith(turns: 3).age, 18);
++        expect(life.copyWith(turns: 4).age, 19);
++        expect(life.copyWith(turns: 168).age, 60);
++      },
++    );
++
++    test(
++      'collection inputs and exposed collections cannot mutate a snapshot',
++      () {
++        final practice = {'student': 3};
++        final skills = ['student'];
++        final life = const LifeProgress().copyWith(
++          jobPractice: practice,
++          learnedSkills: skills,
++          inheritedSkill: 'student',
++        );
++        practice['student'] = 99;
++        skills.add('hero');
++        expect(life.jobPractice, {'student': 3});
++        expect(life.learnedSkills, ['student']);
++        expect(() => life.jobPractice['student'] = 100, throwsUnsupportedError);
++        expect(() => life.learnedSkills.add('hero'), throwsUnsupportedError);
++        expect(life.copyWith(stress: 2).inheritedSkill, 'student');
++        expect(life.copyWith(clearInheritedSkill: true).inheritedSkill, isNull);
++      },
++    );
++
++    test('every existing player update preserves its life snapshot', () {
++      final life = const LifeProgress(
++        turns: 22,
++        generation: 2,
++        eq: 65,
++        stress: 12,
++        affection: 40,
++        homeLevel: 1,
++      ).copyWith(jobPractice: {'student': 3}, learnedSkills: ['student']);
++      final p = Player(life: life);
++      for (final next in [
++        p.copyWith(position: 8),
++        p.copyWith(jobId: 'student'),
++        p.copyWith(gender: CharacterGender.female),
++        p.copyWith(weaponId: 'staff', inventory: {'staff': 1}),
++        p.copyWith(clearedStages: 1, stageWins: 2),
++        p.apply(const StatDelta(money: -100, intelligence: 5)),
++        p.gainExperience(100),
++      ]) {
++        expect(identical(next.life, life), isTrue);
++      }
++    });
++  });
++
++  group('board turn settlement and passive skills', () {
++    test(
++      'every activity advances once and does not charge unrelated money',
++      () {
++        const p = Player(money: 1234, life: LifeProgress(stress: 20));
++        for (final activity in LifeService.activities) {
++          final next = service.finishTurn(p, activity: activity);
++          expect(next.life.turns, 1, reason: activity);
++          expect(next.money, 1234, reason: activity);
++          expect(next.life.jobPractice.length, activity == 'work' ? 1 : 0);
++        }
++        expect(p.life.turns, 0);
++        final before = snapshot(p);
++        expect(
++          () => service.finishTurn(p, activity: 'missing'),
++          throwsArgumentError,
++        );
++        expect(snapshot(p), before);
++      },
++    );
++
++    test('practice teaches a job skill on turn three, exactly once', () {
++      var p = const Player(jobId: 'student');
++      p = service.finishTurn(p, activity: 'work');
++      p = service.finishTurn(p, activity: 'work');
++      expect(p.life.jobPractice['student'], 2);
++      expect(p.life.learnedSkills, isEmpty);
++      expect(p.intelligence, 10);
++      p = service.finishTurn(p, activity: 'work');
++      expect(p.life.learnedSkills, ['student']);
++      expect(p.intelligence, 12);
++      for (var i = 0; i < 12; i++) {
++        p = service.finishTurn(p, activity: 'work');
++      }
++      expect(p.life.turns, 15);
++      expect(p.life.jobPractice['student'], 15);
++      expect(p.life.learnedSkills, ['student']);
++      expect(p.intelligence, 12);
++    });
++
++    test(
++      'each job owns its practice and known skills survive career changes',
++      () {
++        var p = const Player(jobId: 'student');
++        p = service.finishTurn(p, activity: 'work');
++        p = p.copyWith(jobId: 'part_timer');
++        for (var i = 0; i < 3; i++) {
++          p = service.finishTurn(p, activity: 'work');
++        }
++        expect(p.life.jobPractice, {'student': 1, 'part_timer': 3});
++        expect(p.stamina, 12);
++        expect(p.intelligence, 10);
++        p = p.copyWith(jobId: 'student');
++        p = service.finishTurn(p, activity: 'work');
++        p = service.finishTurn(p, activity: 'work');
++        expect(p.life.learnedSkills, ['part_timer', 'student']);
++        expect(p.intelligence, 12);
++        expect(p.stamina, 12);
++      },
++    );
++
++    test('all shipped job IDs have original tier-scaled perk descriptions', () {
++      for (final row in jobRows) {
++        final id = row['id'] as String;
++        final tier = row['tier'] as int;
++        final bonus = service.skillBonus(id);
++        expect(bonus.money, 0);
++        expect(
++          bonus.stamina + bonus.intelligence + bonus.charm + bonus.morality,
++          tier == 0 ? 1 : tier * 2,
++          reason: id,
++        );
++        expect(service.skillDescription(id), contains(bonus.summary));
++      }
++      expect(service.skillBonus('student').intelligence, 2);
++      expect(service.skillBonus('warrior').stamina, 4);
++      expect(service.skillBonus('president').charm, 6);
++      expect(service.skillBonus('paladin').morality, 6);
++      expect(() => service.skillBonus('unknown'), throwsArgumentError);
++    });
++
++    test('meters clamp and homes reduce stress once per board turn', () {
++      const p = Player(life: LifeProgress(eq: 99, stress: 99, homeLevel: 2));
++      final career = service.finishTurn(p, activity: 'career');
++      expect(career.life.eq, 100);
++      expect(career.life.stress, 98);
++      expect(service.finishTurn(p, activity: 'penalty').life.stress, 100);
++      expect(
++        service.finishTurn(const Player(), activity: 'luck').life.stress,
++        0,
++      );
++    });
++
++    test('age sixty unlocks reincarnation without locking normal play', () {
++      const p = Player(life: LifeProgress(turns: 168));
++      expect(service.canReincarnate(p), isTrue);
++      expect(service.finishTurn(p, activity: 'work').life.turns, 169);
++      expect(service.lifeAction(p, 'rest').life.turns, 169);
++    });
++  });
++
++  group('life actions', () {
++    test('study, exercise and socializing have truthful costs and effects', () {
++      const p = Player(life: LifeProgress(stress: 20));
++      final study = service.lifeAction(p, 'study');
++      expect(
++        [study.money, study.intelligence, study.life.stress],
++        [800, 15, 23],
++      );
++      final exercise = service.lifeAction(p, 'exercise');
++      expect(
++        [exercise.money, exercise.stamina, exercise.life.stress],
++        [900, 15, 16],
++      );
++      final socialize = service.lifeAction(p, 'socialize');
++      expect(
++        [
++          socialize.money,
++          socialize.life.affection,
++          socialize.life.eq,
++          socialize.life.stress,
++        ],
++        [850, 8, 53, 17],
++      );
++      for (final next in [study, exercise, socialize]) {
++        expect(next.life.turns, 1);
++        expect(next.life.jobPractice, isEmpty);
++        expect(next.life.learnedSkills, isEmpty);
++      }
++    });
++
++    test('rest is free and meter changes do not underflow or overflow', () {
++      final rested = service.lifeAction(
++        const Player(money: 0, life: LifeProgress(stress: 5)),
++        'rest',
++      );
++      expect(rested.money, 0);
++      expect(rested.life.stress, 0);
++      expect(rested.life.turns, 1);
++      final socialized = service.lifeAction(
++        const Player(life: LifeProgress(eq: 99, affection: 98)),
++        'socialize',
++      );
++      expect([socialized.life.eq, socialized.life.affection], [100, 100]);
++      expect(
++        service
++            .lifeAction(const Player(life: LifeProgress(stress: 99)), 'study')
++            .life
++            .stress,
++        100,
++      );
++    });
++
++    test(
++      'affordability checks exact thresholds and failures are immutable',
++      () {
++        for (final entry in {
++          'study': 200,
++          'exercise': 100,
++          'socialize': 150,
++          'buyHome': 2500,
++        }.entries) {
++          final poor = Player(money: entry.value - 1);
++          final before = snapshot(poor);
++          expect(
++            () => service.lifeAction(poor, entry.key),
++            throwsStateError,
++            reason: entry.key,
++          );
++          expect(snapshot(poor), before);
++          final exact = service.lifeAction(
++            Player(money: entry.value),
++            entry.key,
++          );
++          expect(exact.money, 0);
++          expect(exact.life.turns, 1);
++        }
++        const p = Player();
++        final before = snapshot(p);
++        expect(() => service.lifeAction(p, 'unknown'), throwsArgumentError);
++        expect(snapshot(p), before);
++      },
++    );
++
++    test(
++      'homes use staged prices and cannot be purchased beyond level two',
++      () {
++        var p = const Player(money: 9000);
++        expect(service.homeCost(p), 2500);
++        p = service.lifeAction(p, 'buyHome');
++        expect([p.money, p.life.homeLevel, p.life.turns], [6500, 1, 1]);
++        expect(service.homeCost(p), 6500);
++        p = service.lifeAction(p, 'buyHome');
++        expect([p.money, p.life.homeLevel, p.life.turns], [0, 2, 2]);
++        final before = snapshot(p);
++        expect(() => service.lifeAction(p, 'buyHome'), throwsStateError);
++        expect(snapshot(p), before);
++        expect(service.homeCost(p), 0);
++      },
++    );
++  });
++
++  group('reincarnation', () {
++    test(
++      'requires campaign completion or age sixty and validates selection',
++      () {
++        const young = Player(life: LifeProgress(turns: 167));
++        expect(service.canReincarnate(young), isFalse);
++        expect(() => service.reincarnate(young), throwsStateError);
++        const complete = Player(clearedStages: 6);
++        expect(service.canReincarnate(complete), isTrue);
++        final before = snapshot(complete);
++        expect(
++          () => service.reincarnate(complete, inheritSkill: 'hero'),
++          throwsStateError,
++        );
++        expect(snapshot(complete), before);
++        expect(
++          service.canReincarnate(const Player(life: LifeProgress(turns: 168))),
++          isTrue,
++        );
++      },
++    );
++
++    test('resets world, growth, inventory, equipment and all life meters', () {
++      final p = Player(
++        clearedStages: 6,
++        position: 18,
++        stamina: 200,
++        intelligence: 200,
++        charm: 200,
++        morality: 200,
++        money: 99999,
++        experience: 1500,
++        jobId: 'hero',
++        gender: CharacterGender.female,
++        weaponId: 'staff',
++        armorId: 'plate',
++        accessoryId: 'ring',
++        inventory: const {'staff': 1, 'plate': 1, 'ring': 1, 'potion': 90},
++        life:
++            const LifeProgress(
++              turns: 180,
++              generation: 3,
++              eq: 90,
++              stress: 88,
++              affection: 100,
++              homeLevel: 2,
++            ).copyWith(
++              jobPractice: {'hero': 8},
++              learnedSkills: ['student', 'hero'],
++            ),
++      );
++      final next = service.reincarnate(p, inheritSkill: 'hero');
++      expect(next.gender, CharacterGender.female);
++      expect(
++        [next.clearedStages, next.stageWins, next.position, next.experience],
++        [0, 0, 0, 0],
++      );
++      expect(next.jobId, 'unemployed');
++      expect(
++        [next.weaponId, next.armorId, next.accessoryId],
++        ['none', 'none', 'none'],
++      );
++      expect(next.inventory, const Player().inventory);
++      expect(next.money, 1000);
++      expect(
++        [next.stamina, next.intelligence, next.charm, next.morality],
++        [10, 10, 10, 16],
++      );
++      expect(next.life.generation, 4);
++      expect(
++        [
++          next.life.turns,
++          next.life.age,
++          next.life.eq,
++          next.life.stress,
++          next.life.affection,
++          next.life.homeLevel,
++        ],
++        [0, 18, 50, 0, 0, 0],
++      );
++      expect(next.life.learnedSkills, ['hero']);
++      expect(next.life.inheritedSkill, 'hero');
++      expect(next.life.jobPractice, isEmpty);
++      expect(service.canReincarnate(next), isFalse);
++      expect(
++        () => service.reincarnate(next, inheritSkill: 'hero'),
++        throwsStateError,
++      );
++      expect(p.money, 99999);
++      expect(p.life.generation, 3);
++    });
++
++    test('every skill grants exactly its advertised perk on inheritance', () {
++      for (final id in jobIds) {
++        final p = Player(
++          clearedStages: 6,
++          life: const LifeProgress().copyWith(learnedSkills: [id]),
++        );
++        final next = service.reincarnate(p, inheritSkill: id);
++        final bonus = service.skillBonus(id);
++        expect(
++          [next.stamina, next.intelligence, next.charm, next.morality],
++          [
++            10 + bonus.stamina,
++            10 + bonus.intelligence,
++            10 + bonus.charm,
++            10 + bonus.morality,
++          ],
++          reason: id,
++        );
++        expect(next.life.learnedSkills, [id]);
++      }
++    });
++
++    test(
++      'inherited perk can cross generations but cannot stack on relearning',
++      () {
++        final original = Player(
++          clearedStages: 6,
++          life: const LifeProgress().copyWith(learnedSkills: ['student']),
++        );
++        var second = service
++            .reincarnate(original, inheritSkill: 'student')
++            .copyWith(jobId: 'student');
++        for (var i = 0; i < 3; i++) {
++          second = service.finishTurn(second, activity: 'work');
++        }
++        expect(second.intelligence, 12);
++        final third = service.reincarnate(
++          second.copyWith(clearedStages: 6),
++          inheritSkill: 'student',
++        );
++        expect(third.life.generation, 3);
++        expect(third.intelligence, 12);
++        final noSkill = service.reincarnate(third.copyWith(clearedStages: 6));
++        expect(noSkill.intelligence, 10);
++        expect(noSkill.life.learnedSkills, isEmpty);
++        expect(noSkill.life.inheritedSkill, isNull);
++      },
++    );
++  });
++
++  group('schema seven saves and migration', () {
++    test(
++      'roundtrip persists every life field and does not reapply bonuses',
++      () {
++        final p = Player(
++          intelligence: 42,
++          life:
++              const LifeProgress(
++                turns: 80,
++                generation: 2,
++                eq: 77,
++                stress: 34,
++                affection: 65,
++                homeLevel: 2,
++              ).copyWith(
++                jobPractice: {'student': 9, 'engineer': 2},
++                learnedSkills: ['student'],
++                inheritedSkill: 'student',
++              ),
++        );
++        expect(saveJson(p)['schemaVersion'], 7);
++        final next = restore(p);
++        expect(next.life.toJson(), p.life.toJson());
++        expect(next.intelligence, 42);
++        expect(restore(next).intelligence, 42);
++        expect(
++          () => next.life.jobPractice['student'] = 100,
++          throwsUnsupportedError,
++        );
++        expect(() => next.life.learnedSkills.clear(), throwsUnsupportedError);
++      },
++    );
++
++    test('reloading a just-learned skill cannot apply it a second time', () {
++      var p = const Player(jobId: 'engineer');
++      for (var i = 0; i < 3; i++) p = service.finishTurn(p, activity: 'work');
++      expect(p.intelligence, 14);
++      p = restore(p);
++      p = service.finishTurn(p, activity: 'work');
++      expect(p.intelligence, 14);
++      expect(p.life.learnedSkills, ['engineer']);
++      expect(p.life.jobPractice['engineer'], 4);
++    });
++
++    for (var version = 1; version <= 6; version++) {
++      test(
++        'schema $version migrates with defaults and preserves old stats',
++        () {
++          final p = <String, dynamic>{
++            'position': 19,
++            'stamina': 77,
++            'intelligence': 88,
++            'charm': 66,
++            'money': 5432,
++            'jobId': version < 3 ? 'junior_engineer' : 'engineer',
++            if (version >= 2) 'experience': 321,
++            if (version >= 3) 'morality': 55,
++            if (version >= 4) ...{
++              'gender': 'female',
++              'weaponId': 'staff',
++              'inventory': {'staff': 1, 'plate': 1, 'ring': 1, 'potion': 4},
++            },
++            if (version >= 5) ...{'clearedStages': 4, 'stageWins': 2},
++            if (version >= 6) ...{'armorId': 'plate', 'accessoryId': 'ring'},
++          };
++          final raw = jsonEncode({
++            'schemaVersion': version,
++            'savedAt': date.toIso8601String(),
++            'player': p,
++          });
++          final migrated = SaveData.decode(raw, jobIds).player;
++          expect(migrated.life.toJson(), const LifeProgress().toJson());
++          expect(
++            [
++              migrated.stamina,
++              migrated.intelligence,
++              migrated.charm,
++              migrated.money,
++            ],
++            [77, 88, 66, 5432],
++          );
++          expect(migrated.position, 19);
++          expect(migrated.jobId, 'engineer');
++          expect(migrated.morality, version >= 3 ? 55 : 10);
++          expect(migrated.experience, version >= 2 ? 321 : 0);
++          expect(
++            migrated.gender,
++            version >= 4 ? CharacterGender.female : CharacterGender.male,
++          );
++          expect(migrated.weaponId, version >= 4 ? 'staff' : 'none');
++          expect(migrated.clearedStages, version >= 5 ? 4 : 0);
++          expect(migrated.stageWins, version >= 5 ? 2 : 0);
++          expect(migrated.armorId, version >= 6 ? 'plate' : 'none');
++          expect(migrated.accessoryId, version >= 6 ? 'ring' : 'none');
++          expect(snapshot(restore(migrated)), snapshot(migrated));
++        },
++      );
++    }
++
++    test(
++      'strictly rejects invalid life scalar types, bounds, and unknown keys',
++      () {
++        void rejects(String key, Object? value) {
++          final raw = saveJson(const Player());
++          raw['player']['life'][key] = value;
++          expect(
++            () => SaveData.decode(jsonEncode(raw), jobIds),
++            throwsFormatException,
++            reason: '$key = $value',
++          );
++        }
++
++        for (final key in [
++          'turns',
++          'generation',
++          'eq',
++          'stress',
++          'affection',
++          'homeLevel',
++        ]) {
++          for (final value in <Object?>[
++            null,
++            '1',
++            true,
++            1.5,
++            -1,
++            LifeProgress.maxCounter + 1,
++          ]) {
++            rejects(key, value);
++          }
++        }
++        rejects('generation', 0);
++        for (final key in ['eq', 'stress', 'affection']) rejects(key, 101);
++        rejects('homeLevel', 3);
++        rejects('unexpected', 1);
++        for (final badLife in <Object?>[null, [], 'life', 1]) {
++          final raw = saveJson(const Player());
++          raw['player']['life'] = badLife;
++          expect(
++            () => SaveData.decode(jsonEncode(raw), jobIds),
++            throwsFormatException,
++          );
++        }
++        final missing = saveJson(const Player());
++        missing['player']['life'].remove('turns');
++        expect(
++          () => SaveData.decode(jsonEncode(missing), jobIds),
++          throwsFormatException,
++        );
++      },
++    );
++
++    test(
++      'strictly rejects invalid practice, duplicate skills and inheritance',
++      () {
++        final corruptions = <String, List<Object?>>{
++          'jobPractice': [
++            null,
++            [],
++            {'student': -1},
++            {'student': 1.5},
++            {'student': '3'},
++            {'student': LifeProgress.maxCounter + 1},
++            {'unknown': 3},
++          ],
++          'learnedSkills': [
++            null,
++            {},
++            ['student', 'student'],
++            ['unknown'],
++            [3],
++            [''],
++          ],
++          'inheritedSkill': [1, false, '', 'unknown', 'student'],
++        };
++        for (final entry in corruptions.entries) {
++          for (final value in entry.value) {
++            final raw = saveJson(const Player());
++            raw['player']['life'][entry.key] = value;
++            expect(
++              () => SaveData.decode(jsonEncode(raw), jobIds),
++              throwsFormatException,
++              reason: '${entry.key} = $value',
++            );
++          }
++        }
++      },
++    );
++  });
++}
++
++int passed = 0;
++int failed = 0;
++String groupName = '';
++class CoreMatcher {
++  final String description;
++  final bool Function(dynamic) predicate;
++  CoreMatcher(this.description, this.predicate);
++}
++void group(String name, void Function() body) {
++  groupName = name;
++  body();
++}
++void test(String name, void Function() body) {
++  try {
++    body();
++    passed++;
++    print('PASS $groupName: $name');
++  } catch (e, st) {
++    failed++;
++    print('FAIL $groupName: $name\n$e\n$st');
++  }
++}
++bool deepEquals(dynamic a, dynamic b) {
++  if (a is Map && b is Map) {
++    return a.length == b.length && b.keys.every((k) => a.containsKey(k) && deepEquals(a[k], b[k]));
++  }
++  if (a is Iterable && b is Iterable) {
++    final x = a.toList(), y = b.toList();
++    return x.length == y.length && List.generate(x.length, (i) => i).every((i) => deepEquals(x[i], y[i]));
++  }
++  return a == b;
++}
++void expect(dynamic actual, dynamic expected, {String? reason}) {
++  final ok = expected is CoreMatcher ? expected.predicate(actual) : deepEquals(actual, expected);
++  if (!ok) throw StateError('Expected ${expected is CoreMatcher ? expected.description : expected}, got $actual. ${reason ?? ""}');
++}
++CoreMatcher throwsType<T>() => CoreMatcher('throws $T', (dynamic callback) {
++  try { (callback as Function)(); } catch (e) { return e is T; }
++  return false;
++});
++final throwsUnsupportedError = throwsType<UnsupportedError>();
++final throwsStateError = throwsType<StateError>();
++final throwsArgumentError = throwsType<ArgumentError>();
++final throwsFormatException = throwsType<FormatException>();
++final isNull = CoreMatcher('null', (v) => v == null);
++final isTrue = CoreMatcher('true', (v) => v == true);
++final isFalse = CoreMatcher('false', (v) => v == false);
++final isEmpty = CoreMatcher('empty', (v) => (v as dynamic).isEmpty == true);
++CoreMatcher contains(dynamic item) => CoreMatcher('contains $item', (v) => (v as dynamic).contains(item) == true);
++
++void main() { runTests(); print("Pure Dart life checks: $passed passed, $failed failed"); if(failed>0) exit(1); }

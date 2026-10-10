@@ -48,7 +48,7 @@ void main(){
    expect(restored.armorId,'plate');expect(restored.accessoryId,'ring');expect(restored.stageWins,2);
    raw['player']['armorId']='ring';
    expect(()=>SaveData.decode(jsonEncode(raw),{'unemployed'}),throwsFormatException);
-   raw['schemaVersion']=5;raw['player'].remove('armorId');raw['player'].remove('accessoryId');
+   raw['player'].remove('stageTurns');raw['player'].remove('turnsPerStage');raw['schemaVersion']=5;raw['player'].remove('story');raw['player'].remove('life');raw['player'].remove('armorId');raw['player'].remove('accessoryId');
    final old=SaveData.decode(jsonEncode(raw),{'unemployed'}).player;
    expect(old.armorId,'none');expect(old.weaponId,'staff');expect(old.clearedStages,4);
  });

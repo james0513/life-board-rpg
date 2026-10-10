@@ -1,0 +1,800 @@
+{
+  "mode": "Pure Dart scripted card-combat campaign; no Flutter widget/dice-board test",
+  "assertions": 7571,
+  "passedCampaigns": 10,
+  "totalVictories": 240,
+  "totalCheckpoints": 1120,
+  "hpFormulaChecks": 6,
+  "runs": [
+    {
+      "seed": 1,
+      "fights": 24,
+      "combatRounds": 66,
+      "turns": 78,
+      "ageAtCompletion": 37,
+      "checkpoints": 114,
+      "workTurns": 30,
+      "lifeActions": 23,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6870,
+      "earnedFromFights": 19977,
+      "spent": 15450,
+      "endingMoney": 12397,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 27,
+          "turns": 36,
+          "money": 1436,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 73
+        },
+        {
+          "stage": 2,
+          "age": 30,
+          "turns": 48,
+          "money": 2537,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 97
+        },
+        {
+          "stage": 3,
+          "age": 31,
+          "turns": 52,
+          "money": 5029,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 105
+        },
+        {
+          "stage": 4,
+          "age": 34,
+          "turns": 65,
+          "money": 4046,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 137
+        },
+        {
+          "stage": 5,
+          "age": 35,
+          "turns": 69,
+          "money": 8224,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 145
+        },
+        {
+          "stage": 6,
+          "age": 37,
+          "turns": 78,
+          "money": 12397,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 169
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "fights": 24,
+      "combatRounds": 66,
+      "turns": 75,
+      "ageAtCompletion": 36,
+      "checkpoints": 111,
+      "workTurns": 28,
+      "lifeActions": 22,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6630,
+      "earnedFromFights": 20525,
+      "spent": 15450,
+      "endingMoney": 12705,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 26,
+          "turns": 35,
+          "money": 1372,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 80
+        },
+        {
+          "stage": 2,
+          "age": 29,
+          "turns": 46,
+          "money": 2419,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 105
+        },
+        {
+          "stage": 3,
+          "age": 30,
+          "turns": 50,
+          "money": 5103,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 113
+        },
+        {
+          "stage": 4,
+          "age": 33,
+          "turns": 63,
+          "money": 3160,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 139
+        },
+        {
+          "stage": 5,
+          "age": 34,
+          "turns": 66,
+          "money": 7492,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 147
+        },
+        {
+          "stage": 6,
+          "age": 36,
+          "turns": 75,
+          "money": 12705,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 173
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "fights": 24,
+      "combatRounds": 60,
+      "turns": 77,
+      "ageAtCompletion": 37,
+      "checkpoints": 113,
+      "workTurns": 29,
+      "lifeActions": 23,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6546,
+      "earnedFromFights": 20019,
+      "spent": 15450,
+      "endingMoney": 12115,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 27,
+          "turns": 36,
+          "money": 1724,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 75
+        },
+        {
+          "stage": 2,
+          "age": 29,
+          "turns": 46,
+          "money": 2341,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 97
+        },
+        {
+          "stage": 3,
+          "age": 30,
+          "turns": 50,
+          "money": 5025,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 105
+        },
+        {
+          "stage": 4,
+          "age": 34,
+          "turns": 64,
+          "money": 4270,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 132
+        },
+        {
+          "stage": 5,
+          "age": 35,
+          "turns": 68,
+          "money": 8140,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 140
+        },
+        {
+          "stage": 6,
+          "age": 37,
+          "turns": 77,
+          "money": 12115,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 165
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "fights": 24,
+      "combatRounds": 68,
+      "turns": 74,
+      "ageAtCompletion": 36,
+      "checkpoints": 110,
+      "workTurns": 27,
+      "lifeActions": 22,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6246,
+      "earnedFromFights": 21014,
+      "spent": 15450,
+      "endingMoney": 12810,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 26,
+          "turns": 35,
+          "money": 1620,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 78
+        },
+        {
+          "stage": 2,
+          "age": 29,
+          "turns": 45,
+          "money": 2599,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 99
+        },
+        {
+          "stage": 3,
+          "age": 30,
+          "turns": 49,
+          "money": 5059,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 107
+        },
+        {
+          "stage": 4,
+          "age": 33,
+          "turns": 61,
+          "money": 3135,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 133
+        },
+        {
+          "stage": 5,
+          "age": 34,
+          "turns": 65,
+          "money": 7885,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 141
+        },
+        {
+          "stage": 6,
+          "age": 36,
+          "turns": 74,
+          "money": 12810,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 166
+        }
+      ]
+    },
+    {
+      "seed": 99,
+      "fights": 24,
+      "combatRounds": 60,
+      "turns": 75,
+      "ageAtCompletion": 36,
+      "checkpoints": 111,
+      "workTurns": 28,
+      "lifeActions": 22,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6596,
+      "earnedFromFights": 19110,
+      "spent": 15450,
+      "endingMoney": 11256,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 26,
+          "turns": 35,
+          "money": 1402,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 81
+        },
+        {
+          "stage": 2,
+          "age": 29,
+          "turns": 46,
+          "money": 1996,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 106
+        },
+        {
+          "stage": 3,
+          "age": 30,
+          "turns": 50,
+          "money": 5096,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 114
+        },
+        {
+          "stage": 4,
+          "age": 33,
+          "turns": 63,
+          "money": 2977,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 137
+        },
+        {
+          "stage": 5,
+          "age": 34,
+          "turns": 66,
+          "money": 7419,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 145
+        },
+        {
+          "stage": 6,
+          "age": 36,
+          "turns": 75,
+          "money": 11256,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 170
+        }
+      ]
+    },
+    {
+      "seed": 123,
+      "fights": 24,
+      "combatRounds": 64,
+      "turns": 74,
+      "ageAtCompletion": 36,
+      "checkpoints": 110,
+      "workTurns": 27,
+      "lifeActions": 22,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6204,
+      "earnedFromFights": 21475,
+      "spent": 15450,
+      "endingMoney": 13229,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 26,
+          "turns": 35,
+          "money": 1796,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 78
+        },
+        {
+          "stage": 2,
+          "age": 29,
+          "turns": 45,
+          "money": 2151,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 99
+        },
+        {
+          "stage": 3,
+          "age": 30,
+          "turns": 49,
+          "money": 5219,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 107
+        },
+        {
+          "stage": 4,
+          "age": 33,
+          "turns": 61,
+          "money": 3584,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 129
+        },
+        {
+          "stage": 5,
+          "age": 34,
+          "turns": 65,
+          "money": 7454,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 137
+        },
+        {
+          "stage": 6,
+          "age": 36,
+          "turns": 74,
+          "money": 13229,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 162
+        }
+      ]
+    },
+    {
+      "seed": 2026,
+      "fights": 24,
+      "combatRounds": 62,
+      "turns": 75,
+      "ageAtCompletion": 36,
+      "checkpoints": 111,
+      "workTurns": 28,
+      "lifeActions": 22,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6800,
+      "earnedFromFights": 19770,
+      "spent": 15450,
+      "endingMoney": 12120,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 26,
+          "turns": 35,
+          "money": 1852,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 79
+        },
+        {
+          "stage": 2,
+          "age": 29,
+          "turns": 44,
+          "money": 1827,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 97
+        },
+        {
+          "stage": 3,
+          "age": 30,
+          "turns": 48,
+          "money": 4703,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 105
+        },
+        {
+          "stage": 4,
+          "age": 33,
+          "turns": 62,
+          "money": 3943,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 134
+        },
+        {
+          "stage": 5,
+          "age": 34,
+          "turns": 66,
+          "money": 7857,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 142
+        },
+        {
+          "stage": 6,
+          "age": 36,
+          "turns": 75,
+          "money": 12120,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 168
+        }
+      ]
+    },
+    {
+      "seed": 31415,
+      "fights": 24,
+      "combatRounds": 61,
+      "turns": 77,
+      "ageAtCompletion": 37,
+      "checkpoints": 113,
+      "workTurns": 29,
+      "lifeActions": 23,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6845,
+      "earnedFromFights": 20809,
+      "spent": 15450,
+      "endingMoney": 13204,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 27,
+          "turns": 36,
+          "money": 1517,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 79
+        },
+        {
+          "stage": 2,
+          "age": 30,
+          "turns": 48,
+          "money": 2343,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 104
+        },
+        {
+          "stage": 3,
+          "age": 31,
+          "turns": 52,
+          "money": 5123,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 112
+        },
+        {
+          "stage": 4,
+          "age": 34,
+          "turns": 64,
+          "money": 3460,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 135
+        },
+        {
+          "stage": 5,
+          "age": 35,
+          "turns": 68,
+          "money": 8430,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 143
+        },
+        {
+          "stage": 6,
+          "age": 37,
+          "turns": 77,
+          "money": 13204,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 168
+        }
+      ]
+    },
+    {
+      "seed": 65535,
+      "fights": 24,
+      "combatRounds": 69,
+      "turns": 78,
+      "ageAtCompletion": 37,
+      "checkpoints": 114,
+      "workTurns": 30,
+      "lifeActions": 23,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6980,
+      "earnedFromFights": 21809,
+      "spent": 15450,
+      "endingMoney": 14339,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 27,
+          "turns": 36,
+          "money": 1502,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 76
+        },
+        {
+          "stage": 2,
+          "age": 30,
+          "turns": 48,
+          "money": 2603,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 101
+        },
+        {
+          "stage": 3,
+          "age": 31,
+          "turns": 52,
+          "money": 4903,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 109
+        },
+        {
+          "stage": 4,
+          "age": 34,
+          "turns": 65,
+          "money": 3762,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 131
+        },
+        {
+          "stage": 5,
+          "age": 35,
+          "turns": 69,
+          "money": 8402,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 139
+        },
+        {
+          "stage": 6,
+          "age": 37,
+          "turns": 78,
+          "money": 14339,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 164
+        }
+      ]
+    },
+    {
+      "seed": 99991,
+      "fights": 24,
+      "combatRounds": 61,
+      "turns": 77,
+      "ageAtCompletion": 37,
+      "checkpoints": 113,
+      "workTurns": 29,
+      "lifeActions": 23,
+      "careerTurns": 3,
+      "shopTurns": 4,
+      "earnedFromWork": 6625,
+      "earnedFromFights": 19410,
+      "spent": 15450,
+      "endingMoney": 11585,
+      "skills": [
+        "student",
+        "engineer",
+        "mentor"
+      ],
+      "inheritedSkill": "mentor",
+      "generationTwoIntelligence": 16,
+      "chapters": [
+        {
+          "stage": 1,
+          "age": 27,
+          "turns": 36,
+          "money": 1481,
+          "job": "engineer",
+          "stamina": 42,
+          "intelligence": 75
+        },
+        {
+          "stage": 2,
+          "age": 30,
+          "turns": 48,
+          "money": 2075,
+          "job": "engineer",
+          "stamina": 54,
+          "intelligence": 101
+        },
+        {
+          "stage": 3,
+          "age": 31,
+          "turns": 52,
+          "money": 5175,
+          "job": "engineer",
+          "stamina": 66,
+          "intelligence": 109
+        },
+        {
+          "stage": 4,
+          "age": 34,
+          "turns": 64,
+          "money": 3042,
+          "job": "engineer",
+          "stamina": 78,
+          "intelligence": 135
+        },
+        {
+          "stage": 5,
+          "age": 35,
+          "turns": 68,
+          "money": 7484,
+          "job": "engineer",
+          "stamina": 90,
+          "intelligence": 143
+        },
+        {
+          "stage": 6,
+          "age": 37,
+          "turns": 77,
+          "money": 11585,
+          "job": "mentor",
+          "stamina": 102,
+          "intelligence": 169
+        }
+      ]
+    }
+  ]
+}

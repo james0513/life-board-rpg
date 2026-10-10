@@ -44,7 +44,7 @@ void main() {
   test('schema v3 gains starter inventory without losing progress', () {
     final raw=jsonDecode(SaveData(const Player(money:4321),DateTime.utc(2026)).encode());
     raw['schemaVersion']=3;
-    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) {raw['player'].remove(key);}
+    for(final key in ['stageTurns','turnsPerStage','gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life','story']) {raw['player'].remove(key);}
     final p=SaveData.decode(jsonEncode(raw),{'unemployed'}).player;
     expect(p.money,4321);expect(p.inventory['potion'],2);expect(p.gender,CharacterGender.male);
   });

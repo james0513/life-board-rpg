@@ -1,0 +1,17 @@
+{
+  "lib/presentation/widgets/career_dialog.dart": "a0d317c724ae6d495b30ec56579612feaa73333230091aab1371bf00eda9d7ea",
+  "lib/presentation/widgets/card_battle_tutorial.dart": "169b8caef01a20739bad3b5502970c1ce6a8f684fb0f00948d23fba99fc2169a",
+  "lib/presentation/battle/card_battle_screen.dart": "8b92bac864446eca679c48b4ffca169bc2624d3a50ba02998c9c4033a48bfdfc",
+  "lib/presentation/screens/game_screen.dart": "b94d6996e6b653cc565122f38202c123c69a2f7c7ab4ea4213299c261c421b0a",
+  "test/career_escape_test.dart": "352dca24d544b0c822fa281d07ba8fb7a930bd054509dbefbdc8f297c20ddb66",
+  "test/card_tutorial_test.dart": "4bab1c8f4b627a2bf7f4bc91aa9a394b932ea9aa99d203e6ec01df05d94a53e8",
+  "test/card_battle_screen_test.dart": "3a46067bb3f5c9c2d0831fb6bceda12fdb70cd92adf45f281526937fa043ee94",
+  "tools/verify_dart_syntax.dart": "2870d110d619219cde70d72a5c993155a35a3577c95911b0ce18a631d71c7726",
+  "pubspec.yaml": "b69d8b5014b9b942e30de1a915834f39e78ab9c799f27b4f1593d1b96eee0556",
+  "README.md": "aa2efbc1c971f38405f4dc5bbc404d92b8be27aa17248aa0e74faf3c314f8208",
+  "START_HERE.txt": "2e899215063627b95a17d37adb5f10ee9ad89158385e9886a58eb6f761783b86",
+  "INSTALL_v029.txt": "c63aa4f950b55387deda92100e153ffcd6bbf60caa799a408cc5476815a7e7ae",
+  "INSTALL_v0291.txt": "8250b4ca33ad199062ae70d5063bc6cd8008998d86163141c3dd9dc63ba590f2",
+  "docs/verification_v0291.md": "5ceba972c429adfe9d75feba0e1b2ffc49b3be6c4f8a56c5e230f9b2b3e6ce04",
+  "docs/verification_v0291.log": "43ecded58233433d6a57eecef43534ff8cdba6cf39a7b7d1a84eaf840f57fbad"
+}

@@ -63,11 +63,11 @@ void main() {
   });
   test('v1 migrates without losing attributes and rejects invalid v2 XP', () {
     final raw = jsonDecode(SaveData(const Player(position:8,money:1200),DateTime.utc(2026)).encode());
-    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) { raw['player'].remove(key); }
+    for(final key in ['stageTurns','turnsPerStage','gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life','story']) { raw['player'].remove(key); }
     raw['schemaVersion']=1; raw['player'].remove('experience'); raw['player'].remove('morality');
     final p = SaveData.decode(jsonEncode(raw),{'unemployed'}).player;
     expect(p.experience,0); expect(p.position,8); expect(p.money,1200);
-    for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) { raw['player'].remove(key); }
+    for(final key in ['stageTurns','turnsPerStage','gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life','story']) { raw['player'].remove(key); }
     raw['schemaVersion']=2; raw['player']['experience']=-1;
     expect(()=>SaveData.decode(jsonEncode(raw),{'unemployed'}),throwsFormatException);
   });

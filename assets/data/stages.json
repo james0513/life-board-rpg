@@ -9,8 +9,8 @@
       "id": "boss_1",
       "name": "試煉學監・墨羽",
       "description": "被考試焦慮喚醒的古老學監，將校園封進永遠考不完的試卷。",
-      "hp": 150,
-      "attack": 12,
+      "hp": 132,
+      "attack": 11,
       "reward": 500,
       "experience": 100,
       "portrait": 0,
@@ -18,7 +18,8 @@
       "minTier": 0,
       "bossStage": 1,
       "specialName": "知識風暴"
-    }
+    },
+    "defaultTurns": 8
   },
   {
     "id": 2,
@@ -30,8 +31,8 @@
       "id": "boss_2",
       "name": "貪金會長・滿袋",
       "description": "囤積物資的商會會長，企圖讓所有人的夢想都標上天價。",
-      "hp": 210,
-      "attack": 16,
+      "hp": 185,
+      "attack": 14,
       "reward": 800,
       "experience": 150,
       "portrait": 0,
@@ -39,7 +40,8 @@
       "minTier": 0,
       "bossStage": 2,
       "specialName": "金幣暴雨"
-    }
+    },
+    "defaultTurns": 8
   },
   {
     "id": 3,
@@ -51,8 +53,8 @@
       "id": "boss_3",
       "name": "失控監工・零號",
       "description": "為追求完美效率而失控的機械監工，忘記了人需要休息。",
-      "hp": 290,
-      "attack": 21,
+      "hp": 255,
+      "attack": 18,
       "reward": 1100,
       "experience": 200,
       "portrait": 0,
@@ -60,7 +62,8 @@
       "minTier": 0,
       "bossStage": 3,
       "specialName": "超載電弧"
-    }
+    },
+    "defaultTurns": 8
   },
   {
     "id": 4,
@@ -72,8 +75,8 @@
       "id": "boss_4",
       "name": "假面樂師・幻音",
       "description": "被掌聲困住的天才樂師，奪走居民的聲音來完成永恆演出。",
-      "hp": 380,
-      "attack": 26,
+      "hp": 334,
+      "attack": 23,
       "reward": 1500,
       "experience": 250,
       "portrait": 0,
@@ -81,7 +84,8 @@
       "minTier": 0,
       "bossStage": 4,
       "specialName": "失諧奏鳴"
-    }
+    },
+    "defaultTurns": 8
   },
   {
     "id": 5,
@@ -93,8 +97,8 @@
       "id": "boss_5",
       "name": "赤鎧領主・焰衛",
       "description": "昔日守護者相信只有力量能帶來和平，封鎖了通往命運之門的道路。",
-      "hp": 490,
-      "attack": 32,
+      "hp": 431,
+      "attack": 28,
       "reward": 2000,
       "experience": 300,
       "portrait": 0,
@@ -102,7 +106,8 @@
       "minTier": 0,
       "bossStage": 5,
       "specialName": "熔岩破陣"
-    }
+    },
+    "defaultTurns": 8
   },
   {
     "id": 6,
@@ -114,8 +119,8 @@
       "id": "boss_6",
       "name": "最終魔王・命運編織者",
       "description": "他把眾人的選擇寫成既定劇本。打破命運王座，才能取回自己的人生。",
-      "hp": 680,
-      "attack": 38,
+      "hp": 598,
+      "attack": 33,
       "reward": 3500,
       "experience": 500,
       "portrait": 0,
@@ -123,6 +128,7 @@
       "minTier": 0,
       "bossStage": 6,
       "specialName": "終焉星落"
-    }
+    },
+    "defaultTurns": 8
   }
 ]

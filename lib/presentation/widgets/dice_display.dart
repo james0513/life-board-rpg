@@ -11,7 +11,8 @@ class DiceDisplay extends StatelessWidget {
       duration: const Duration(milliseconds: 80),
       child: AnimatedContainer(duration: const Duration(milliseconds: 90),
         width: 46, height: 46, padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: rolling ? const Color(0xFFF5D586) : Colors.white,
+        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: rolling ? const [Color(0xFFFFE5A0), Color(0xFFC89947)] : const [Color(0xFFFFFEF5), Color(0xFFE7DAB9)]),
+          boxShadow: const [BoxShadow(color: Color(0x293B4433), blurRadius: 8, offset: Offset(0, 4))],
           borderRadius: BorderRadius.circular(10), border: Border.all(color: const Color(0xFFBDA77B))),
         child: value == null ? const Icon(Icons.casino_outlined)
           : CustomPaint(painter: _Pips(value!)),

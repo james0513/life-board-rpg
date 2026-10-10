@@ -23,7 +23,7 @@ class _VictoryScreenState extends State<VictoryScreen> with SingleTickerProvider
     Actor3D(look:EquipmentLook.fromPlayer(widget.player),width:230,height:240),
     Text('${widget.player.displayName} · ${widget.jobTitle}',style:const TextStyle(fontSize:24,color:Colors.white,fontWeight:FontWeight.bold)),
     const SizedBox(height:10),
-    const Text('你擊敗了命運編織者，走出了別人寫好的劇本。\n下一段人生，繼續由你選擇。',textAlign:TextAlign.center,style:TextStyle(color:Color(0xFFE3DCEC),height:1.8)),
+    const Text('你擊敗了命運編織者，走出了別人寫好的劇本。\n回棋盤打開「人生故事」，記錄這一世的結局；\n再到「人生手帳」選擇傳承，開啟下一世。',textAlign:TextAlign.center,style:TextStyle(color:Color(0xFFE3DCEC),height:1.8)),
     const SizedBox(height:22),
     Wrap(alignment:WrapAlignment.center,spacing:8,runSpacing:8,children:[for(final name in ['青芽學園','黃金商店街','齒輪科技城','幻彩大劇院','赤岩英雄堡','命運王座'])
       Chip(avatar:const Icon(Icons.check_circle,color:Color(0xFF4C8568),size:18),label:Text(name))]),

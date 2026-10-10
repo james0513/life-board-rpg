@@ -67,9 +67,11 @@ class Scene3D {
       final points=face.points.map((p)=>camera.project(p,size)).toList();
       if(points.any((p)=>p==null))continue;
       final normal=(face.points[1]-face.points[0]).cross(face.points[2]-face.points[0]).unit;
-      final brightness=.52+.48*normal.dot(light).abs();
+      // Soft studio key with a warm bounce: retain facets without black faces.
+      final diffuse=normal.dot(light).abs();
+      final brightness=.62+.38*diffuse;
       final c=face.color;
-      final shade=Color.fromARGB(255,(c.r*255*brightness).round(),(c.g*255*brightness).round(),(c.b*255*brightness).round());
+      final shade=Color.fromARGB(255,(c.r*255*brightness).round(),(c.g*255*brightness).round(),(c.b*255*(brightness*.98)).round());
       final path=Path()..moveTo(points.first!.dx,points.first!.dy);
       for(final p in points.skip(1)){path.lineTo(p!.dx,p.dy);}path.close();
       canvas.drawPath(path,Paint()..color=shade..isAntiAlias=true);

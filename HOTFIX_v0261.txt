@@ -1,0 +1,30 @@
+v0.26.1 語法修正（2026-10-10）
+
+這是我們交付的程式錯誤，不是你的 Flutter 或套件安裝問題。
+修正 victory_screen.dart 勝利文字中的非法實體換行。
+
+如果已安裝 v0.26：
+1. 在正在執行 flutter run 的視窗按 q 結束。
+2. 備份目前專案。
+3. 將本 ZIP 內容合併到有 pubspec.yaml 的專案根目錄；同名檔案覆蓋。
+   不要刪除整個 lib、assets 或其他資料夾。不要把 lib 放進現有 lib 裡。
+4. 在你實際使用的專案目錄執行下列指令。
+   若沿用上一版建議的工作副本：
+
+cd /d "C:\Users\joshu\Downloads\life_json_modules\life_json_modules_v026"
+flutter run -d chrome -t lib/main.dart --dart-define=LIFE_ACCEPTANCE=true
+
+如原本直接在原始路徑操作，請改用：
+cd /d "C:\Users\joshu\Downloads\life_json_modules\life_json_modules"
+
+若使用 Edge，把 chrome 改成 edge。
+本次沒有新增依賴，不需再次安裝 SDK；存檔格式／存檔 key 沒有改動。
+驗收模式仍獨立保存，不覆蓋一般遊戲存檔。
+退出驗收：按 q，然後重新執行：
+flutter run -d chrome -t lib/main.dart
+
+純 Dart 原始碼語法檢查（非 Flutter 完整編譯）：
+dart tools/verify_dart_syntax.dart
+
+v0.26.1-update.zip 是完整累積覆蓋包，可合併至 v0.25 或 v0.26 副本。
+v0.26.1-hotfix.zip 是已安裝 v0.26 者使用的小修正包。

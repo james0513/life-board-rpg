@@ -1,0 +1,16 @@
+人生棋盤 v0.25
+
+這是原創人生循環更新，不是《虛擬人生》原版完整復刻。
+
+完整包：解壓縮後進入 life-board-rpg-v0.25，執行 flutter pub get、flutter test、flutter run -d chrome -t lib/main.dart。
+更新包：關閉遊戲並備份存檔，先複製整個原專案作為工作副本。將包內檔案合併至副本中含 pubspec.yaml 的根目錄，只取代同名檔。不要刪除或整個替換 lib 資料夾，未改動的原檔案仍必要；保留 assets 及平台目錄。不要先刪除原素材。
+
+新功能：每回合一季、人生手帳培養、EQ／壓力、人際與家園、職業心得、通關或60歲後選擇轉生與一項天賦傳承。
+
+存檔 v7 可讀取 v1–v6；舊版不保證能讀 v7。不要為了更新而按「重新開始」。
+
+27 核心測試及10組腳本化領域流程通過。完整 Flutter 編譯、Widget 測試與實際畫面尚未驗證。詳細狀態見 docs/verification_v25.md。
+
+基底提交：5b9beaba242ea9e00f6a97e47604e190aeac9e29
+原 pubspec.lock 保留；新增 flutter_lints 依賴需 flutter pub get 更新。
+未推送 GitHub、未發布。

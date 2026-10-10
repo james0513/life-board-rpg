@@ -3,9 +3,10 @@ import '../../domain/models/tile_event.dart';
 import '../components/tile_component.dart';
 
 class ChoiceEventDialog extends StatefulWidget {
-  const ChoiceEventDialog({super.key, required this.event, this.workPercent = 100});
+  const ChoiceEventDialog({super.key, required this.event, this.workPercent = 100, this.livingCost = 0});
   final TileEvent event;
   final int workPercent;
+  final int livingCost;
   @override
   State<ChoiceEventDialog> createState() => _ChoiceEventDialogState();
 }
@@ -33,7 +34,7 @@ class _ChoiceEventDialogState extends State<ChoiceEventDialog> {
               child: Align(alignment: Alignment.centerLeft, child: Text(
                 '${option.id}　${option.label}\n${option.effects.withMoney(option.effects.money > 0 ? option.effects.money * widget.workPercent ~/ 100 : option.effects.money).summary}${option.battleEnemyId == null ? "" : " · 進入戰鬥"}',
                 style: const TextStyle(height: 1.7))))),
-          const Text('選擇後才結算；負值最多扣至 0。', style: TextStyle(fontSize: 12, color: Colors.grey)),
+          Text('選擇後才結算；負值最多扣至 0。完成後前進一季，另計生活費 ${widget.livingCost}，並依活動調整 EQ 與壓力。工作格可累積職業熟練。', style: TextStyle(fontSize: 12, color: Colors.grey)),
         ]))),
     ));
   }

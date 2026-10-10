@@ -79,7 +79,7 @@ void main(){
     for(final pair in {'junior_engineer':'engineer','senior_engineer':'mentor','police_trainee':'warrior','police_officer':'hero','entrepreneur':'president'}.entries){
       for(final v in [1,2]){
         final raw=jsonDecode(SaveData(Player(jobId:pair.key,experience:120,money:4321),DateTime.utc(2026)).encode());
-        for(final key in ['gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId']) { raw['player'].remove(key); }
+        for(final key in ['stageTurns','turnsPerStage','gender','weaponId','inventory','clearedStages','stageWins','armorId','accessoryId','life','story']) { raw['player'].remove(key); }
     raw['schemaVersion']=v;raw['player'].remove('morality');
         if(v==1)raw['player'].remove('experience');
         final p=SaveData.decode(jsonEncode(raw),ids).player;

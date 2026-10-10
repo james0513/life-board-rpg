@@ -49,7 +49,9 @@ class BattleImpact {
 class BattleSession {
   BattleSession(this.player, this.enemy, {Random? random, this.job}) : random = random ?? Random() {
     potions = player.inventory['potion'] ?? 0; ethers = player.inventory['ether'] ?? 0;
-    maxHp = 60 + min(player.stamina, 200) * 2 + equipmentHp(player);
+    maxHp = max(1, 60 + min(player.stamina, 200) * 2 + equipmentHp(player)
+      + (player.life.eq - 50) ~/ 10 - player.life.stress ~/ 10
+      + player.life.homeLevel * 3);
     hp = maxHp; enemyHp = enemy.hp;
     enemySp = min(2, enemy.maxSp);
   }
@@ -166,7 +168,9 @@ class BattleSession {
     _claimed = true;
     return switch (status) {
       BattleStatus.won => StatDelta(money: enemy.reward, stamina: 3, intelligence: 2, morality: 2),
-      BattleStatus.lost => StatDelta(money: -min(100,player.money)),
+      BattleStatus.lost => enemy.isBoss
+        ? const StatDelta(stamina: 2, intelligence: 2)
+        : StatDelta(money: -min(100,player.money)),
       _ => const StatDelta(),
     };
   }

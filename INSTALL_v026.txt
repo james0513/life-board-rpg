@@ -1,0 +1,45 @@
+人生棋盤 v0.26：一次合併、一次集中驗收
+
+此更新包可直接合併至你已使用的v0.25，亦包含從GitHub基底到本版的累積修改。不要把lib整個刪掉或整個替換。
+
+一、先做工作副本
+
+關閉遊戲。保留原專案：
+C:\Users\joshu\Downloads\life_json_modules\life_json_modules
+
+複製整個資料夾，將副本命名為：
+C:\Users\joshu\Downloads\life_json_modules\life_json_modules_v026
+
+解壓縮更新包，把裡面的lib、test、docs、tools、pubspec.yaml等檔案與資料夾，合併到上面v026副本根目錄。只取代同名檔；保留未改動的lib檔案、assets及平台資料夾。副本根目錄應看得到pubspec.yaml。
+
+二、集中驗收（每行分開執行）
+
+開啟命令提示字元cmd：
+
+cd /d "C:\Users\joshu\Downloads\life_json_modules\life_json_modules_v026"
+flutter pub get
+flutter analyze
+flutter test
+flutter run -d chrome -t lib/main.dart --dart-define=LIFE_ACCEPTANCE=true
+
+完整Flutter編譯／Widget測試在交付環境未執行；若出錯，保留第一段完整錯誤，不必重建專案。
+
+進入遊戲後確認標題有「獨立驗收模式」。右上燒杯，或窄視窗「更多遊戲操作」，可以載入18、35、59、60歲的驗收情境，只寫入life_graybox.acceptance.v026，不讀寫正式鍵life_graybox.save.v1。
+
+照docs/final_acceptance_v026.md一次完成驗收，不用逐功能更換安裝包。需要Chrome；使用Edge可把-d chrome改成-d edge。
+
+三、退出驗收、正常遊玩
+
+在執行遊戲的cmd視窗按q停止，再執行：
+
+flutter run -d chrome -t lib/main.dart
+
+這次沒有LIFE_ACCEPTANCE參數，會使用正式存檔，且不會出現驗收情境入口。網頁存檔依瀏覽器與網址（含連接埠）區分，查看舊進度請使用原來環境。
+
+若Flutter已安裝，也可在副本內雙擊RUN_ACCEPTANCE.bat或RUN_GAME.bat，它們會自動切換到正確資料夾。
+
+四、完整內容與限制
+
+本版整合四階段年齡棋盤、九章連續故事、職涯心得、三名成年角色的關係／家庭、家計、六關戰鬥、五種結局與轉生。schema8可讀v1–v7。原pubspec.lock與素材保留，flutter pub get會完成必要依賴更新。
+
+六個純Dart規則／完整流程套件全數通過；Flutter編譯、實際畫面、音效與Windows啟動仍需最後實機驗收。這不是原作完整複製，也不是已編譯的Windows執行檔。精確證據見docs/verification_v026.md。

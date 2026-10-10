@@ -1,0 +1,23 @@
+{
+  "lib/presentation/widgets/career_dialog.dart": "a0d317c724ae6d495b30ec56579612feaa73333230091aab1371bf00eda9d7ea",
+  "lib/presentation/widgets/card_battle_tutorial.dart": "169b8caef01a20739bad3b5502970c1ce6a8f684fb0f00948d23fba99fc2169a",
+  "lib/presentation/battle/card_battle_screen.dart": "6da4bc06239bcf8b7b7430e4977401f4db8ecd126d27265dfd7bf8291cbb8795",
+  "lib/presentation/screens/game_screen.dart": "b94d6996e6b653cc565122f38202c123c69a2f7c7ab4ea4213299c261c421b0a",
+  "test/career_escape_test.dart": "352dca24d544b0c822fa281d07ba8fb7a930bd054509dbefbdc8f297c20ddb66",
+  "test/card_tutorial_test.dart": "4bab1c8f4b627a2bf7f4bc91aa9a394b932ea9aa99d203e6ec01df05d94a53e8",
+  "test/card_battle_screen_test.dart": "3a46067bb3f5c9c2d0831fb6bceda12fdb70cd92adf45f281526937fa043ee94",
+  "tools/verify_dart_syntax.dart": "2870d110d619219cde70d72a5c993155a35a3577c95911b0ce18a631d71c7726",
+  "pubspec.yaml": "1a6c7e737ba46a39306bfe549e4fcc65fffffb152e086f7b367af0b5534c54aa",
+  "README.md": "ebbd743b4cdbbca4bde1ff9bf84ef314cb681e0935dd2a6d86f8a1e202cd2112",
+  "START_HERE.txt": "cd853c88fe7991c0ec77ce7cf0cfdf3fd4e4cc4fd103bc78ce3cff648b093999",
+  "INSTALL_v029.txt": "c63aa4f950b55387deda92100e153ffcd6bbf60caa799a408cc5476815a7e7ae",
+  "INSTALL_v0291.txt": "8250b4ca33ad199062ae70d5063bc6cd8008998d86163141c3dd9dc63ba590f2",
+  "docs/verification_v0291.md": "5ceba972c429adfe9d75feba0e1b2ffc49b3be6c4f8a56c5e230f9b2b3e6ce04",
+  "lib/presentation/battle/battle_viewport.dart": "00c6e9963fd6b431e7faddb25359facdeb167cf414544d16b9f513041fd38764",
+  "tools/verify_battle_viewport.dart": "406bdda4afa4b7c55df40d6c9faf4589c95fd9c024312b88abb47f086d26274a",
+  "tools/verify_card_battle.dart": "3d8d3bd7969fc627b32f1ad8d8e5a593f31888e21ed2e716c0933793d5fdc2f1",
+  "test/battle_viewport_test.dart": "0c9d4f3a5606e19110c34d9c2b0c2903e4ed64027138c8a30fd919b378b74007",
+  "INSTALL_v0292.txt": "a84a35e7bd40ae448cc876d0251f4debeb63efd92c659dec5969c7a5577a9fc2",
+  "docs/verification_v0292.md": "66c27d48fb46a81681175cad6d6d7d3a6856b88d4144308af7c62a1875069e0d",
+  "docs/verification_v0292.log": "c98edb1b2aa854b9e1e0c734c7c94d72425c53063e4352facea6ed3343f92919"
+}
